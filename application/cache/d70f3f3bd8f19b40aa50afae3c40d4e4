@@ -1,0 +1,850 @@
+1440658852TS---><!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en"> <![endif]-->
+<html lang="en">
+
+<head>
+	<title>
+  	 IAPI : Home    </title>
+    <link href="http://www.iapi.or.id/new/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    <b:if cond='data:blog.pageType == &quot;item&quot;'> 
+    <meta expr:content='data:blog.pageTitle' property='og:title'/> 
+    <meta expr:content='data:blog.url' property='og:url'/> 
+    <b:else/> 
+    <meta expr:content='data:blog.title' property='og:title'/> 
+    <meta expr:content='data:blog.homepageUrl' property='og:url'/> 
+    </b:if> 
+    
+    <meta content='http://www.iapi.or.id' property='og:site_name'/>  
+    <meta content='326844600715781' property='fb:mt_app_id'/> 
+    <meta content='1719521470' property='fb:admins'/> 
+    <meta content='article' property='og:type'/>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta http-equiv="x-ua-compatible" content="IE=9"/>
+
+    <meta name="description" content="" />
+    <meta name="keyword" content="" />
+    
+    <meta property="og:title" content="IAPI | IAPI"/>
+    <meta property="og:description" content=""/>
+    
+    <!-- Meta -->
+    
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="http://www.iapi.or.id/new/application/views/front/fullwidth/img/logo_footer.png" type="image/x-icon"/>
+    <link rel="apple-touch-icon" type="image/x-icon" href="http://www.iapi.or.id/new/application/views/front/fullwidth/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="http://www.iapi.or.id/new/application/views/front/fullwidth/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="http://www.iapi.or.id/new/application/views/front/fullwidth/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="http://www.iapi.or.id/new/application/views/front/fullwidth/img/apple-touch-icon-144x144-precomposed.png">
+    
+    
+     <!-- REVOLUTION BANNER CSS SETTINGS -->
+	<link href="http://www.iapi.or.id/new/application/views/front/fullwidth/rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+	
+	<!-- AGENDA CALENDAR V.1.3-->
+    <link href="http://www.iapi.or.id/new/application/views/front/fullwidth/css/fullcalendar.css" rel="stylesheet">
+	<link href="http://www.iapi.or.id/new/application/views/front/fullwidth/css/fullcalendar.print.css" rel="stylesheet" media="print">
+	
+    <!-- CSS -->
+    
+    <link href="http://www.iapi.or.id/new/application/views/front/fullwidth/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://www.iapi.or.id/new/application/views/front/fullwidth/css/superfish.css" rel="stylesheet">
+    <link href="http://www.iapi.or.id/new/application/views/front/fullwidth/css/style.css" rel="stylesheet">
+    <link href="http://www.iapi.or.id/new/application/views/front/fullwidth/fontello/css/fontello.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://www.iapi.or.id/new/application/views/front/fullwidth/js/fancybox/source/jquery.fancybox.css?v=2.1.4">
+     <!-- color scheme css -->
+    <link href="http://www.iapi.or.id/new/application/views/front/fullwidth/css/color_scheme.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+      <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="http://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+	<style>
+	.badge-notify{
+   background:red;
+   position:relative;
+   top: -20px;
+   left: -35px;
+  }
+	</style>
+
+  </head>
+  
+  <body >
+    <header>
+  	<div class="container">
+	<div class="row">
+		<div class="col-md-3 col-sm-4 col-xs-4">
+			<a href="http://www.iapi.or.id/new/" id="logo">IAPI</a>
+		</div>
+		
+		<div class="col-md-9 col-sm-7 col-xs-7">
+			
+            
+			
+			
+						<div class="pull-right">
+			<a href="http://www.iapi.or.id/new/login?next=http://www.iapi.or.id/new/profile" class="button_top" id="login_top">Log in</a> 
+			<a href="http://www.iapi.or.id/new/activation" class="button_top" id="apply">Aktifasi Akun</a> 
+			<a href="http://www.iapi.or.id/new/register" class="button_top" id="login_top">Join Us</a></div>
+			</div>
+					   
+		   
+		   
+	</div>
+</div>
+</header><!-- End header -->
+
+<nav>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="mobnav-btn"></div>
+			<ul class="sf-menu">
+				<li >
+				<a href="http://www.iapi.or.id/new/">Home</a></li>
+				 							<li class='normal_drop_down'>
+                                <a href="http://iapi.or.id/new/detail/49-6-Tentang-Kami">
+                                	Tentang Kami                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://iapi.or.id/new/detail/49-6-Tentang-Kami">
+                                        	Sejarah IAPI                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/pengurus">
+                                        	Susunan Pengurus                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/pengawas">
+                                        	Susunan Pengawas                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/detail/50-6-Alamat-Sekretariat">
+                                        	Alamat Sekretariat                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/contact-us?id=7">
+                                        	Hubungi Kami                                        </a>
+                                                                      
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li class='normal_drop_down'>
+                                <a href="http://iapi.or.id/new/membership">
+                                	Keanggotaan                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://iapi.or.id/new/direktori">
+                                        	Direktori                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/persyaratan-penerbitan-rekomendasi">
+                                        	Persyaratan Penerbitan Rekomendasi                                        </a>
+                                                                      
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li class='normal_drop_down'>
+                                <a href="http://iapi.or.id/new/detail/61-6-Tentang-PPL">
+                                	Education                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://iapi.or.id/new/detail/61-6-Tentang-PPL">
+                                        	Tentang PPL                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/info-ppl/all/Semua-Topik">
+                                        	Info PPL & Seminar                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li class='normal_drop_down'>
+                                        <a href="-">
+                                        	Pengakuan SKP                                        </a>
+                                                                                 <ul>
+											                                            <li>
+                                                <a  href="http://iapi.or.id/new/lapor-ppl">
+                                                	Lapor PPL                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a  href="http://iapi.or.id/new/lapor-ppl/lain">
+                                                	Lapor Lainnya                                                </a>
+                                                                        
+                                            </li>
+                                                                                    </ul>
+                                                                     
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li class='normal_drop_down'>
+                                <a href="#">
+                                	CPA Exam                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://www.cpaofindonesia.or.id/">
+                                        	Informasi dan Pendaftaran                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li class='normal_drop_down'>
+                                        <a href="-">
+                                        	Contoh Soal Ujian                                        </a>
+                                                                                 <ul>
+											                                            <li>
+                                                <a target="_blank" href="http://iapi.or.id/new/assets/collections/doc/2014_Latihan CPA EXAM_AAS_cover.pdf">
+                                                	AAS                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a target="_blank" href="http://iapi.or.id/new/assets/collections/doc/AMSI.pdf">
+                                                	AMSI                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a target="_blank" href="http://iapi.or.id/new/assets/collections/doc/2014_Latihan CPA EXAM_LBHP_Cover.pdf">
+                                                	LBHP                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a target="_blank" href="http://iapi.or.id/new/assets/collections/doc/2014_LATIHAN CPA EXAM_APK_cover.pdf">
+                                                	APK                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a target="_blank" href="http://iapi.or.id/new/assets/collections/doc/2014_LEMBAR JAWABAN SOAL LATIHAN CPA EXAM_cover.pdf">
+                                                	Kunci Jawaban                                                </a>
+                                                                        
+                                            </li>
+                                                                                    </ul>
+                                                                     
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li class='normal_drop_down'>
+                                <a href="#">
+                                	Publikasi                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://iapi.or.id/new/category/69-1-Berita">
+                                        	Berita                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/category/79-1-Artikel">
+                                        	Artikel                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li class='normal_drop_down'>
+                                        <a href="-">
+                                        	Peraturan                                        </a>
+                                                                                 <ul>
+											                                            <li>
+                                                <a  href="http://iapi.or.id/new/peraturan/96-perbankan">
+                                                	Perbankan                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a  href="http://iapi.or.id/new/peraturan/97-pasar-modal">
+                                                	Pasar Modal                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a  href="http://iapi.or.id/new/peraturan/99-lembaga-keuangan-non-bank">
+                                                	Lembaga Keuangan Non Bank                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a  href="#">
+                                                	Lainnya                                                </a>
+                                                                        
+                                            </li>
+                                                                                    </ul>
+                                                                     
+                                    </li>
+                                                                        <li class='normal_drop_down'>
+                                        <a href="-">
+                                        	Standar                                        </a>
+                                                                                 <ul>
+											                                            <li>
+                                                <a  href="http://iapi.or.id/new/detail/62-kode-etik">
+                                                	Kode Etik                                                </a>
+                                                                        
+                                            </li>
+                                                                                        <li>
+                                                <a  href="http://iapi.or.id/new/detail/63-spap">
+                                                	SPAP                                                </a>
+                                                                        
+                                            </li>
+                                                                                    </ul>
+                                                                     
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/list-entitas">
+                                        	Laporan Entitas Audited                                        </a>
+                                                                      
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li class='normal_drop_down'>
+                                <a href="#">
+                                	Disiplin & Investigasi                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://iapi.or.id/new/detail/64-reviu-mutu">
+                                        	Reviu Mutu                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/detail/65-disiplin">
+                                        	Disiplin                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/detail/66-pengaduan">
+                                        	Pengaduan                                        </a>
+                                                                      
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li >
+                                <a href="http://iapi.or.id/new/kap">
+                                	KAP                                </a>
+                                                            </li>
+                            							<li class='normal_drop_down'>
+                                <a href="http://iapi.or.id/new/shop/all">
+                                	Store                                </a>
+                                                                <div class="mobnav-subarrow"></div>
+                                                                	<ul > 
+									                                    <li >
+                                        <a href="http://iapi.or.id/new/shop/87-Buku">
+                                        	Buku                                        </a>
+                                                                      
+                                    </li>
+                                                                        <li >
+                                        <a href="http://iapi.or.id/new/shop/88-Aksesoris">
+                                        	Aksesoris                                        </a>
+                                                                      
+                                    </li>
+                                                                    </ul>
+                                
+                                                            </li>
+                            							<li >
+                                <a href="#">
+                                	Forum                                </a>
+                                                            </li>
+                                                        
+
+			</ul>
+                       
+		</div>
+	</div><!-- End row -->
+</div><!-- End container -->
+</nav>
+
+        
+ <section class="tp-banner-container">
+		<div class="tp-banner" >
+			<ul class="sliderwrapper">	
+		        
+				<li data-transition="cube" data-slotamount="4" data-masterspeed="1000" >
+					<!-- MAIN IMAGE -->
+					<img src="http://www.iapi.or.id/new/assets/collections/headline/large/banner-2-55c992283aa27.jpg" alt=""  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+					
+									</li>
+                     
+				<li data-transition="cube" data-slotamount="4" data-masterspeed="1000" >
+					<!-- MAIN IMAGE -->
+					<img src="http://www.iapi.or.id/new/assets/collections/headline/large/banner-1-1-55deb02d466f2.jpg" alt=""  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+					
+									</li>
+                     
+				<li data-transition="cube" data-slotamount="4" data-masterspeed="1000" >
+					<!-- MAIN IMAGE -->
+					<img src="http://www.iapi.or.id/new/assets/collections/headline/large/tarkno-55dc8be859297.jpg" alt=""  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+					
+										<!-- LAYER NR. 11 -->
+					<div class="tp-caption mediumlarge_light_white_center customin customout"
+						data-x="center" data-hoffset="0"
+						data-y="bottom" data-voffset="-150"
+						data-customin="x:0;y:0;z:0;rotationX:90;rotationY:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
+						data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+						data-speed="1000"
+						data-start="1900"
+						data-easing="Back.easeInOut"
+						data-endspeed="300"
+						style="z-index: 12"><a class=" button_medium_outline" href="http://iapi.or.id/new/detail/55-SPT-pajak-perlu-dilampiri-laporan-keuangan-yang-diaudit">Lihat Detail</a></div>					</li>
+                     
+				<li data-transition="cube" data-slotamount="4" data-masterspeed="1000" >
+					<!-- MAIN IMAGE -->
+					<img src="http://www.iapi.or.id/new/assets/collections/headline/large/scoop-55dc8e437fc20.jpg" alt=""  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+					
+									</li>
+             	
+             			
+			</ul>
+			<div class="tp-bannertimer"></div>
+		</div>
+	</section><!-- End slider -->
+    
+    <section id="main-features">
+    <div class="divider_top_black"></div>
+   
+    </section><!-- End main-features -->
+    
+    
+
+   	  <section id="publikasi" style="padding:18px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 text-center">
+                    <h2>Publikasi</h2>
+                </div>
+            </div>
+          
+        </div>
+       </section><!-- End testimonials -->
+
+    <section id="main_content">
+    	<div class="container">
+        	<div class="row">
+            <div class="col-md-8">
+                <div><span style="font-size:24px;font-weight:500">ARTIKEL</span><span class="pull-right"><a href="http://www.iapi.or.id/new/category/79-1-Artikel">Lihat Semua <i class="icon-right-dir"></i></a></span></div>
+                <br>
+                        			    
+                        <div class="col-lg-3 col-md-4 col-sm-4">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="http://www.iapi.or.id/new/detail/55-SPT-pajak-perlu-dilampiri-laporan-keuangan-yang-diaudit">
+                                    <img src="http://www.iapi.or.id/new/assets/images/screen-shot-2015-08-25-at-4-20-34-pm-55dc3375a6265_800_600.png" alt="" /></a>
+                                    <div class="cat_row"><a href="#">Artikel</a><span class="pull-right"><i class=" icon-clock"></i>Selasa, 25/08/2015</span></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h5><a href="http://www.iapi.or.id/new/detail/55-SPT-pajak-perlu-dilampiri-laporan-keuangan-yang-diaudit">SPT pajak perlu dilampiri laporan keuangan yang diaudit</a></h5>
+                                            <p > sudah bertahun-tahun pembayaran pajak oleh sebagian besar badan usaha tanpa menyertakan laporan keuangan </p>
+                                                                                  
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+             
+                    			    
+                        <div class="col-lg-3 col-md-4 col-sm-4">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="http://www.iapi.or.id/new/detail/54-Reviu-mutu-sekali-lagi">
+                                    <img src="http://www.iapi.or.id/new/assets/images/screen-shot-2015-08-25-at-4-16-57-pm-55dc32995b4f6_800_600.png" alt="" /></a>
+                                    <div class="cat_row"><a href="#">Artikel</a><span class="pull-right"><i class=" icon-clock"></i>Selasa, 25/08/2015</span></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h5><a href="http://www.iapi.or.id/new/detail/54-Reviu-mutu-sekali-lagi">Reviu mutu, sekali lagi</a></h5>
+                                            <p > reviu mutu bertujuan untuk meningkatkan kepercayaan kepada akuntan publik </p>
+                                                                                  
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+             
+                    			    
+                        <div class="col-lg-3 col-md-4 col-sm-4">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="http://www.iapi.or.id/new/detail/53-Mengais-laba-dari-mutiara">
+                                    <img src="http://www.iapi.or.id/new/assets/images/screen-shot-2015-08-25-at-4-15-11-pm-55dc323939de4_800_600.png" alt="" /></a>
+                                    <div class="cat_row"><a href="#">Artikel</a><span class="pull-right"><i class=" icon-clock"></i>Selasa, 25/08/2015</span></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h5><a href="http://www.iapi.or.id/new/detail/53-Mengais-laba-dari-mutiara">Mengais laba dari mutiara</a></h5>
+                                            <p > cantiknya mutiara asal lombok dan keindahan alam pulau ini sungguh tiada tara sehingga layak sebagai&#8230; </p>
+                                                                                  
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+             
+                    			    
+                        <div class="col-lg-3 col-md-4 col-sm-4">
+                            <div class="col-item">
+                                <div class="photo">
+                                    <a href="http://www.iapi.or.id/new/detail/52-Garuda-adalah-kita">
+                                    <img src="http://www.iapi.or.id/new/assets/images/screen-shot-2015-08-25-at-4-13-40-pm-55dc31ddb5cdf_800_600.png" alt="" /></a>
+                                    <div class="cat_row"><a href="#">Artikel</a><span class="pull-right"><i class=" icon-clock"></i>Selasa, 25/08/2015</span></div>
+                                </div>
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="course_info col-md-12 col-sm-12">
+                                            <h5><a href="http://www.iapi.or.id/new/detail/52-Garuda-adalah-kita">Garuda adalah kita</a></h5>
+                                            <p > anda berhak yakin dan memilih hendak menjadi ayam atau burung garuda </p>
+                                                                                  
+                                        </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+             
+             
+            
+            
+            </div>
+       	    
+       	    <aside class="col-md-4">
+           <div class="box_style_1">
+                    <div><span style="font-size:24px;font-weight:500">BERITA</span><span class="pull-right"><a href="http://www.iapi.or.id/new/category/69-1-Berita">Lihat Semua <i class="icon-right-dir"></i></a></span></div>
+                    <hr>
+                    <ul class="list_1">
+                    
+                          <li><a href="http://www.iapi.or.id/new/detail/60-Akhirnya-advokat-gugat-kewajiban-lapor-pencucian-uang">Akhirnya, advokat gugat kewajiban lapor pencucian&#8230;</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/59-OBLIGASI-DAERAH-Kewenangan-penentuan-akuntan-publik-di-tangan-BPK">OBLIGASI DAERAH : Kewenangan penentuan akuntan publik&#8230;</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/58-Info-Penting-Advokat-wajib-laporkan-pencucian-uang">Info Penting, Advokat wajib laporkan pencucian uang</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/57-Unika-soegijaprana-buka-S-2-akuntansi">Unika soegijaprana buka S-2 akuntansi</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/56-Sistem-pengendalian-internal-belum-jadi-prioritas-di-indonesia">Sistem pengendalian internal belum jadi prioritas&#8230;</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/70-IAPI-Perluas-Eksistensi-dengan-Kerjasama-Bersama-UNIKA-Soegijapranata">IAPI Perluas Eksistensi dengan Kerjasama Bersama UNIKA&#8230;</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/69-Peresmian-Ruang-Test-Center-di-Universitas-Gadjah-Mada-UGM">Peresmian Ruang Test Center di Universitas Gadjah&#8230;</a></li>
+                   
+                          <li><a href="http://www.iapi.or.id/new/detail/68-IAPI-Bekerjasama-Dengan-Universitas-Dian-Nuswantoro-Udinus">IAPI Bekerjasama Dengan Universitas Dian Nuswantoro&#8230;</a></li>
+                                     </ul>
+                     
+           </div>
+                      
+         </aside>
+       	    
+       	    </div><!-- End row -->
+        
+
+        <hr>
+       
+        
+          <div class="row">
+          	<div class="col-md-3 col-sm-6" style="margin-right:30px">
+				<h4>IAPI Test Center</h4>
+                <p><a data-target="#myModal1" data-toggle="modal"><img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/logo.jpg" alt="Pic" class="img-responsive"></a></p>
+                <p>Tempat menyelenggarakan Ujian Profesi Akuntan Publik ( UPAP ) berbasis Computerize Based-Test ( CBT )</p> 
+            </div>
+            
+             <!-- start modal -->
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                <h4 id="myModalLabel" class="modal-title">IAPI Test Center</h4>
+                              </div>
+                              <div class="modal-body">
+                                  <iframe src="http://www.youtube.com/embed/tbrJzjiAg5M?wmode=transparent" class="video_course"></iframe>
+                              </div>
+                              
+                            </div>
+                          </div>
+             </div>
+                        
+             <!-- end modal --> 
+             
+             
+         <div class="row">
+         		<div class="col-md-8 col-sm-8">
+         		<div><span style="font-size:24px;font-weight:500">Majalah CPA Indonesia</span><span class="pull-right"><a href="http://www.iapi.or.id/new/category/83-1-Majalah">Lihat Semua <i class="icon-right-dir"></i></a></span></div><br>
+         		</div>
+         		
+         	<div class="col-md-2 col-sm-6">
+                <p><img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/agustus2015.jpg" alt="Pic" class="img-responsive"></p>
+                <a target="_blank" href="#">Edisi 5 Agustus 2014</a>
+            </div>	
+         
+             <div class="col-md-2 col-sm-6">
+                
+                <p><img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/april2015.jpg" alt="Pic" class="img-responsive"></p>
+                 <a target="_blank" href="http://www.iapi.or.id/new/majalah/Majalah-CPA-Indonesia-edisi-4">Edisi 4 April 2015</a>
+                
+            </div>           
+            
+             <div class="col-md-2 col-sm-6">
+                <p><img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/oktober2014.jpg" alt="Pic" class="img-responsive"></p>
+                 <a target="_blank" href="http://www.iapi.or.id/new/majalah/Majalah-CPA-Indonesia-edisi-3">Edisi 3 Oktober 2014</a>
+            </div>  
+             
+             
+            <div class="col-md-2 col-sm-6">
+                <p><img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/agustus2014.jpg" alt="Pic" class="img-responsive"></p>
+                 <a target="_blank" href="http://www.iapi.or.id/new/majalah/Majalah-CPA-Indonesia-edisi-2">Edisi 2 Agustus 2014</a>
+            </div>
+            
+            
+        </div>
+        </div><!-- End row -->
+        </div><!-- End container -->
+    </section><!-- End main_content -->
+  
+  
+   	  <section id="testimonials" style="padding:14px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 text-center">
+                    <h2>Jadwal PPL</h2>
+                </div>
+            </div>
+          
+        </div>
+       </section><!-- End testimonials -->
+
+
+
+        
+         <section id="main_content">
+        <div class="container">
+       
+       <!-- 
+        <div class="row add_bottom_30">
+        	<div class="col-md-12 text-center">
+            <h2>Jadwal PPL Terkini</h2>
+            </div>
+        </div>
+        -->
+        
+        <div class="row">
+        	
+        	<div class="col-md-12 col-sm-12">
+         		<div><span class="pull-right"><a href="http://www.iapi.or.id/new/info-ppl/all/Semua-Topik">Lihat Semua <i class="icon-right-dir"></i></a></span></div><br>
+         		</div>
+         		
+            <div class="col-md-12 col-sm-12">
+            <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr >
+                               <th width="120px">TANGGAL</th>
+                               <th width="100px">TOPIK</th>
+                                <th width="450px">PPL</th>
+                                <th width="100px">TEMPAT</th>
+                                <th width="86px">KOTA</th>
+                                <th width="20px"></th>
+                            </tr>
+                        </thead>
+                          <tbody>
+                          
+                   					<tr>
+                                <td>Rabu, 26/08/2015<br></td>
+                                <td>Lokakarya Umum</td>
+                                <td>Digital Darwinism - adapt or die? </td>
+                                <td>Hotel Mulia </td>
+                                <td>DKI Jakarta</td>
+                                <td><a class="button_red_small" href="http://www.iapi.or.id/new/detail-ppl/51-Digital-Darwinism-adapt-or-die">Detail</a></td>
+                            </tr>
+       		
+       		       					<tr>
+                                <td>Kamis, 20/08/2015<br></td>
+                                <td>Lokakarya Perpajakan</td>
+                                <td>Tata Cara Pembuatan dan Pelaporan Faktur Pajak Berbentuk Elektronik, serta perhitungan PPh Pasal 21 secara efektif dan efisien sesuai dengan peraturan perpajakan yang berlaku</td>
+                                <td>Hotel Bumi Minang</td>
+                                <td>Sumatera Barat</td>
+                                <td><a class="button_red_small" href="http://www.iapi.or.id/new/detail-ppl/49-Tata-Cara-Pembuatan-dan-Pelaporan-Faktur-Pajak-Berbentuk-Elektronik-serta-perhitungan-PPh-Pasal-21-secara-efektif-dan-efisien-sesuai-dengan-peraturan-perpajakan-yang-berlaku">Detail</a></td>
+                            </tr>
+       		
+       		       					<tr>
+                                <td>Selasa, 18/08/2015<br></td>
+                                <td>Lokakarya Perbankan</td>
+                                <td>Pengungkapan atas pelaporan keuangan</td>
+                                <td>-</td>
+                                <td>DKI Jakarta</td>
+                                <td><a class="button_red_small" href="http://www.iapi.or.id/new/detail-ppl/50-Pengungkapan-atas-pelaporan-keuangan">Detail</a></td>
+                            </tr>
+       		
+       		       					<tr>
+                                <td>Kamis, 06/08/2015<br></td>
+                                <td>Lokakarya Akuntansi</td>
+                                <td>Implikasi Penerapan PBI No. 17/3/PBI/2015 tentang Kewajiban Penggunaan Rupiah di Wilayah Negara Kesatuan Republik Indonesia dan SE Bank Indonesia atas Pelaporan Keuangan sesuai SAK Terkini (PSAK 10)</td>
+                                <td>Hotel Alila Pecenongan</td>
+                                <td>DKI Jakarta</td>
+                                <td><a class="button_red_small" href="http://www.iapi.or.id/new/detail-ppl/48-Implikasi-Penerapan-PBI-No-173PBI2015-tentang-Kewajiban-Penggunaan-Rupiah-di-Wilayah-Negara-Kesatuan-Republik-Indonesia-dan-SE-Bank-Indonesia-atas-Pelaporan-Keuangan-sesuai-SAK-Terkini-PSAK-10">Detail</a></td>
+                            </tr>
+       		
+       			 
+       		 			</tbody>
+                    </table>           	
+            </div>
+        </div><!-- End row -->
+         <div class="row">
+        
+       	
+       	
+       	
+        <hr class="add_bottom_30">
+        <div class="row">
+        	<div class="col-md-12">
+        		<h3>AFFILIATE</h3>
+                <p><img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/sponsors.jpg" alt="Pic" class="img-responsive"></p>
+           </div>
+        </div>
+
+        </div><!-- End container -->
+    </section><!-- End main_content -->
+    
+   
+
+
+
+
+				
+
+
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h3>Subscribe to our Newsletter for latest news.</h3>
+			<div id="message-newsletter">
+			</div>
+			<form method="post" action="assets/newsletter.php" name="newsletter" id="newsletter" class="form-inline">
+				<input name="email_newsletter" id="email_newsletter" type="email" value="" placeholder="Your Email" class="form-control">
+				<button id="submit-newsletter" class=" button_outline"> Subscribe</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<hr>
+-->
+
+<footer>
+<div class="container" id="nav-footer">
+	<div class="row text-left">
+		<div class="col-md-3 col-sm-3">
+			<h4>Associate Member of</h4>
+			<img src="http://www.iapi.or.id/new/application/views/front/fullwidth/img/logo-r.png">
+		</div><!-- End col-md-4 -->
+		<div class="col-md-3 col-sm-3">
+			<h4>Publikasi</h4>
+			<ul>
+				<li><a href="http://www.iapi.or.id/new/category/69-1-Berita">Berita</a></li>
+				<li><a href="http://www.iapi.or.id/new/category/79-1-Artikel">Artikel</a></li>
+				<li><a href="http://www.iapi.or.id/new/category/83-1-Majalah">Majalah</a></li>
+			</ul>
+		</div><!-- End col-md-4 -->
+		<div class="col-md-3 col-sm-3">
+			<h4>Tentang Kami</h4>
+			<ul>
+				<li><a href="http://www.iapi.or.id/new/detail/49-6-Tentang-Kami">Sejarah IAPI</a></li>
+				<li><a href="http://www.iapi.or.id/new/detail/50-6-Alamat-Sekretariat">Alamat Sekretariat</a></li>
+				<li><a href="http://www.iapi.or.id/new/contact-us?id=7">Hubungi Kami</a></li>
+			</ul>
+		</div><!-- End col-md-4 -->
+		<div class="col-md-3 col-sm-3">
+			<ul id="follow_us">
+				<li><a href="http://www.facebook.com/iapi.members"><i class="icon-facebook"></i></a></li>
+				<li><a href="http://twitter.com/iapi_members"><i class="icon-twitter"></i></a></li>
+				
+			</ul>
+			<ul>
+				<li><strong class="phone">(021) 2933 3151</strong><br><small>Mon - Fri / 9.00AM - 06.00PM</small></li>
+				<li>Questions? <a href="mailto:info@iapi.or.id">info@iapi.or.id</a></li>
+			</ul>
+		</div><!-- End col-md-4 -->
+	</div><!-- End row -->
+</div>
+<div id="copy_right">© 2015</div>
+</footer>
+
+<div id="toTop">Back to top</div>
+
+<!-- JQUERY -->
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/jquery-1.10.2.min.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/table_filter.js"></script>
+
+<!-- jQuery REVOLUTION Slider  -->
+<script type="text/javascript" src="http://www.iapi.or.id/new/application/views/front/fullwidth/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+<script type="text/javascript" src="http://www.iapi.or.id/new/application/views/front/fullwidth/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript">
+
+		var revapi;
+
+		jQuery(document).ready(function() {
+
+			   revapi = jQuery('.tp-banner').revolution(
+				{
+					delay:9000,
+					startwidth:1700,
+					startheight:750,
+					hideThumbs:true,
+					navigationType:"none",
+					fullWidth:"on",
+					forceFullWidth:"on"
+				});
+			
+
+		});	//ready
+
+
+	</script>
+	
+<!-- OTHER JS --> 
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/superfish.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/bootstrap.min.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/retina.min.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/jquery.placeholder.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/functions.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/classie.js"></script>
+<script src="http://www.iapi.or.id/new/application/views/front/fullwidth/js/uisearch.js"></script>
+<script>new UISearch( document.getElementById( 'sb-search' ) );</script>
+
+
+
+
+			<link rel="stylesheet" type="text/css" href="http://www.iapi.or.id/new/assets/css/datepicker.css" />
+			<script src="http://www.iapi.or.id/new/assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
+            <script language="javascript">
+			$(document).ready(function(){
+				$('.picker').datepicker({
+					format: 'yyyy-mm-dd'
+				});				
+			});
+			</script>
+           <!-- <link rel="stylesheet" type="text/css" href="http://www.iapi.or.id/new/assets/css/jquery-ui.css" />
+			<script src="http://www.iapi.or.id/new/assets/js/jquery-1.9.1.js" type="text/javascript"></script>
+            <script src="http://www.iapi.or.id/new/assets/js/jquery-ui.js" type="text/javascript"></script>
+            <script language="javascript">
+			$(document).ready(function(){
+				$('.picker').datepicker({
+					dateFormat: 'yy-mm-dd',
+					//minDate: "-1M", 
+					//maxDate: "+10M"
+				});				
+			});
+			</script>-->
+	
+
+  </body>
+</html>

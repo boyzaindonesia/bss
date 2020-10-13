@@ -1,0 +1,105 @@
+#upload {	
+	width:100%;
+	padding:10px;
+	border-radius:3px;
+	
+	margin:0px auto 20px auto;
+	background: #313940;
+	color: #AAB2BD;
+}
+
+#drop {
+    background-color: #242A34;
+    padding: 100px 0px;
+    margin-bottom: 30px;
+    border: 15px dotted rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    text-align: center;
+    text-transform: uppercase;
+
+    font-size:16px;
+    font-weight:bold;
+    color:#7f858a;
+}
+#drop .title { margin-bottom:10px; }
+#drop a.btn-submit { margin:0px; margin-bottom:5px; }
+
+#drop input { display:none; }
+#drop p { margin: 0px; }
+#drop p.help-block {
+    font-size:11px;
+	line-height:16px;
+	text-transform:none;
+    margin-top: 10px;
+}
+#upload ul {
+    list-style:none;
+    margin:0 -10px;
+    padding: 10px;
+    border-top:1px solid #2b2e31;
+    border-bottom:1px solid #3d4043;
+}
+
+#upload ul li {
+    position: relative;
+    background-color:#242A34;
+    border-top:1px solid #3d4043;
+    border-bottom:1px solid #2b2e31;
+    padding:5px 15px;
+    height: 45px;
+
+}
+
+#upload ul li input { display: none; }
+
+#upload ul li p {
+    width: 340px;
+    overflow: hidden;
+    white-space: normal;
+    color: #7f858a;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    top: 4px;
+    left: 70px;
+	margin-bottom:0px;
+}
+
+#upload ul li i {
+    font-weight: normal;
+    font-style:normal;
+    color:#7f7f7f;
+    display:block;
+}
+
+#upload ul li canvas {
+    top: 5px;
+    left: 20px;
+    position: absolute;
+}
+
+#upload ul li span {
+    width: 15px;
+    height: 12px;
+    background: url('../img/icons.png') no-repeat;
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    cursor:pointer;
+}
+
+#upload ul li.working span {
+    height: 16px;
+    background-position: 0 -12px;
+}
+
+#upload ul li.error p { color:#F00; }
+
+#upload_reload {
+	max-height:1px;
+	max-width:1px; 
+	position:relative; 
+	bottom:0px;
+	opacity:0;
+	z-index:-5;
+}
