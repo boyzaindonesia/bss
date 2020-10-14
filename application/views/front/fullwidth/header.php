@@ -209,7 +209,7 @@
     <section class="search-overlay-menu">
         <a href="javascript:void(0)" class="search-overlay-close"></a>
         <div class="container">
-            <form role="search" id="searchform" action="/search" method="get">
+            <form role="search" id="searchform" action="<?php echo base_url()?>search" method="get">
                 <div class="search-icon-lg">
                     <img src="<?php echo base_url();?>assets/front/img/search-icon-lg.png" alt="" />
                 </div>

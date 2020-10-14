@@ -283,7 +283,7 @@ class Headline extends AdminController {
 				));
 			}
 
-			redirect($this->own_link."/view/".$id.'-'.changeEnUrl($_POST['headline_title'])."?msg=".urlencode('Save data category success')."&type_msg=success");
+			redirect($this->own_link."?msg=".urlencode('Save data category success')."&type_msg=success");
 		} else {
 			redirect($this->own_link."?msg=".urlencode('Kolom harus diisi.')."&type_msg=error");
 		}
