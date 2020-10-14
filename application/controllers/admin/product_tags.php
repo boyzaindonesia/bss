@@ -52,6 +52,14 @@ class product_tags extends AdminController {
 			"product_tags_istrash" => 0
 		))->result();
 
+		foreach ($data['data'] as $k => $v) {
+			if(get_count_product_tagged($v->product_tags_id) == 0 && $v->product_tags_status == 1){
+				$this->db->update("mt_product_tags",array("product_tags_status"=>0,"position"=>99999),array("product_tags_id"=>$v->product_tags_id));
+			} else if(get_count_product_tagged($v->product_tags_id) > 0 && $v->product_tags_status == 0){
+				$this->db->update("mt_product_tags",array("product_tags_status"=>1),array("product_tags_id"=>$v->product_tags_id));
+			}
+		}
+
 		$this->_v($this->folder_view.$this->prefix_view,$data);
 	}
 
