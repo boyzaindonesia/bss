@@ -2180,6 +2180,13 @@ function get_cover_image_detail($id=""){
 	return $result;
 }
 
+function get_image_detail_archive($id=""){
+	$CI = getCI();
+	$m = $CI->db->order_by('position','ASC')->get_where("mt_product_archive_image",array(
+			"product_id"	=> $id
+		))->result();
+	return $m;
+}
 function get_cover_image_detail_archive($id=""){
 	$CI = getCI();
 	$result = '';

@@ -486,6 +486,22 @@ class product extends AdminController {
                         }
                     }
 
+                    // SAVE PRODUCT DESCRIPTION ARCHIVE
+                    $r4 = $this->db->get_where("mt_product_description",array(
+                        "product_id "  => $product_id
+                    ),1,0)->result();
+                    if(count($r4) > 0){
+                        foreach ($r4 as $key4 => $val4) {
+                            $product_description_id = $val4->product_description_id;
+                            $product_description = array();
+                            foreach ($val4 as $k4 => $v4) { $product_description[$k4] = $v4; }
+                            $product_description['product_description_id'] = NULL;
+                            $this->DATA->table="mt_product_archive_description";
+                            $a4 = $this->_save_master($product_description, array('product_description_id' => $product_description_id),'');
+                            $this->db->delete("mt_product_description",array('product_description_id' => $product_description_id));
+                        }
+                    }
+
                     $notif = $this->db->get_where("mt_product_notif",array(
                         "product_id" => $product_id
                     ))->result();

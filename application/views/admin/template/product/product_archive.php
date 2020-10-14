@@ -65,11 +65,11 @@
 
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">
-            <div class="btn btn-danger btn-delete-multiple"><i class="fa fa-times"></i> Hapus ( 0 )</div>
+            <div class="btn btn-danger btn-delete-multiple" data-url="<?php echo $own_links.'/delete_permanent_multi?next='.current_url(); ?>"><i class="fa fa-times"></i> Hapus ( 0 )</div>
         </div>
     </div>
 
-    <form id="form1" action="<?php echo $url_parent.'/delete_multi?next='.current_url(); ?>" method="post" enctype="multipart/form-data">
+    <form id="form1" action="#" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
         <table class="table table-th-block table-dark">
             <colgroup>
@@ -96,7 +96,7 @@
                     <th class="nobr text-center">Kategori</th>
                     <th class="nobr text-center">Stok</th>
                     <th class="nobr text-center">Tanggal</th>
-                    <th class="nobr text-center">Show</th>
+                    <th class="nobr text-center">Archive</th>
                     <th class="nobr text-center">Action</th>
                 </tr>
             </thead>
@@ -135,32 +135,15 @@
                     </td>
                     <td class="nobr"><?php echo $r->product_category_name ?></td>
                     <td class="nobr text-center"><?php echo $r->product_stock ?></td>
-                    <td class="nobr text-center"><span class="label label-default"><?php echo convDateTimeTable($r->product_date_update) ?></span></td>
-                    <td class="nobr text-center">
-                        <div class="onoffswitch">
-                            <input type="checkbox" name="switch_sidebar_<?php echo $r->product_id ?>" class="onoffswitch-checkbox" id="switch_sidebar_<?php echo $r->product_id ?>" onclick="changeStatus(this,'<?php echo $url_parent.'/change_status/'.$r->product_id;?>')" value="1" <?php if($r->product_show_id == "1"){ echo 'checked'; } ?> >
-                            <label class="onoffswitch-label" for="switch_sidebar_<?php echo $r->product_id ?>">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                    </td>
+                    <td class="nobr text-center"><span class="label label-success"><?php echo convDateTimeTable($r->product_date_update) ?></span></td>
+                    <td class="nobr text-center"><span class="label label-danger"><?php echo convDateTimeTable($r->product_date_archive) ?></span></td>
                     <td class="nobr">
-                        <button type="button" class="btn btn-success btn-xs btn-popup-product-stock" data-id="<?php echo $r->product_id;?>" data-toggle="tooltip" data-original-title="Set Dijual">Set Dijual</button>
-
                         <?php if(check_action($links_table_item,'view')){ ?>
-                        <a href="<?php echo $url_parent.'/view/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" class="btn btn-warning btn-xs" data-toggle="tooltip" data-original-title="Lihat"><i class="fa fa-share"></i></a>
-                        <?php } ?>
-                        <?php if(check_action($links_table_item,'edit')){ ?>
-                        <a href="<?php echo $url_parent.'/edit/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" class="btn btn-info btn-xs" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a href="<?php echo $own_links.'/view/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" class="btn btn-warning btn-xs" data-toggle="tooltip" data-original-title="Lihat"><i class="fa fa-share"></i></a>
                         <?php } ?>
                         <?php if(check_action($links_table_item,'delete')){ ?>
-                        <a href="<?php echo $url_parent.'/delete/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" onclick="return confirm('Are you sure delete ?');" class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Hapus"><i class="fa fa-times"></i></a>
+                        <a href="<?php echo $own_links.'/delete_permanent/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" onclick="return confirm('Are you sure delete ?');" class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Hapus"><i class="fa fa-times"></i></a>
                         <?php } ?>
-                        <?php if(check_action($links_table_item,'detail')){ ?>
-                        <a href="<?php echo $url_parent.'/detail/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Detail"><i class="fa fa-share"></i></a>
-                        <?php } ?>
-
                     </td>
                 </tr>
                 <?php
@@ -195,261 +178,6 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(document).on('click', '.btn-popup-product-stock', function(e){
-            e.preventDefault();
-            var $this    = $(this);
-            var $thisVal = $this.attr('data-id');
-            $('html, body').css('overflow','hidden');
-            if($thisVal != ''){
-                $.ajax({
-                    type: 'POST',
-                    url: '<?php echo $url_parent ?>/view_stock_detail',
-                    data: {'thisVal':$thisVal,'thisAction':'view'},
-                    async: false,
-                    cache: false,
-                    dataType: 'json',
-                    success: function(data){
-                        $('.popup-product').addClass('active');
-                        $('.popup-product .popup-content').html(data.content);
-                        console.log(data.result);
-
-                        $('.magnific-popup-wrap').magnificPopup({
-                            delegate: 'a.zooming',
-                            type: 'image',
-                            removalDelay: 300,
-                            mainClass: 'mfp-fade',
-                            gallery: {
-                              enabled:false
-                            }
-                        });
-
-                        $('select[name="product_status_id"]').val("1");
-
-                        $(document).on('click','input[type="text"]',function(){ this.select(); });
-                        $(document).on('click','input[type="number"]',function(){ this.select(); });
-                    },
-                    error: function(jqXHR){
-                        var response = jqXHR.responseText;
-                        swal({
-                            title: "Error!",
-                            html: response,
-                            type: "error"
-                        });
-                    }
-                });
-            }
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(document).on('submit', 'form.form_save_stock_detail', save_stock_detail );
-        function save_stock_detail(e){
-            if (typeof e !== 'undefined') e.preventDefault();
-            var $this = $(this);
-            var form = $this;
-
-            swal({
-                title: "Loading!",
-                text: "",
-                type: "loading",
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                customClass: 'swal2-small'
-            });
-
-            $.ajax({
-                type: 'POST',
-                url: form.attr('action'),
-                data: form.serialize(),
-                async: false,
-                cache: false,
-                dataType: 'json',
-                beforeSend: function(){
-
-                },
-                success: function(data){
-                    if(data.err == false){
-                        swal({
-                            title: "Success!",
-                            text: data.msg,
-                            type: "success",
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(
-                        function () {},
-                        function (dismiss) {
-                            // console.log('close');
-                            // if (dismiss === 'timer') {
-                            //     console.log('I was closed by the timer')
-                            // }
-
-                            if(data.url != ""){
-                                window.open(data.url, '_blank');
-                            }
-
-                            setTimeout(function(){
-                                $('.popup-product .popup-close').trigger('click');
-                                window.location.reload(true);
-                            },1000);
-                        });
-
-                    } else {
-                        swal({
-                            title: "Error!",
-                            html: data.msg,
-                            type: "error"
-                        });
-                    }
-                },
-                error: function(jqXHR){
-                    var response = jqXHR.responseText;
-                    swal({
-                        title: "Error!",
-                        html: response,
-                        type: "error"
-                    });
-                }
-            });
-
-            return false;
-        }
-    });
-</script>
-
-<script type="text/javascript">
-    function checkProductVariant(){
-        if($('.chkVariant').is(':checked')){
-            $('.groupStock').attr('disabled', 'disabled');
-            $('.groupVariant').removeClass('hide');
-            var groupStockQty = $('.groupStock').val();
-            var countItems = $('.result-stok-array').find('.item-stok-array').length;
-            if(countItems == 0){ addStokArray(); }
-        } else {
-            $('.groupStock').removeAttr('disabled');
-            $('.groupVariant').addClass('hide');
-        }
-    }
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(document).on('keyup change', '.calc-count-qty', function(e){
-            e.preventDefault();
-            var $this = $(this);
-            var qty   = $this.val();
-            if(qty > 0){
-                $this.parents('tr.item-stok-array').find('select[name="product_stock_status[]"]').val("1");
-            } else {
-                $this.parents('tr.item-stok-array').find('select[name="product_stock_status[]"]').val("2");
-            }
-            js_calc_item_total();
-        });
-        $(document).on('blur', '.calc-count-qty', function(e){
-            e.preventDefault();
-            var $this = $(this);
-            var qty   = $this.val();
-            if(qty == ""){ $this.val("0"); }
-        });
-
-        $(document).on('change', 'select[name="product_status_id"]', function(e){
-            e.preventDefault();
-            var $this = $(this);
-            var id    = $this.val();
-            var item_stok = $('.result-stok-array').find('.item-stok-array');
-            if(id == "1"){
-                $(item_stok).each(function(i){
-                    var this_val = item_stok.eq(i).find('.calc-count-qty').val();
-                    if(!$.isNumeric(this_val)) { this_val = 0; }
-                    var setVal = "2";
-                    if(this_val > 0){ setVal = "1"; }
-                    item_stok.eq(i).find('select[name="product_stock_status[]"]').val(setVal);
-                });
-            } else {
-                $(item_stok).each(function(i){
-                    var setVal = "2";
-                    item_stok.eq(i).find('select[name="product_stock_status[]"]').val(setVal);
-                });
-            }
-        });
-
-    });
-
-    function js_calc_item_total(){
-        var item_stok = $('.result-stok-array').find('.item-stok-array');
-        var countItems = 0;
-        var count_item_stok = 0;
-        var last_name = "";
-        $(item_stok).each(function(i){
-            countItems = countItems + 1;
-            var this_val = item_stok.eq(i).find('.calc-count-qty').val();
-            if(!$.isNumeric(this_val)) { this_val = 0; }
-            count_item_stok = count_item_stok + parseInt(this_val);
-            last_name = item_stok.eq(i).find('input[name="product_stock_name[]"]').val();
-        });
-        $('.result-stok-array').attr("data-last-name", last_name);
-        $('#count-item-stok').html(count_item_stok+" item");
-        $('.groupStock').val(count_item_stok);
-        if(countItems < 1){
-            $('.chkVariant').prop( "checked", false );
-            $('.groupStock').removeAttr('disabled');
-            $('.groupVariant').addClass('hide');
-        }
-    }
-
-    js_calc_item_total();
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(document).on('click', '.btn-remove-stok-array', function(e){
-            e.preventDefault();
-            $(this).parents('.item-stok-array').remove();
-            js_calc_item_total();
-        });
-        $(document).on('click', '.btn-add-stok-array', addStokArray );
-    });
-
-    function addStokArray() {
-        var next_name  = $('.result-stok-array').attr("data-last-name");
-
-        var count_item = 1 + parseInt($('.result-stok-array').find('.item-stok-array').length);
-        if(count_item.toString().length == 1){ count_item = '0'+count_item; }
-        var $stok_layout = '<tr class="item-stok-array">';
-                $stok_layout += '<td>';
-                    $stok_layout += '<input type="text" name="product_stock_id[]" value="'+count_item+'" class="form-control form-no text-uppercase text-center" maxlength="2" required>';
-                $stok_layout += '</td>';
-                $stok_layout += '<td>';
-                    $stok_layout += '<input type="text" name="product_stock_name[]" value="'+next_name+'" class="form-control">';
-                $stok_layout += '</td>';
-                $stok_layout += '<td class="nobr text-center">';
-                    $stok_layout += '<input type="hidden" name="product_stock_old[]" value="">';
-                    $stok_layout += '<input type="text" name="product_stock_qty[]" value="" class="form-control calc-count-qty" maxlength="5">';
-                $stok_layout += '</td>';
-                $stok_layout += '<td>';
-                    $stok_layout += '<select name="product_stock_status[]" class="form-control">';
-                        $stok_layout += '<option value="1" selected>Ready</option>';
-                        $stok_layout += '<option value="2">Terjual</option>';
-                    $stok_layout += '</select>';
-                $stok_layout += '</td>';
-                $stok_layout += '<td class="nobr text-center">';
-                    $stok_layout += '<input type="hidden" name="product_stock_color[]" value=""/>';
-                    $stok_layout += '<a href="javascript:void(0);" class="btn btn-danger btn-remove-stok-array btn-xs" title="Hapus"><i class="fa fa-times"></i></a>';
-                $stok_layout += '</td>';
-            $stok_layout += '</tr>';
-
-        $('.result-stok-array').append($stok_layout);
-        $('.result-stok-array').attr("data-last-name", last_name);
-
-    }
-    <?php if(count($arr_product_stok) == 0){ ?>
-        // addStokArray();
-    <?php } ?>
-</script>
-
-<script type="text/javascript">
     function check_all_files(e){
         var checkbox = $('input[name="checked_files[]"]');
         if($(e).is(':checked')){
@@ -466,7 +194,6 @@
     function calc_check_files(){
         var form1 = $('form#form1');
         var checked_files = form1.find('input[name="checked_files[]"]:checked');
-        $('.btn-setnotpublish-multiple').html('<i class="fa fa-pencil"></i> Set Not Publish ( '+checked_files.length+' )');
         $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus ( '+checked_files.length+' )');
     }
 
@@ -481,33 +208,12 @@
             calc_check_files();
         });
 
-        $(document).on('click', '.btn-setnotpublish-multiple', function(e){
+        $(document).on('click', '.btn-delete-multiple', function(e){
             e.preventDefault();
             var $this   = $(this);
             var dataUrl = $this.attr('data-url');
-            var form1   = $('form#form1');
-            var checked_files = form1.find('input[name="checked_files[]"]:checked');
-            if(checked_files.length == 0){
-                swal({
-                    title: "Error!",
-                    text: "Ceklis yang mau diset not publish.",
-                    type: "error"
-                });
-            } else {
-                var thisId  = "";
-                var thisVal = "";
-                checked_files.each(function() {
-                    thisVal = $(this).val();
-                    thisId += (thisId=="" ? thisVal : "-" + thisVal);
-                });
-
-                window.location.replace(dataUrl+'?id='+thisId);
-            }
-        });
-
-        $(document).on('click', '.btn-delete-multiple', function(e){
-            e.preventDefault();
             var form1 = $('form#form1');
+                form1.attr("action", dataUrl);
             var checked_files = form1.find('input[name="checked_files[]"]:checked');
             if(checked_files.length == 0){
                 swal({

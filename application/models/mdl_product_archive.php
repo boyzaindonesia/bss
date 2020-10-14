@@ -110,7 +110,7 @@ class mdl_product_archive extends CI_Model{
             switch ($p['type_result']) {
                 case 'list':
                     $isFull     = FALSE;
-                    $isKey      = array("product_id","product_category_name","product_root_category_name","store_id","product_name","product_name_simple","product_code","product_awards","product_group_id","product_date","product_date_update","product_date_push","images_cover","url_product","product_price_buy","product_price_sale","product_price_discount","product_price_grosir","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","url_product_category","product_stock_copy");
+                    $isKey      = array("product_id","product_category_name","product_root_category_name","store_id","product_name","product_name_simple","product_code","product_awards","product_group_id","product_date","product_date_update","product_date_push","product_date_archive","images_cover","url_product","product_price_buy","product_price_sale","product_price_discount","product_price_grosir","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","url_product_category","product_stock_copy");
                     break;
                 default:
                     $isFull     = TRUE;
