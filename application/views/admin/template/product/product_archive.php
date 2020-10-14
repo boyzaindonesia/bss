@@ -62,6 +62,7 @@
             </form>
         </div>
     </div>
+    <h4 class="no-margin">Total Produk: <?php echo $total_data ?></h4>
 
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">

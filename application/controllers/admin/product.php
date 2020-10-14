@@ -162,6 +162,7 @@ class product extends AdminController {
 			"base_url"	=> $this->own_link.'/index'
 		));
 
+        $data['total_data'] = $this->data_table['total'];
 		$data['url'] = base_url()."admin/product/index";
 
 		$this->_v($this->folder_view.$this->prefix_view,$data);

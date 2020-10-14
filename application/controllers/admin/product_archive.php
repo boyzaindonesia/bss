@@ -111,6 +111,7 @@ class product_archive extends AdminController {
             "base_url"  => $this->own_link.'/index'
         ));
 
+        $data['total_data'] = $this->data_table['total'];
         $data['url'] = base_url()."admin/product_archive";
         $data['url_parent'] = base_url()."admin/product_archive";
 

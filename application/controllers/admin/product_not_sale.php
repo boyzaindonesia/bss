@@ -112,6 +112,7 @@ class product_not_sale extends AdminController {
             "base_url"  => $this->own_link.'/index'
         ));
 
+        $data['total_data'] = $this->data_table['total'];
         $data['url'] = base_url()."admin/product";
         $data['url_parent'] = base_url()."admin/product";
 

@@ -63,6 +63,7 @@
         </div>
     </div>
 
+    <h4 class="no-margin">Total Produk: <?php echo $total_data ?></h4>
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">
             <div class="btn btn-primary btn-move-to-archive-multiple mr-5" data-url="<?php echo $url_parent.'/move_to_archive?next='.current_url(); ?>"><i class="fa fa-eye-slash"></i> Move To Archive ( 0 )</div>

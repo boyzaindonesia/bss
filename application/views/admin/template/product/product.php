@@ -149,22 +149,23 @@
         </div>
     </div>
 
-    <div class="relative no-border mt-20">
-        <?php
-        $get_product_stock_no_sync = get_product_stock_no_sync($this->store_id);
-        $found_product_stock_no_sync = $get_product_stock_no_sync['founds'];
-        if($found_product_stock_no_sync){
-            foreach ($get_product_stock_no_sync['item'] as $key => $val) {
-            ?>
-                <div>
-                    Id: <?php echo $val->id; ?> <?php echo $val->name; ?>, Total Stok: <?php echo $val->qty_stock; ?>, Total Varian: <?php echo $val->qty_varian; ?>
-                </div>
-            <?php
-            }
-        }
+    <?php
+    $get_product_stock_no_sync = get_product_stock_no_sync($this->store_id);
+    $found_product_stock_no_sync = $get_product_stock_no_sync['founds'];
+    if($found_product_stock_no_sync){
+        echo '<div class="relative no-border mt-20">';
+        foreach ($get_product_stock_no_sync['item'] as $key => $val) {
         ?>
-    </div>
+            <div>
+                Id: <?php echo $val->id; ?> <?php echo $val->name; ?>, Total Stok: <?php echo $val->qty_stock; ?>, Total Varian: <?php echo $val->qty_varian; ?>
+            </div>
+        <?php
+        }
+        echo "</div>";
+    }
+    ?>
 
+    <h4 class="no-margin">Total Produk: <?php echo $total_data ?></h4>
     <form id="form1" action="" method="post" enctype="multipart/form-data">
     <div class="relative no-border mt-20">
         <div class="checkbox">
