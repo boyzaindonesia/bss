@@ -86,6 +86,30 @@ class Headline extends AdminController {
 		}
 	}
 
+	function duplicate($id=''){
+		$this->breadcrumb[] = array(
+			"title"		=> "Duplicate"
+		);
+
+		$id = explode("-", $id);
+		$id = dbClean(trim($id[0]));
+		if(trim($id)!=''){
+			$this->data_form = $this->DATA->data_id(array(
+				"headline_id"	=> $id
+			));
+			if(empty($this->data_form->headline_id)){
+				redirect($this->own_link."?msg=".urlencode('Data tidak ditemukan')."&type_msg=error");
+			}
+
+			$this->data_form->headline_id 				= "";
+			$this->data_form->headline_images 			= "";
+			$this->data_form->headline_images_mobile 	= "";
+			$this->_v($this->folder_view.$this->prefix_view."_form",$data);
+		}else{
+			redirect($this->own_link);
+		}
+	}
+
 	function delete($id=''){
 		$id = explode("-", $id);
 		$id = dbClean(trim($id[0]));

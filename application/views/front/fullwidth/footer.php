@@ -77,7 +77,7 @@
             <!-- Footer Copyright -->
             <div class="container">
                 <div class="copyrights">
-                    <p class="copyright">Copyright © 2018 <a href="<?php echo base_url() ?>">Butik Sasha</a>. All Rights Reserved.</p>
+                    <p class="copyright">Copyright © 2018 - <?php echo date("Y"); ?> <a href="<?php echo base_url() ?>">Butik Sasha</a>. All Rights Reserved.</p>
                     <p class="payment">
                         <img src="<?php echo base_url();?>assets/front/img/payment_logos.png" alt="payment">
                     </p>

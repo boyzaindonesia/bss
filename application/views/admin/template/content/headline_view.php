@@ -127,7 +127,7 @@
                     </div>
                     <div class="form-group form-action clearfix">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="<?php echo $own_links.'/edit/'.$val->headline_id.'-'.changeEnUrl($val->headline_title);?>"><div class="btn btn-danger">Edit</div></a>
+                            <a href="<?php echo $own_links.'/edit/'.$val->headline_id.'-'.changeEnUrl($val->headline_title_3);?>"><div class="btn btn-danger">Edit</div></a>
                             <a href="<?php echo $own_links;?>"><div class="btn btn-default pull-right">Back</div></a>
                         </div>
                     </div>

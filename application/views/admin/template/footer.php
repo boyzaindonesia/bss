@@ -1,14 +1,14 @@
-                    
+
                 </div><!-- /.container-fluid -->
-                
+
                 <footer>
-                    &copy; 2017 <a href="<?php echo base_url();?>" target="_blank"><?php echo get_name_app("configuration_name");?></a>. All Rights Reserved.
+                    &copy; 2017 - <?php echo date("Y"); ?> <a href="<?php echo base_url();?>" target="_blank"><?php echo get_name_app("configuration_name");?></a>. All Rights Reserved.
                 </footer>
-                
+
             </div>
         </div>
         <!-- END PAGE -->
-       
+
         <!-- MAIN APPS JS -->
         <script src="<?php echo base_url();?>assets/admin/js/apps.js"></script>
         <script src="<?php echo base_url();?>assets/admin/js/script.js"></script>

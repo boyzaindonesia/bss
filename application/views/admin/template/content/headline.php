@@ -71,7 +71,8 @@
                         </div>
                     </td>
                     <td class="nobr">
-                        <?php link_action($links_table_item,$r->headline_id,changeEnUrl($r->headline_title));?>
+                        <a href="<?php echo base_url().'admin/headline/duplicate/'.$r->headline_id.'-'.changeEnUrl($r->headline_title_3);?>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Duplicate"><i class="fa fa-copy"></i></a>
+                        <?php link_action($links_table_item,$r->headline_id,changeEnUrl($r->headline_title_3));?>
                     </td>
                 </tr>
                 <?php
