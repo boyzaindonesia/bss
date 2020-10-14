@@ -65,11 +65,12 @@
 
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">
-            <div class="btn btn-danger btn-delete-multiple"><i class="fa fa-times"></i> Hapus ( 0 )</div>
+            <div class="btn btn-primary btn-move-to-archive-multiple mr-5" data-url="<?php echo $url_parent.'/move_to_archive?next='.current_url(); ?>"><i class="fa fa-eye-slash"></i> Move To Archive ( 0 )</div>
+            <div class="btn btn-danger btn-delete-multiple" data-url="<?php echo $url_parent.'/delete_multi?next='.current_url(); ?>"><i class="fa fa-times"></i> Hapus ( 0 )</div>
         </div>
     </div>
 
-    <form id="form1" action="<?php echo $url_parent.'/delete_multi?next='.current_url(); ?>" method="post" enctype="multipart/form-data">
+    <form id="form1" action="#" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
         <table class="table table-th-block table-dark">
             <colgroup>
@@ -203,6 +204,7 @@
     function calc_check_files(){
         var form1 = $('form#form1');
         var checked_files = form1.find('input[name="checked_files[]"]:checked');
+        $('.btn-move-to-archive-multiple').html('<i class="fa fa-eye-slash"></i> Move To Archive ( '+checked_files.length+' )');
         $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus ( '+checked_files.length+' )');
     }
 
@@ -216,9 +218,54 @@
             }
             calc_check_files();
         });
+
+        $(document).on('click', '.btn-move-to-archive-multiple', function(e){
+            e.preventDefault();
+            var $this   = $(this);
+            var dataUrl = $this.attr('data-url');
+            var form1 = $('form#form1');
+                form1.attr("action", dataUrl);
+            var checked_files = form1.find('input[name="checked_files[]"]:checked');
+            if(checked_files.length == 0){
+                swal({
+                    title: "Error!",
+                    text: "Ceklis yang mau diarsipkan..",
+                    type: "error"
+                });
+            } else {
+                var swalText = "Yakin ingin mengarsipkan?";
+                swal({
+                    title: 'Are you sure?',
+                    text: swalText,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Archive it!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success mr-5',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false
+                }).then(function () {
+                    swal({
+                        title: "Loading!",
+                        text: "",
+                        type: "loading",
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        customClass: 'swal2-small'
+                    });
+                    form1.submit();
+                }).catch(swal.noop);
+            }
+        });
+
         $(document).on('click', '.btn-delete-multiple', function(e){
             e.preventDefault();
+            var $this   = $(this);
+            var dataUrl = $this.attr('data-url');
             var form1 = $('form#form1');
+                form1.attr("action", dataUrl);
             var checked_files = form1.find('input[name="checked_files[]"]:checked');
             if(checked_files.length == 0){
                 swal({
@@ -263,7 +310,6 @@
                 // window.open(url+'?id='+thisId, '_blank');
             }
         });
-
 
     });
 </script>

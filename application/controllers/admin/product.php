@@ -434,6 +434,105 @@ class product extends AdminController {
         }
 	}
 
+    function move_to_archive(){
+        $data = array();
+        $data['err']    = true;
+        $data['msg']    = '';
+        if(isset($_POST['checked_files']) && $_POST['checked_files'] != ''){
+            $checked_files = $_POST['checked_files'];
+            foreach ($checked_files as $k => $v) {
+                $product_id = $v;
+                $r = $this->db->get_where("mt_product",array(
+                    "product_id"    => $product_id
+                ),1,0)->row();
+                if(count($r) > 0){
+                    // SAVE PRODUCT ARCHIVE
+                    $product = array();
+                    foreach ($r as $k => $v) { $product[$k] = $v; }
+                    $product['product_date_archive'] = timestamp();
+                    $this->DATA->table="mt_product_archive";
+                    $a = $this->_save_master($product, array('product_id' => $product_id),'');
+                    $this->db->delete("mt_product",array('product_id' => $product_id));
+
+                    // SAVE PRODUCT DETAIL ARCHIVE
+                    $r2 = $this->db->get_where("mt_product_detail",array(
+                        "product_id "  => $product_id
+                    ),1,0)->result();
+                    if(count($r2) > 0){
+                        foreach ($r2 as $key2 => $val2) {
+                            $product_detail_id = $val2->product_detail_id;
+                            $product_detail = array();
+                            foreach ($val2 as $k2 => $v2) { $product_detail[$k2] = $v2; }
+                            $product_detail['product_detail_id'] = NULL;
+                            $this->DATA->table="mt_product_archive_detail";
+                            $a2 = $this->_save_master($product_detail, array('product_detail_id' => $product_detail_id),'');
+                            $this->db->delete("mt_product_detail",array('product_detail_id' => $product_detail_id));
+                        }
+                    }
+
+                    // SAVE PRODUCT IMAGE ARCHIVE
+                    $r3 = $this->db->get_where("mt_product_image",array(
+                        "product_id "  => $product_id
+                    ))->result();
+                    if(count($r3) > 0){
+                        foreach ($r3 as $key3 => $val3) {
+                            $image_id = $val3->image_id;
+                            $product_images = array();
+                            foreach ($val3 as $k3 => $v3) { $product_images[$k3] = $v3; }
+                            $product_images['image_id'] = NULL;
+                            $this->DATA->table="mt_product_archive_image";
+                            $a3 = $this->_save_master($product_images, array('image_id' => $image_id),'');
+                            $this->db->delete("mt_product_image",array('image_id' => $image_id));
+                        }
+                    }
+
+                    $notif = $this->db->get_where("mt_product_notif",array(
+                        "product_id" => $product_id
+                    ))->result();
+                    if(count($notif) > 0){
+                        foreach ($notif as $key => $value) {
+                            $this->DATA->table = "mt_product_notif";
+                            $this->DATA->_delete(array("notif_id"   => $value->notif_id),true);
+                        }
+                    }
+
+                    $mp = $this->db->get_where("mt_product_mp",array(
+                        "product_id" => $product_id
+                    ))->result();
+                    if(count($mp) > 0){
+                        foreach ($mp as $key => $value) {
+                            $this->DATA->table = "mt_product_mp";
+                            $this->DATA->_delete(array("product_mp_id"   => $value->product_mp_id),true);
+                        }
+                    }
+
+                }
+
+                // set_last_date_product_setup();
+                writeLog(array(
+                    'log_user_type'     => "1", // Admin
+                    'log_user_id'       => $this->jCfg['user']['id'],
+                    'log_role'          => $this->jCfg['user']['level'],
+                    'log_type'          => "2", // Produk
+                    'log_detail_id'     => $id,
+                    'log_detail_item'   => $log_item,
+                    'log_detail_qty'    => $log_qty,
+                    'log_title_id'      => "16", // Produk Diarsipkan
+                    'log_desc'          => "",
+                    'log_status'        => "0"
+                ));
+            }
+
+            $data['err']    = false;
+            $data['msg']    = 'Berhasil diarsipkan...';
+        }
+        if($this->input->get("next")!=""){
+            redirect($this->input->get("next")."?msg=".urlencode('Archive data success')."&type_msg=success");
+        } else {
+            redirect($this->own_link."?msg=".urlencode('Archive data success')."&type_msg=success");
+        }
+    }
+
     function delete($id=''){
         $id = explode("-", $id);
         $id = dbClean(trim($id[0]));
@@ -625,11 +724,11 @@ class product extends AdminController {
 				}
 			}
 
-            $notif = $this->db->get_where("mt_product_mp",array(
+            $mp = $this->db->get_where("mt_product_mp",array(
                 "product_id" => $id
             ))->result();
-            if(count($notif) > 0){
-                foreach ($notif as $key => $value) {
+            if(count($mp) > 0){
+                foreach ($mp as $key => $value) {
                     $this->DATA->table = "mt_product_mp";
                     $this->DATA->_delete(array("product_mp_id"   => $value->product_mp_id),true);
                 }
@@ -744,11 +843,11 @@ class product extends AdminController {
                     }
                 }
 
-                $notif = $this->db->get_where("mt_product_mp",array(
+                $mp = $this->db->get_where("mt_product_mp",array(
                     "product_id" => $id
                 ))->result();
-                if(count($notif) > 0){
-                    foreach ($notif as $key => $value) {
+                if(count($mp) > 0){
+                    foreach ($mp as $key => $value) {
                         $this->DATA->table = "mt_product_mp";
                         $this->DATA->_delete(array("product_mp_id"   => $value->product_mp_id),true);
                     }
@@ -909,6 +1008,29 @@ class product extends AdminController {
 			redirect($this->own_link."?msg=".urlencode('Empty trash data success')."&type_msg=success");
         }
 	}
+
+    function set_hide_all_product(){
+        $data = array();
+        $data['err']    = true;
+        $data['msg']    = '';
+        if(isset($_POST['checked_files']) && $_POST['checked_files'] != ''){
+            $checked_files = $_POST['checked_files'];
+            foreach ($checked_files as $k => $v) {
+                $id = $v;
+                $products = $this->db->get_where("mt_product",array(
+                    "product_id" => $id
+                ),1,0)->row();
+                $this->db->update("mt_product",array("product_show_id"=>0),array("product_id"=>$key));
+                set_last_date_product_setup();
+
+            }
+            if($this->input->get("next")!=""){
+                redirect($this->input->get("next")."?msg=".urlencode('Berhasil set not publish')."&type_msg=success");
+            } else {
+                redirect($this->own_link."?msg=".urlencode('Berhasil set not publish')."&type_msg=success");
+            }
+        }
+    }
 
 	function push($id=''){
 		$id = explode("-", $id);

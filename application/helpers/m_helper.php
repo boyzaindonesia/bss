@@ -136,6 +136,7 @@ function log_title($id=""){
 	$m[] = array('id' => '13', 'name' => 'Empty Trash');
 	$m[] = array('id' => '14', 'name' => 'Penambahan Stok Manual');
 	$m[] = array('id' => '15', 'name' => 'Pengurangan Stok Manual');
+	$m[] = array('id' => '16', 'name' => 'Produk Diarsipkan');
 	$m[] = array('id' => '30', 'name' => 'Berhasil Checkout');
 	$m[] = array('id' => '31', 'name' => 'Gagal Simpan Saldo Pemesanan Reseller');
 	$m[] = array('id' => '32', 'name' => 'Gagal Update Saldo Pemesanan Reseller');
@@ -2171,6 +2172,18 @@ function get_cover_image_detail($id=""){
 	$CI = getCI();
 	$result = '';
 	$m = $CI->db->order_by('position','ASC')->get_where("mt_product_image",array(
+			"product_id"	=> $id
+		),1,0)->row();
+	if(count($m)>0){
+		$result = $m->image_filename;
+	}
+	return $result;
+}
+
+function get_cover_image_detail_archive($id=""){
+	$CI = getCI();
+	$result = '';
+	$m = $CI->db->order_by('position','ASC')->get_where("mt_product_archive_image",array(
 			"product_id"	=> $id
 		),1,0)->row();
 	if(count($m)>0){

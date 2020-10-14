@@ -113,7 +113,7 @@
                     <td class="nobr text-center"><input type="checkbox" name="checked_files[]" value="<?php echo $r->product_id;?>"></td>
                     <td class="nobr text-center"><?php echo $i ?>.</td>
                     <td class="magnific-popup-wrap">
-                        <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".get_cover_image_detail($r->product_id));?>"><img src="<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail($r->product_id));?>" class="avatar mfp-fade"></a>
+                        <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".get_cover_image_detail_archive($r->product_id));?>"><img src="<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail_archive($r->product_id));?>" class="avatar mfp-fade"></a>
                         <div class="hide">
                             <?php
                             $get_image_detail = get_image_detail($r->product_id);

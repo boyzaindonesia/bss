@@ -359,7 +359,7 @@ class transaction_process extends AdminController {
 
                     // SAVE ORDER SHIPPING
                     $r3 = $this->db->get_where("mt_orders_shipping",array(
-                        "orders_id "  => $orders_id,
+                        "orders_id "  => $orders_id
                     ),1,0)->result();
                     if(count($r3) > 0){
                         foreach ($r3 as $key3 => $val3) {
@@ -373,7 +373,7 @@ class transaction_process extends AdminController {
 
                     // SAVE ORDER PAYMENT
                     $r4 = $this->db->get_where("mt_orders_payment",array(
-                        "orders_id "  => $orders_id,
+                        "orders_id "  => $orders_id
                     ),1,0)->result();
                     if(count($r4) > 0){
                         foreach ($r4 as $key4 => $val4) {
@@ -387,7 +387,7 @@ class transaction_process extends AdminController {
 
                     // SAVE ORDER TIMESTAMP
                     $r5 = $this->db->get_where("mt_orders_timestamp",array(
-                        "orders_id "  => $orders_id,
+                        "orders_id "  => $orders_id
                     ),1,0)->result();
                     if(count($r5) > 0){
                         foreach ($r5 as $key5 => $val5) {

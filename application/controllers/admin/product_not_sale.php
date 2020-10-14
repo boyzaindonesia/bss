@@ -118,23 +118,4 @@ class product_not_sale extends AdminController {
         $this->_v($this->folder_view.$this->prefix_view,$data);
     }
 
-    function set_hide_all_product(){
-        $data = array();
-
-        $id  = '';
-        $exp = '';
-        $data['data'] = array();
-        if(isset($_GET['id']) && $_GET['id']!=''){
-            $id = $_GET['id'];
-            $exp = explode("-", $id);
-            foreach ($exp as $key) {
-                $products = $this->db->get_where("mt_product",array(
-                    "product_id" => $key
-                ),1,0)->row();
-                $this->db->update("mt_product",array("product_show_id"=>0),array("product_id"=>$key));
-                set_last_date_product_setup();
-            }
-            redirect($this->own_link."?msg=".urlencode('Berhasil set not publish')."&type_msg=success");
-        }
-    }
 }
