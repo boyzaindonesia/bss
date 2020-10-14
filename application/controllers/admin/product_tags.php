@@ -195,7 +195,7 @@ class product_tags extends AdminController {
 					));
 		}
 
-		redirect($this->own_link."/view/".$id.'-'.changeEnUrl($_POST['product_tags_name'])."?msg=".urlencode('Save data success')."&type_msg=success");
+		redirect($this->own_link."/detail/".$id.'-'.changeEnUrl($_POST['product_tags_name'])."?msg=".urlencode('Save data success')."&type_msg=success");
 	}
 
 	function detail($id=''){
