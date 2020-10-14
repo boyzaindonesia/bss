@@ -4,7 +4,7 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-th-block table-dark datatable">
+        <table class="table table-th-block table-dark datatable-all">
             <colgroup>
                 <col width="1">
                 <col width="1">
