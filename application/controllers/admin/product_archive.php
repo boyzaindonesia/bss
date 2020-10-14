@@ -10,18 +10,18 @@ class product_archive extends AdminController {
         $this->DATA->table = "mt_product_archive";
         $this->folder_view = "product/";
         $this->prefix_view = strtolower($this->_getClass());
-        $this->load->model("mdl_product","M");
+        $this->load->model("mdl_product_archive","MA");
         $this->breadcrumb[] = array(
             "title"     => "Produk Arsip",
             "url"       => $this->own_link
         );
 
         $this->cat_search = array(
-            ''                                              => 'Semua Pencarian...',
-            'mt_product.product_name'                       => 'Judul',
-			'mt_product.product_name_simple'				=> 'Nama Singkat',
-            'mt_product.product_code'                       => 'Kode',
-            'mt_product_category.product_category_title'    => 'Kategori',
+            ''                                             => 'Semua Pencarian...',
+            'mt_product_archive.product_name'              => 'Judul',
+			'mt_product_archive.product_name_simple'	   => 'Nama Singkat',
+            'mt_product_archive.product_code'              => 'Kode',
+            'mt_product_archive.product_category_title'    => 'Kategori',
         );
 
         $this->user_id  = isset($this->jCfg['user']['id'])?$this->jCfg['user']['id']:'';
@@ -35,7 +35,7 @@ class product_archive extends AdminController {
             'date_start'=> '',
             'date_end'  => '',
             'status'    => '',
-            'order_by'  => 'mt_product.product_date_archive',
+            'order_by'  => 'mt_product_archive.product_date_archive',
             'order_dir' => 'desc',
             'filter'    => '40',
             'colum'     => '',
@@ -106,7 +106,7 @@ class product_archive extends AdminController {
             "param"               => $this->cat_search
         );
 
-        $this->data_table = $this->M->data_product_archive($par_filter);
+        $this->data_table = $this->MA->data_product_archive($par_filter);
         $data = $this->_data(array(
             "base_url"  => $this->own_link.'/index'
         ));

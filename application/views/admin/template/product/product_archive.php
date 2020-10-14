@@ -65,7 +65,6 @@
 
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">
-            <div class="btn btn-info btn-setnotpublish-multiple mr-5" data-url="<?php echo $own_links.'/set_hide_all_product' ?>"><i class="fa fa-pencil"></i> Set Not Publish ( 0 )</div>
             <div class="btn btn-danger btn-delete-multiple"><i class="fa fa-times"></i> Hapus ( 0 )</div>
         </div>
     </div>

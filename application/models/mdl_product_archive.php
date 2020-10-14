@@ -12,15 +12,15 @@ class mdl_product_archive extends CI_Model{
         $total = 0;
         /* table conditions */
 
-		$this->db->select('mt_product.*, mt_product.url as url_product, mt_product_category.*, mt_product_category.url as url_product_category, mt_product_detail.*');
-		$this->db->join("mt_product_category","mt_product_category.product_category_id = mt_product.product_category_id",'left');
-		$this->db->join("mt_product_detail","mt_product_detail.product_id = mt_product.product_id",'left');
+		$this->db->select('mt_product_archive.*, mt_product_archive.url as url_product, mt_product_category.*, mt_product_category.url as url_product_category, mt_product_archive_detail.*');
+		$this->db->join("mt_product_category","mt_product_category.product_category_id = mt_product_archive.product_category_id",'left');
+		$this->db->join("mt_product_archive_detail","mt_product_archive_detail.product_id = mt_product_archive.product_id",'left');
 
         /* where or like conditions */
         if( isset($p['product_istrash']) && $p['product_istrash'] != "" ){
-			$this->db->where("mt_product.product_istrash",$p['product_istrash']);
+			$this->db->where("mt_product_archive.product_istrash",$p['product_istrash']);
 		} else {
-			$this->db->where("mt_product.product_istrash",0);
+			$this->db->where("mt_product_archive.product_istrash",0);
 		}
 
 		if( isset($p['store_id']) && $p['store_id'] != "" ){
@@ -28,54 +28,44 @@ class mdl_product_archive extends CI_Model{
 		}
 
 		if( isset($p['product_id']) && $p['product_id'] != "" ){
-			$this->db->where("mt_product.product_id",$p['product_id']);
+			$this->db->where("mt_product_archive.product_id",$p['product_id']);
 		}
 
         if( isset($p['product_group_id']) && $p['product_group_id'] != "" ){
             if($p['product_group_id'] == "not_group"){
-                $this->db->where("mt_product.product_group_id","0");
+                $this->db->where("mt_product_archive.product_group_id","0");
             } else {
-                $this->db->where("mt_product.product_group_id",$p['product_group_id']);
+                $this->db->where("mt_product_archive.product_group_id",$p['product_group_id']);
             }
         }
 
-		if( isset($p['product_show_id']) && $p['product_show_id'] != "" ){
-			$this->db->where("mt_product.product_show_id",$p['product_show_id']);
-		}
-
 		if( isset($p['product_status_id']) && $p['product_status_id'] != "" ){
-			$this->db->where("mt_product_detail.product_status_id",$p['product_status_id']);
+			$this->db->where("mt_product_archive_detail.product_status_id",$p['product_status_id']);
 		}
 
 		if( isset($p['product_category_id']) && $p['product_category_id'] != "" ){
-			$this->db->where("mt_product.product_category_id",$p['product_category_id']);
+			$this->db->where("mt_product_archive.product_category_id",$p['product_category_id']);
 		}
 
         if(isset($p['product_awards_id']) && $p['product_awards_id'] != ''){
-            $this->db->where_in("mt_product.product_awards", $p['product_awards_id']);
+            $this->db->where_in("mt_product_archive.product_awards", $p['product_awards_id']);
         }
 
         if(isset($p['product_tags_id']) && $p['product_tags_id'] != ''){
-            $this->db->where_in("mt_product.product_tags", $p['product_tags_id']);
+            $this->db->where_in("mt_product_archive.product_tags", $p['product_tags_id']);
         }
 
         if( isset($p['product_brand_id']) && $p['product_brand_id'] != "" ){
-            $this->db->where("mt_product.product_brand_id",$p['product_brand_id']);
+            $this->db->where("mt_product_archive.product_brand_id",$p['product_brand_id']);
         }
 
-        if( isset($p['min_range']) && $p['min_range'] != "" ){
-            $this->db->where("( mt_product_detail.product_price_sale >= '".$p['min_range']."' )");
-        }
-        if( isset($p['max_range']) && $p['max_range'] != "" ){
-            $this->db->where("( mt_product_detail.product_price_sale <= '".$p['max_range']."' )");
-        }
 
         if( trim($p['date_end']) != "" ){
-            $this->db->where("( mt_product.product_date <= '".$p['date_end']." 23:59:59' )");
+            $this->db->where("( mt_product_archive.product_date <= '".$p['date_end']." 23:59:59' )");
         }
 
         if( trim($p['date_start'])!="" ){
-            $this->db->where("( mt_product.product_date >= '".$p['date_start']." 00:00:00' )");
+            $this->db->where("( mt_product_archive.product_date >= '".$p['date_start']." 00:00:00' )");
         }
         // dont modified....
         if( trim($p['colum'])=="" && trim($p['keyword']) != "" ){
@@ -106,12 +96,12 @@ class mdl_product_archive extends CI_Model{
             $order_dir = $p['order_dir'];
             $this->db->order_by($order_by,$order_dir);
         } else {
-            $this->db->order_by('mt_product.product_date_push','desc');
+            $this->db->order_by('mt_product_archive.product_date_archive','desc');
         }
 
-        $qry = $this->db->get('mt_product');
+        $qry = $this->db->get('mt_product_archive');
         if($count==FALSE){
-            $total = $this->data_product($p,TRUE);
+            $total = $this->data_product_archive($p,TRUE);
 
             $type_result = "fullresult";
             if(isset($p['type_result']) && $p['type_result'] != ""){
@@ -121,22 +111,6 @@ class mdl_product_archive extends CI_Model{
                 case 'list':
                     $isFull     = FALSE;
                     $isKey      = array("product_id","product_category_name","product_root_category_name","store_id","product_name","product_name_simple","product_code","product_awards","product_group_id","product_date","product_date_update","product_date_push","images_cover","url_product","product_price_buy","product_price_sale","product_price_discount","product_price_grosir","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","url_product_category","product_stock_copy");
-                    break;
-                case 'list_app':
-                    $isFull     = FALSE;
-                    $isKey      = array("product_id","product_category_name","store_id","product_name","product_name_simple","product_code","product_group_id","product_date","images_cover","product_price_buy","product_price_sale","product_price_discount","product_stock","product_show_id","product_show_name","product_status_id","product_status_name","varian_html","varian_text","product_stock_copy");
-                    break;
-                case 'list_app_detail':
-                    $isFull     = FALSE;
-                    $isKey      = array("product_id","product_category_name","store_id","product_name","product_name_simple","product_code","product_group_id","product_date","images_cover","product_price_buy","product_price_sale","product_price_discount","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","varian_html","varian_text","product_stock_copy");
-                    break;
-                case 'list_product_reseller':
-                    $isFull     = FALSE;
-                    $isKey      = array("product_id","product_name","product_code","product_group_id","product_date","images_cover","url_product","product_price_buy","product_price_sale","reseller_prices");
-                    break;
-                case 'front':
-                    $isFull     = FALSE;
-                    $isKey      = array("product_id","product_category_id","product_category_name","product_root_category_name","store_id","product_name","product_name_simple","product_code","product_group_id","product_date","product_date_update","product_date_push","images_cover","url_product","product_price_buy","product_price_sale","product_price_discount","product_price_grosir","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","product_images","product_description","product_lead","product_brand_id","product_brand_name","product_tags","url_product_category","product_view","product_sold","product_rating","product_review");
                     break;
                 default:
                     $isFull     = TRUE;
@@ -261,17 +235,17 @@ class mdl_product_archive extends CI_Model{
                             $result[$key]->varian_text  = $varian_text;
                         }
 
-                        if(in_array("product_description", $isKey) || $isFull){
-			                $product_lead        = NULL;
-			                $product_description = NULL;
-			                $get_ = get_product_description($val->product_id);
-			                foreach ($get_ as $key3 => $val3) {
-			                    $product_lead        = $val3->product_lead;
-			                    $product_description = $val3->product_description;
-			                }
-			                $result[$key]->product_lead        = $product_lead;
-			                $result[$key]->product_description = $product_description;
-			            }
+               //          if(in_array("product_description", $isKey) || $isFull){
+			            //     $product_lead        = NULL;
+			            //     $product_description = NULL;
+			            //     $get_ = get_product_description($val->product_id);
+			            //     foreach ($get_ as $key3 => $val3) {
+			            //         $product_lead        = $val3->product_lead;
+			            //         $product_description = $val3->product_description;
+			            //     }
+			            //     $result[$key]->product_lead        = $product_lead;
+			            //     $result[$key]->product_description = $product_description;
+			            // }
 
                         if(in_array("product_images", $isKey) || $isFull){
 			                $arr  = NULL;
