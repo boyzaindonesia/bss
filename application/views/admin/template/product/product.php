@@ -262,7 +262,7 @@
                                 <li><a href="<?php echo base_url().'admin/product/view/'.$r->product_id.'-'.changeEnUrl($r->product_name);?>">Lihat</a></li>
                                 <?php } ?>
                                 <?php if(check_action($links_table_item,'edit')){ ?>
-                                <li><a href="<?php echo base_url().'admin/product/edit/'.$r->product_id.'-'.changeEnUrl($r->product_name);?>">Edit</a></li>
+                                <li><a href="<?php echo base_url().'admin/product/edit/'.$r->product_id.'-'.changeEnUrl($r->product_name).'&next='.$own_links;?>">Edit</a></li>
                                 <?php } ?>
                                 <?php if(check_action($links_table_item,'delete')){ ?>
                                 <li><a href="<?php echo base_url().'admin/product/delete/'.$r->product_id.'-'.changeEnUrl($r->product_name);?>"onclick="return confirm('Ingin dihapus ?');" >Hapus</a></li>
