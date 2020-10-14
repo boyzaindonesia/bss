@@ -63,7 +63,7 @@
 
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">
-            <div class="btn btn-danger btn-delete-multiple"><i class="fa fa-times"></i> Hapus ( 0 )</div>
+            <div class="btn btn-danger btn-delete-multiple"><i class="fa fa-times"></i> Hapus Permanen ( 0 )</div>
         </div>
     </div>
 
@@ -76,6 +76,7 @@
                 <col width="1">
                 <col>
                 <col>
+                <col width="1">
                 <col width="1">
                 <col width="1">
                 <col width="1">
@@ -94,7 +95,8 @@
                     <th class="text-center">Kode</th>
                     <th class="nobr text-center">Harga</th>
                     <th class="nobr text-center">Kategori</th>
-                    <th class="nobr text-center">Tanggal</th>
+                    <th class="nobr text-center">Tanggal Dibuat</th>
+                    <th class="nobr text-center">Tanggal Dihapus</th>
                     <th class="nobr text-center">Action</th>
                 </tr>
             </thead>
@@ -115,15 +117,16 @@
                     </td>
                     <td class="nobr text-center"><?php echo $i ?>.</td>
                     <td class="magnific-popup-wrap">
-                        <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".get_cover_image_detail($r->product_id));?>"><img src="<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail($r->product_id));?>" class="avatar mfp-fade"></a>
+                        <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail($r->product_id));?>"><img src="<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail($r->product_id));?>" class="avatar mfp-fade"></a>
                     </td>
                     <td><?php echo $r->product_name ?></td>
-                    <td class="text-center"><?php echo $r->product_code ?></td>
+                    <td class="text-center"><?php echo ($r->product_code==""?"-":$r->product_code) ?></td>
                     <td class="nobr">
                         <span style="<?php echo ($r->product_price_discount!='0'?'text-decoration:line-through':'');?>"><?php echo convertRp($r->product_price_sale);?></span> <?php echo ($r->product_price_discount!='0'?'<span class="label label-danger">'.convertRp($r->product_price_discount).'</span>':'');?>
                     </td>
                     <td class="nobr"><?php echo $r->product_category_name ?></td>
-                    <td class="nobr text-center"><span class="label label-default"><?php echo convDateTimeTable($r->product_date_update) ?></span></td>
+                    <td class="nobr text-center"><span class="label label-success"><?php echo convDateTimeTable($r->product_date_update) ?></span></td>
+                    <td class="nobr text-center"><span class="label label-danger"><?php echo convDateTimeTable(get_product_date_istrash($r->product_id)) ?></span></td>
                     <td class="nobr text-center">
                         <?php if(check_action($links_table_item,'delete')){ ?>
                         <a href="<?php echo $url_parent.'/delete_permanent/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" onclick="return confirm('Are you sure delete ?');" class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Hapus"><i class="fa fa-times"></i></a>
@@ -167,7 +170,7 @@
     function calc_check_files(){
         var form1 = $('form#form1');
         var checked_files = form1.find('input[name="checked_files[]"]:checked');
-        $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus ( '+checked_files.length+' )');
+        $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus Permanen ( '+checked_files.length+' )');
     }
 
     $(document).ready(function() {

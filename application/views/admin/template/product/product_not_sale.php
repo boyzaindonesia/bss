@@ -3,15 +3,6 @@
 <div class="the-box no-border">
     <div class="btn-toolbar toolbar-btn-action">
         <?php isset($links)?getLinksBtn($links):'';?>
-
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-pencil"></i> Edit <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a class="btn-setnotpublish-multiple" data-url="<?php echo $own_links.'/set_hide_all_product' ?>">Not Publish Product</a></li>
-            </ul>
-        </div>
     </div>
 
     <div class="relative clearfix">
@@ -72,7 +63,14 @@
         </div>
     </div>
 
-    <form id="form1" action="" method="post" enctype="multipart/form-data">
+    <div class="btn-toolbar mb-10">
+        <div class="btn-group pull-right">
+            <div class="btn btn-info btn-setnotpublish-multiple mr-5" data-url="<?php echo $own_links.'/set_hide_all_product' ?>"><i class="fa fa-pencil"></i> Set Not Publish ( 0 )</div>
+            <div class="btn btn-danger btn-delete-multiple"><i class="fa fa-times"></i> Hapus ( 0 )</div>
+        </div>
+    </div>
+
+    <form id="form1" action="<?php echo $url_parent.'/delete_multi?next='.current_url(); ?>" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
         <table class="table table-th-block table-dark">
             <colgroup>
@@ -469,10 +467,8 @@
     function calc_check_files(){
         var form1 = $('form#form1');
         var checked_files = form1.find('input[name="checked_files[]"]:checked');
-        // $('.btn-cetak').html('<i class="fa fa-print"></i> Cetak Alamat ( '+checked_files.length+'/<?php echo count($data)?>  )');
-        // $('.btn-cetak-simple').html('<i class="fa fa-print"></i> Cetak Simple ( '+checked_files.length+'/<?php echo count($data)?> )');
-        // $('.btn-cetak-booking').html('<i class="fa fa-print"></i> Cetak Kode Booking ( '+checked_files.length+'/<?php echo count($data)?>  )');
-        // $('.btn-process-multiple').html('<i class="fa fa-send"></i> Proses Pesanan ( '+checked_files.length+'/<?php echo count($data)?> )');
+        $('.btn-setnotpublish-multiple').html('<i class="fa fa-pencil"></i> Set Not Publish ( '+checked_files.length+' )');
+        $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus ( '+checked_files.length+' )');
     }
 
     $(document).ready(function() {
@@ -507,6 +503,54 @@
                 });
 
                 window.location.replace(dataUrl+'?id='+thisId);
+            }
+        });
+
+        $(document).on('click', '.btn-delete-multiple', function(e){
+            e.preventDefault();
+            var form1 = $('form#form1');
+            var checked_files = form1.find('input[name="checked_files[]"]:checked');
+            if(checked_files.length == 0){
+                swal({
+                    title: "Error!",
+                    text: "Ceklis yang mau dihapus.",
+                    type: "error"
+                });
+            } else {
+                var swalText = "Yakin ingin menghapus?";
+                swal({
+                    title: 'Are you sure?',
+                    text: swalText,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success mr-5',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false
+                }).then(function () {
+                    swal({
+                        title: "Loading!",
+                        text: "",
+                        type: "loading",
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        customClass: 'swal2-small'
+                    });
+                    form1.submit();
+                }).catch(swal.noop);
+
+                // var thisId  = "";
+                // var thisVal = "";
+                // checked_files.each(function() {
+                //     thisVal = $(this).val();
+                //     thisId += (thisId=="" ? thisVal : "-" + thisVal);
+                // });
+
+                // var url   = $(this).attr('data-url');
+                // window.open(url+'?id='+thisId, '_blank');
             }
         });
 

@@ -1210,6 +1210,13 @@ function get_product_setup($id="1"){
 	),1,0)->row();
 	return $m;
 }
+function get_product_date_istrash($id=""){
+	$CI = getCI();
+	$m = $CI->db->get_where("mt_product",array(
+		"product_id" => $id
+	),1,0)->row();
+	return $m->product_date_istrash;
+}
 
 function set_last_date_product_setup($id="1"){
 	$CI = getCI();

@@ -453,7 +453,7 @@ class product extends AdminController {
 						'field' => 'image_filename',
 						'par'	=> array('image_id' => $idD)
 				));
-				$this->db->delete("mt_product_image",array('image_id' => $idD));
+				// $this->db->delete("mt_product_image",array('image_id' => $idD));
 				$i += 1;
 			}
 
@@ -519,7 +519,7 @@ class product extends AdminController {
                             'field' => 'image_filename',
                             'par'   => array('image_id' => $idD)
                     ));
-                    $this->db->delete("mt_product_image",array('image_id' => $idD));
+                    // $this->db->delete("mt_product_image",array('image_id' => $idD));
                     $i += 1;
                 }
 
