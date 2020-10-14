@@ -33,7 +33,7 @@
                     <td class="magnific-popup-wrap">
                         <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/tag/large/".$r->product_tags_image);?>"><img src="<?php echo get_image(base_url()."assets/collections/tag/large/".$r->product_tags_image);?>" class="avatar mfp-fade"></a>
                     </td>
-                    <td><?php echo $r->product_tags_name;?></td>
+                    <td><a href="<?php echo base_url().'tag/'.$r->url ?>" target="_blank"><?php echo $r->product_tags_name;?></a></td>
                     <td class="nobr text-center">
                         <a href="<?php echo $own_links.'/detail/'.$r->product_tags_id.'-'.changeEnUrl($r->product_tags_name)?>"><?php echo get_count_product_tagged($r->product_tags_id) ?></a>
                     </td>
