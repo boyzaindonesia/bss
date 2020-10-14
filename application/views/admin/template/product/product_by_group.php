@@ -67,7 +67,7 @@
                 foreach($data as $r){
             ?>
             <div class="product-list-item magnific-popup-wrap mb-10" data-id="<?php echo $r->id ?>">
-                <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".$r->images_cover);?>">
+                <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/large/".$r->images_cover);?>">
                     <div class="product-list-image" style="background-image: url(<?php echo get_image(base_url()."assets/collections/product/thumb/".$r->images_cover);?>);"></div>
                 </a>
                 <div class="product-list-content">

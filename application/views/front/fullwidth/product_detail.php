@@ -36,8 +36,8 @@
                                     <div class="product-image-slider product-image-gallery" id="product-image-gallery" data-pswp-uid="3">
                                         <?php foreach ($product->product_images as $key => $val) { ?>
                                         <div class="item">
-                                            <a class="product-gallery-item" href="<?php echo get_image(base_url()."assets/collections/product/small/".$val->images, 'no_image_product.jpg');?>" data-size="" data-med="<?php echo get_image(base_url()."assets/collections/product/small/".$val->images, 'no_image_product.jpg');?>" data-med-size="">
-                                                <img src="<?php echo get_image(base_url()."assets/collections/product/small/".$val->images, 'no_image_product.jpg');?>" alt="image <?php echo ($key + 1) ?>" />
+                                            <a class="product-gallery-item" href="<?php echo get_image(base_url()."assets/collections/product/large/".$val->images, 'no_image_product.jpg');?>" data-size="" data-med="<?php echo get_image(base_url()."assets/collections/product/large/".$val->images, 'no_image_product.jpg');?>" data-med-size="">
+                                                <img src="<?php echo get_image(base_url()."assets/collections/product/large/".$val->images, 'no_image_product.jpg');?>" alt="image <?php echo ($key + 1) ?>" />
                                             </a>
                                         </div>
                                         <?php } ?>

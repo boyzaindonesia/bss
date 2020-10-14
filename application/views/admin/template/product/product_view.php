@@ -7,10 +7,10 @@
             <div id="imagesync1" class="owl-carousel magnific-popup-wrap">
                 <?php if(count($get_image_detail)>0){ ?>
                     <?php foreach ($get_image_detail as $key) { ?>
-                    <div class="item full"><a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".$key->image_filename);?>"><img src="<?php echo get_image(base_url()."assets/collections/product/small/".$key->image_filename);?>" class="mfp-fade" alt="Image"></a></div>
+                    <div class="item full"><a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/large/".$key->image_filename);?>"><img src="<?php echo get_image(base_url()."assets/collections/product/large/".$key->image_filename);?>" class="mfp-fade" alt="Image"></a></div>
                     <?php } ?>
                 <?php } else { ?>
-                    <div class="item full"><img src="<?php echo get_image(base_url()."assets/collections/product/small/");?>" alt="Image"></div>
+                    <div class="item full"><img src="<?php echo get_image(base_url()."assets/collections/product/large/");?>" alt="Image"></div>
                 <?php } ?>
             </div>
             <?php if(count($get_image_detail)>0){ ?>

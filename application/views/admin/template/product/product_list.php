@@ -81,7 +81,7 @@
                 foreach($data as $r){
             ?>
             <div class="product-list-item magnific-popup-wrap" data-id="<?php echo $r->product_id ?>">
-                <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".get_cover_image_detail($r->product_id));?>">
+                <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/large/".get_cover_image_detail($r->product_id));?>">
                     <div class="product-list-image" style="background-image: url(<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail($r->product_id));?>);"></div>
                 </a>
                 <div class="hide">
@@ -91,7 +91,7 @@
                     foreach ($get_image_detail as $key) {
                         if($ii > 0){
                         ?>
-                    <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".$key->image_filename);?>">&nbsp;</a>
+                    <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/large/".$key->image_filename);?>">&nbsp;</a>
                     <?php
                         }
                         $ii += 1;
