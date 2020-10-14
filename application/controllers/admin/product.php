@@ -625,6 +625,16 @@ class product extends AdminController {
 				}
 			}
 
+            $notif = $this->db->get_where("mt_product_mp",array(
+                "product_id" => $id
+            ))->result();
+            if(count($notif) > 0){
+                foreach ($notif as $key => $value) {
+                    $this->DATA->table = "mt_product_mp";
+                    $this->DATA->_delete(array("product_mp_id"   => $value->product_mp_id),true);
+                }
+            }
+
 			$reseller_prices = $this->db->get_where("mt_reseller_prices",array(
 				"product_id" => $id
 			))->result();
@@ -731,6 +741,16 @@ class product extends AdminController {
                     foreach ($notif as $key => $value) {
                         $this->DATA->table = "mt_product_notif";
                         $this->DATA->_delete(array("notif_id"   => $value->notif_id),true);
+                    }
+                }
+
+                $notif = $this->db->get_where("mt_product_mp",array(
+                    "product_id" => $id
+                ))->result();
+                if(count($notif) > 0){
+                    foreach ($notif as $key => $value) {
+                        $this->DATA->table = "mt_product_mp";
+                        $this->DATA->_delete(array("product_mp_id"   => $value->product_mp_id),true);
                     }
                 }
 

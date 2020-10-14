@@ -1,18 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 include_once(APPPATH."libraries/AdminController.php");
-class product_not_sale extends AdminController {
+class product_archive extends AdminController {
     function __construct()
     {
         parent::__construct();
         $this->_set_action();
-        $this->_set_action(array("view","edit","delete"),"ITEM");
-        $this->_set_title( 'Produk Tidak Dijual' );
-        $this->DATA->table = "mt_product";
+        $this->_set_action(array("view","delete"),"ITEM");
+        $this->_set_title( 'Produk Arsip' );
+        $this->DATA->table = "mt_product_archive";
         $this->folder_view = "product/";
         $this->prefix_view = strtolower($this->_getClass());
         $this->load->model("mdl_product","M");
         $this->breadcrumb[] = array(
-            "title"     => "Produk Tidak Dijual",
+            "title"     => "Produk Arsip",
             "url"       => $this->own_link
         );
 
@@ -31,11 +31,11 @@ class product_not_sale extends AdminController {
     function _reset(){
         $this->jCfg['search'] = array(
             'class'     => $this->_getClass(),
-            'name'      => 'product_not_sale',
+            'name'      => 'product_archive',
             'date_start'=> '',
             'date_end'  => '',
             'status'    => '',
-            'order_by'  => 'mt_product.product_date_push',
+            'order_by'  => 'mt_product.product_date_archive',
             'order_dir' => 'desc',
             'filter'    => '40',
             'colum'     => '',
@@ -46,7 +46,7 @@ class product_not_sale extends AdminController {
 
     function index(){
         $hal = isset($this->jCfg['search']['name'])?$this->jCfg['search']['name']:"home";
-        if($hal != 'product_not_sale'){
+        if($hal != 'product_archive'){
             $this->_reset();
         }
 
@@ -93,8 +93,7 @@ class product_not_sale extends AdminController {
 
         $par_filter = array(
             "store_id"            => $this->store_id,
-            "product_show_id"     => "1",
-            "product_status_id"   => "3",
+            "product_istrash"     => "0",
             "type_result"         => "list",
             "date_start"          => $this->jCfg['search']['date_start'],
             "date_end"            => $this->jCfg['search']['date_end'],
@@ -107,34 +106,14 @@ class product_not_sale extends AdminController {
             "param"               => $this->cat_search
         );
 
-        $this->data_table = $this->M->data_product($par_filter);
+        $this->data_table = $this->M->data_product_archive($par_filter);
         $data = $this->_data(array(
             "base_url"  => $this->own_link.'/index'
         ));
 
-        $data['url'] = base_url()."admin/product";
-        $data['url_parent'] = base_url()."admin/product";
+        $data['url'] = base_url()."admin/product_archive";
+        $data['url_parent'] = base_url()."admin/product_archive";
 
         $this->_v($this->folder_view.$this->prefix_view,$data);
-    }
-
-    function set_hide_all_product(){
-        $data = array();
-
-        $id  = '';
-        $exp = '';
-        $data['data'] = array();
-        if(isset($_GET['id']) && $_GET['id']!=''){
-            $id = $_GET['id'];
-            $exp = explode("-", $id);
-            foreach ($exp as $key) {
-                $products = $this->db->get_where("mt_product",array(
-                    "product_id" => $key
-                ),1,0)->row();
-                $this->db->update("mt_product",array("product_show_id"=>0),array("product_id"=>$key));
-                set_last_date_product_setup();
-            }
-            redirect($this->own_link."?msg=".urlencode('Berhasil set not publish')."&type_msg=success");
-        }
     }
 }
