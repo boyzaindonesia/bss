@@ -92,7 +92,7 @@
             yuk join dengan cara Subscribe website kami.
         </p>
         <form class="form-newsletter" action="" method="post" autocomplete="off" enctype="multipart/form-data">
-            <input type="email" name="email" class="input-md" title="Masukan Email.." placeholder="example@butiksasha.com" required>
+            <input type="email" name="email" class="input-md" title="Masukan Email.." placeholder="example@gmail.com" required>
             <button type="submit" class="btn btn-md btn-color">Subscribe</button>
         </form>
         <label class="mt-20">
