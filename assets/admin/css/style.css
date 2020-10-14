@@ -2392,7 +2392,7 @@ MASONRY
 .the-box.mansory-inner .bg-dark			{padding:10px 5px;border-top: 4px solid #242A34;}
 .the-box.mansory-inner.with-padding		{padding: 10px;}
 
-.the-box.mansory-inner .item-image {position: relative;}
+.the-box.mansory-inner .item-image {position: relative; min-height: 50px;}
 .the-box.mansory-inner .item-image .btn{
 	position: absolute;
 	top: 0px;
