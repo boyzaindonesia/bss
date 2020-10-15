@@ -66,7 +66,7 @@
 
     <div class="btn-toolbar mb-10">
         <div class="btn-group pull-right">
-            <div class="btn btn-danger btn-delete-multiple" data-url="<?php echo $own_links.'/delete_permanent_multi?next='.current_url(); ?>"><i class="fa fa-times"></i> Hapus ( 0 )</div>
+            <div class="btn btn-danger btn-delete-multiple" data-url="<?php echo $own_links.'/delete_permanent_multi?next='.current_url(); ?>"><i class="fa fa-times"></i> Hapus Permanent ( 0 )</div>
         </div>
     </div>
 
@@ -94,12 +94,12 @@
                     <th class="nobr text-center">Images</th>
                     <th>Nama</th>
                     <th class="text-center">Kode</th>
+                    <th class="nobr text-center">Kategori</th>
                     <th class="nobr text-center">Harga Beli</th>
                     <th class="nobr text-center">Harga Jual</th>
-                    <th class="nobr text-center">Kategori</th>
                     <th class="nobr text-center">Terjual</th>
                     <th class="nobr text-center">Dibuat</th>
-                    <th class="nobr text-center">Archive</th>
+                    <th class="nobr text-center">Diarsipkan</th>
                     <th class="nobr text-center">Action</th>
                 </tr>
             </thead>
@@ -133,11 +133,11 @@
                     </td>
                     <td><?php echo $r->product_name ?></td>
                     <td class="text-center"><?php echo $r->product_code ?></td>
+                    <td class="nobr"><?php echo $r->product_category_name ?></td>
                     <td class="nobr"><?php echo convertRp($r->product_price_buy) ?></td>
                     <td class="nobr">
                         <span style="<?php echo ($r->product_price_discount!='0'?'text-decoration:line-through':'');?>"><?php echo convertRp($r->product_price_sale);?></span> <?php echo ($r->product_price_discount!='0'?'<span class="label label-danger">'.convertRp($r->product_price_discount).'</span>':'');?>
                     </td>
-                    <td class="nobr"><?php echo $r->product_category_name ?></td>
                     <td class="nobr text-center"><?php echo $r->product_sold ?></td>
                     <td class="nobr text-center"><span class="label label-success"><?php echo convDateTable($r->product_date_update) ?></span></td>
                     <td class="nobr text-center"><span class="label label-danger"><?php echo convDateTable($r->product_date_archive) ?></span></td>
@@ -146,7 +146,7 @@
                         <a href="<?php echo $own_links.'/view/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" class="btn btn-warning btn-xs" data-toggle="tooltip" data-original-title="Lihat"><i class="fa fa-share"></i></a>
                         <?php } ?>
                         <?php if(check_action($links_table_item,'delete')){ ?>
-                        <a href="<?php echo $own_links.'/delete_permanent/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" onclick="return confirm('Are you sure delete ?');" class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Hapus"><i class="fa fa-times"></i></a>
+                        <a href="<?php echo $own_links.'/delete_permanent/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" onclick="return confirm('Are you sure delete ?');" class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Hapus Permanent"><i class="fa fa-times"></i></a>
                         <?php } ?>
                     </td>
                 </tr>
@@ -198,7 +198,7 @@
     function calc_check_files(){
         var form1 = $('form#form1');
         var checked_files = form1.find('input[name="checked_files[]"]:checked');
-        $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus ( '+checked_files.length+' )');
+        $('.btn-delete-multiple').html('<i class="fa fa-times"></i> Hapus Permanent ( '+checked_files.length+' )');
     }
 
     $(document).ready(function() {
@@ -222,11 +222,11 @@
             if(checked_files.length == 0){
                 swal({
                     title: "Error!",
-                    text: "Ceklis yang mau dihapus.",
+                    text: "Ceklis yang mau dihapus permanent.",
                     type: "error"
                 });
             } else {
-                var swalText = "Yakin ingin menghapus?";
+                var swalText = "Yakin ingin menghapus permanent?";
                 swal({
                     title: 'Are you sure?',
                     text: swalText,

@@ -464,7 +464,7 @@ class product extends AdminController {
                             $product_detail_id = $val2->product_detail_id;
                             $product_detail = array();
                             foreach ($val2 as $k2 => $v2) { $product_detail[$k2] = $v2; }
-                            $product_detail['product_detail_id'] = NULL;
+                            // $product_detail['product_detail_id'] = NULL;
                             $this->DATA->table="mt_product_archive_detail";
                             $a2 = $this->_save_master($product_detail, array('product_detail_id' => $product_detail_id),'');
                             $this->db->delete("mt_product_detail",array('product_detail_id' => $product_detail_id));
@@ -480,7 +480,7 @@ class product extends AdminController {
                             $image_id = $val3->image_id;
                             $product_images = array();
                             foreach ($val3 as $k3 => $v3) { $product_images[$k3] = $v3; }
-                            $product_images['image_id'] = NULL;
+                            // $product_images['image_id'] = NULL;
                             $this->DATA->table="mt_product_archive_image";
                             $a3 = $this->_save_master($product_images, array('image_id' => $image_id),'');
 
@@ -503,7 +503,7 @@ class product extends AdminController {
                             $product_description_id = $val4->product_description_id;
                             $product_description = array();
                             foreach ($val4 as $k4 => $v4) { $product_description[$k4] = $v4; }
-                            $product_description['product_description_id'] = NULL;
+                            // $product_description['product_description_id'] = NULL;
                             $this->DATA->table="mt_product_archive_description";
                             $a4 = $this->_save_master($product_description, array('product_description_id' => $product_description_id),'');
                             $this->db->delete("mt_product_description",array('product_description_id' => $product_description_id));
