@@ -35,7 +35,7 @@ class product_not_sale extends AdminController {
             'date_start'=> '',
             'date_end'  => '',
             'status'    => '',
-            'order_by'  => 'mt_product.product_date_push',
+            'order_by'  => 'mt_product.product_date_update',
             'order_dir' => 'desc',
             'filter'    => '40',
             'colum'     => '',

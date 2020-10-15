@@ -98,7 +98,7 @@
                     <th class="nobr text-center">Harga</th>
                     <th class="nobr text-center">Kategori</th>
                     <th class="nobr text-center">Stok</th>
-                    <th class="nobr text-center">Tanggal</th>
+                    <th class="nobr text-center">Tanggal Update</th>
                     <th class="nobr text-center">Show</th>
                     <th class="nobr text-center">Action</th>
                 </tr>

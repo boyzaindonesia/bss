@@ -23,8 +23,8 @@
                                     <?php $order_by  = $this->jCfg['search']['order_by']; ?>
                                     <?php $order_dir = $this->jCfg['search']['order_dir']; ?>
                                     <select name="order_by" class="form-control" onchange="this.form.submit()">
-                                        <option value="product_date_update-desc" <?php echo ($order_by=='product_date_update'&&$order_dir=='desc'?'selected':'') ?> >Date: New to Old</option>
-                                        <option value="product_date_update-asc" <?php echo ($order_by=='product_date_update'&&$order_dir=='asc'?'selected':'') ?> >Date: Old to New</option>
+                                        <option value="product_date_archive-desc" <?php echo ($order_by=='product_date_archive'&&$order_dir=='desc'?'selected':'') ?> >Date: New to Old</option>
+                                        <option value="product_date_archive-asc" <?php echo ($order_by=='product_date_archive'&&$order_dir=='asc'?'selected':'') ?> >Date: Old to New</option>
                                         <option value="product_name-asc" <?php echo ($order_by=='product_name'&&$order_dir=='asc'?'selected':'') ?> >Name: A to Z</option>
                                         <option value="product_name-desc" <?php echo ($order_by=='product_name'&&$order_dir=='desc'?'selected':'') ?> >Name: Z to A</option>
                                         <option value="product_stock-desc" <?php echo ($order_by=='product_stock'&&$order_dir=='desc'?'selected':'') ?> >Stok: Terbanyak</option>
@@ -139,7 +139,7 @@
                         <span style="<?php echo ($r->product_price_discount!='0'?'text-decoration:line-through':'');?>"><?php echo convertRp($r->product_price_sale);?></span> <?php echo ($r->product_price_discount!='0'?'<span class="label label-danger">'.convertRp($r->product_price_discount).'</span>':'');?>
                     </td>
                     <td class="nobr text-center"><?php echo $r->product_sold ?></td>
-                    <td class="nobr text-center"><span class="label label-success"><?php echo convDateTable($r->product_date_update) ?></span></td>
+                    <td class="nobr text-center"><span class="label label-success"><?php echo convDateTable($r->product_date) ?></span></td>
                     <td class="nobr text-center"><span class="label label-danger"><?php echo convDateTable($r->product_date_archive) ?></span></td>
                     <td class="nobr">
                         <?php if(check_action($links_table_item,'view')){ ?>
