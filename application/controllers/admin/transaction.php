@@ -55,14 +55,14 @@ class transaction extends AdminController {
         );
         $this->_releaseSession();
     }
-    function _reset_backup(){
+    function _reset_archive(){
         $this->jCfg['search'] = array(
             'class'     => $this->_getClass(),
             'name'      => 'transaction',
             'date_start'=> '',
             'date_end'  => '',
             'status'    => '',
-            'order_by'  => 'mt_orders_bk.orders_date',
+            'order_by'  => 'mt_orders_archive.orders_date',
             'order_dir' => 'desc',
             'filter'    => '25',
             'colum'     => '',
@@ -680,22 +680,22 @@ class transaction extends AdminController {
         $this->_v($this->folder_view.$this->prefix_view,$data);
     }
 
-    function list_backup(){
+    function archive(){
         $this->cat_search = array(
             ''                                         => 'Semua Pencarian...',
-            'mt_orders_bk.orders_code'                    => 'No Order',
-            'mt_orders_bk.orders_invoice'                 => 'Invoice',
-            'mt_orders_bk.orders_source_invoice'          => 'Marketplace Invoice',
-            'mt_orders_shipping_bk.orders_shipping_username'  => 'Username',
-            'mt_orders_shipping_bk.orders_shipping_name'  => 'Nama Customer',
-            'mt_orders_shipping_bk.orders_shipping_email' => 'Email Customer',
-            'mt_orders_shipping_bk.orders_shipping_phone' => 'Hp Customer',
+            'mt_orders_archive.orders_code'                    => 'No Order',
+            'mt_orders_archive.orders_invoice'                 => 'Invoice',
+            'mt_orders_archive.orders_source_invoice'          => 'Marketplace Invoice',
+            'mt_orders_archive_shipping.orders_shipping_username'  => 'Username',
+            'mt_orders_archive_shipping.orders_shipping_name'  => 'Nama Customer',
+            'mt_orders_archive_shipping.orders_shipping_email' => 'Email Customer',
+            'mt_orders_archive_shipping.orders_shipping_phone' => 'Hp Customer',
         );
 
         $hal = isset($this->jCfg['search']['name'])?$this->jCfg['search']['name']:"home";
-        if($hal != 'orders_list_backup'){
-            $this->_reset_backup();
-            $this->jCfg['search']['name'] = 'orders_list_backup';
+        if($hal != 'orders_list_archive'){
+            $this->_reset_archive();
+            $this->jCfg['search']['name'] = 'orders_list_archive';
             $this->_releaseSession();
         }
 
@@ -813,16 +813,16 @@ class transaction extends AdminController {
             "param"               => $this->cat_search
         );
 
-        $this->data_table = $this->M->data_orders_backup($par_filter);
+        $this->data_table = $this->M->data_orders_archive($par_filter);
         // debugCode($this->data_table);
         $data = $this->_data(array(
-            "base_url"  => $this->own_link.'/list_backup'
+            "base_url"  => $this->own_link.'/archive'
         ));
 
-        $data['url']            = base_url()."admin/transaction/list_backup";
-        $data['url_form']       = base_url()."admin/transaction/list_backup";
+        $data['url']            = base_url()."admin/transaction/archive";
+        $data['url_form']       = base_url()."admin/transaction/archive";
         $data['tab']            = 'tab17';
-        $data['content_layout'] = $this->prefix_view."_list_backup.php";
+        $data['content_layout'] = $this->prefix_view."_archive.php";
         $this->_v($this->folder_view.$this->prefix_view,$data);
     }
 

@@ -21,9 +21,9 @@ class product extends AdminController {
 
 		$this->upload_path="./assets/collections/product/";
 		$this->upload_resize  = array(
-			array('name'	=> 'thumb','width'	=> 100, 'quality'	=> '90%'),
-            array('name'    => 'small','width'  => 350, 'quality'   => '100%'),
-			array('name'	=> 'large','width'	=> 800, 'quality'	=> '100%')
+			array('name'	=> 'thumb','width'	=> 100, 'quality'	=> '85%'),
+            array('name'    => 'small','width'  => 350, 'quality'   => '85%'),
+			array('name'	=> 'large','width'	=> 800, 'quality'	=> '85%')
 		);
 		$this->image_size_str = "Size: 800px x 800px";
 
@@ -483,6 +483,13 @@ class product extends AdminController {
                             $product_images['image_id'] = NULL;
                             $this->DATA->table="mt_product_archive_image";
                             $a3 = $this->_save_master($product_images, array('image_id' => $image_id),'');
+
+                            $this->DATA->table = "mt_product_image";
+                            $this->_delte_old_files_large_only(
+                                array(
+                                    'field' => 'image_filename',
+                                    'par'   => array('image_id' => $image_id)
+                            ));
                             $this->db->delete("mt_product_image",array('image_id' => $image_id));
                         }
                     }
@@ -1533,7 +1540,8 @@ class product extends AdminController {
 						'param'		=> array(
 										'field' => 'image_filename',
 										'par'	=> array('image_id' => $item_id )
-									)
+									),
+                        'del_without_thumb' => true
 					));
 				}
 			}

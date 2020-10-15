@@ -120,7 +120,7 @@ class mdl_product extends CI_Model{
             switch ($p['type_result']) {
                 case 'list':
                     $isFull     = FALSE;
-                    $isKey      = array("product_id","product_category_name","product_root_category_name","store_id","product_name","product_name_simple","product_code","product_awards","product_group_id","product_date","product_date_update","product_date_push","images_cover","url_product","product_price_buy","product_price_sale","product_price_discount","product_price_grosir","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","url_product_category","product_stock_copy");
+                    $isKey      = array("product_id","product_category_name","product_root_category_name","store_id","product_name","product_name_simple","product_code","product_awards","product_group_id","product_date","product_date_update","product_date_push","images_cover","url_product","product_price_buy","product_price_sale","product_price_discount","product_price_grosir","product_sold","product_stock","product_stock_detail","product_show_id","product_show_name","product_status_id","product_status_name","url_product_category","product_stock_copy");
                     break;
                 case 'list_app':
                     $isFull     = FALSE;
@@ -442,7 +442,7 @@ class mdl_product extends CI_Model{
                     break;
                 case 'list_desktop':
                     $isFull     = FALSE;
-                    $isKey      = array("product_group_id","product_group_name","product_group_date","product_group_item","item_html","varian_text","varian_date_stock","array_product_id");
+                    $isKey      = array("product_group_id","product_group_name","product_group_date","product_group_item","product_sold","item_html","varian_text","varian_date_stock","array_product_id");
                     break;
                 default:
                     $isFull     = TRUE;
@@ -468,6 +468,7 @@ class mdl_product extends CI_Model{
                 }
                 $result[$iKey]->isGroup = 1;
 
+                $product_sold = 0;
                 if(in_array("product_group_item", $isKey) || $isFull){
                     $total_stock = 0;
                     $product_id  = "";
@@ -519,6 +520,7 @@ class mdl_product extends CI_Model{
                             $last_code = $val3->product_code;
                             $allcode .= ($allcode == ""?"":" - ").$val3->product_code;
                             $day_on_going = xTimeAgo($val3->product_date, $timestamp, "d");
+                            $product_sold += $val3->product_sold;
 
                             if(in_array("varian", $isKey) || $isFull){
                                 $varian = NULL;
@@ -673,6 +675,10 @@ class mdl_product extends CI_Model{
                     $result[$iKey]->allcode = $allcode;
                 }
 
+                if(in_array("product_sold", $isKey) || $isFull){
+                    $result[$iKey]->product_sold = $product_sold;
+                }
+
                 $iKey += 1;
             }
 
@@ -694,6 +700,10 @@ class mdl_product extends CI_Model{
 
                 $day_on_going = xTimeAgo($val2->product_date, $timestamp, "d");
                 $result[$iKey]->day_on_going = $day_on_going;
+
+                if(in_array("product_sold", $isKey) || $isFull){
+                    $result[$iKey]->product_sold = $val2->product_sold;
+                }
 
                 if(in_array("product_group_item", $isKey) || $isFull){
                     $arr = NULL;

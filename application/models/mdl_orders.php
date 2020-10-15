@@ -241,46 +241,46 @@ class mdl_orders extends CI_Model{
         }
     }
 
-    function data_orders_backup($p=array(),$count=FALSE){
+    function data_orders_archive($p=array(),$count=FALSE){
         $total = 0;
         /* table conditions */
 
         if(isset($p['get_all']) && $p['get_all'] == TRUE){
             if(trim($p['colum'])=="" && trim($p['keyword']) != ""){
-                $this->db->select('mt_orders_bk.*, mt_orders_shipping_bk.*');
-                $this->db->join("mt_orders_bk","mt_orders_bk.orders_id = mt_orders_shipping_bk.orders_id",'left');
+                $this->db->select('mt_orders_archive.*, mt_orders_archive_shipping.*');
+                $this->db->join("mt_orders_archive","mt_orders_archive.orders_id = mt_orders_archive_shipping.orders_id",'left');
             } else {
-                $this->db->select('mt_orders_bk.*');
+                $this->db->select('mt_orders_archive.*');
             }
         } else {
-            $this->db->select('mt_orders_bk.*, mt_orders_shipping_bk.*');
-            $this->db->join("mt_orders_shipping_bk","mt_orders_shipping_bk.orders_id = mt_orders_bk.orders_id",'left');
-            // $this->db->join("mt_orders_payment_bk","mt_orders_payment_bk.orders_id = mt_orders_bk.orders_id",'left');
+            $this->db->select('mt_orders_archive.*, mt_orders_archive_shipping.*');
+            $this->db->join("mt_orders_archive_shipping","mt_orders_archive_shipping.orders_id = mt_orders_archive.orders_id",'left');
+            // $this->db->join("mt_orders_archive_payment","mt_orders_archive_payment.orders_id = mt_orders_archive.orders_id",'left');
         }
 
         /* where or like conditions */
         if( isset($p['orders_id']) && $p['orders_id'] != "" ){
-            $this->db->where("mt_orders_bk.orders_id",$p['orders_id']);
+            $this->db->where("mt_orders_archive.orders_id",$p['orders_id']);
         }
 
         if( isset($p['orders_istrash']) && $p['orders_istrash'] != ""){
-            $this->db->where("mt_orders_bk.orders_istrash",$p['orders_istrash']);
+            $this->db->where("mt_orders_archive.orders_istrash",$p['orders_istrash']);
         } else {
-            $this->db->where("mt_orders_bk.orders_istrash",0);
+            $this->db->where("mt_orders_archive.orders_istrash",0);
         }
 
         if( isset($p['store_id']) && $p['store_id'] != "" ){
-            $this->db->where("mt_orders_bk.store_id",$p['store_id']);
+            $this->db->where("mt_orders_archive.store_id",$p['store_id']);
         } else {
-            $this->db->where("mt_orders_bk.store_id",1);
+            $this->db->where("mt_orders_archive.store_id",1);
         }
 
         if( isset($p['orders_print']) && $p['orders_print'] != "" ){
-            $this->db->where("mt_orders_bk.orders_print",$p['orders_print']);
+            $this->db->where("mt_orders_archive.orders_print",$p['orders_print']);
         }
 
         if( isset($p['orders_source_invoice']) && $p['orders_source_invoice'] != "" ){
-            $this->db->where("mt_orders_bk.orders_source_invoice",$p['orders_source_invoice']);
+            $this->db->where("mt_orders_archive.orders_source_invoice",$p['orders_source_invoice']);
         }
 
         if( isset($p['orders_status']) && $p['orders_status'] != "" ){
@@ -289,8 +289,8 @@ class mdl_orders extends CI_Model{
             foreach ($exp as $n) {
                 $arrStatus[] = $n;
             }
-            $this->db->where_in("mt_orders_bk.orders_status", $arrStatus);
-            // $this->db->where("mt_orders_bk.orders_status",$p['orders_status']);
+            $this->db->where_in("mt_orders_archive.orders_status", $arrStatus);
+            // $this->db->where("mt_orders_archive.orders_status",$p['orders_status']);
         }
 
         if( isset($p['orders_source_id']) && $p['orders_source_id'] != "" ){
@@ -299,9 +299,9 @@ class mdl_orders extends CI_Model{
             foreach ($exp as $n) {
                 $arrSource[] = $n;
             }
-            $this->db->where_in("mt_orders_bk.orders_source_id", $arrSource);
-            // $this->db->where("mt_orders_bk.orders_source_id",$p['orders_source_id']);
-            // $this->db->where_in("mt_orders_bk.orders_source_id", array('1'));
+            $this->db->where_in("mt_orders_archive.orders_source_id", $arrSource);
+            // $this->db->where("mt_orders_archive.orders_source_id",$p['orders_source_id']);
+            // $this->db->where_in("mt_orders_archive.orders_source_id", array('1'));
         }
         if( isset($p['orders_courier_id']) && $p['orders_courier_id'] != "" ){
             $arrCourier = array();
@@ -310,7 +310,7 @@ class mdl_orders extends CI_Model{
             foreach ($exp as $n) {
                 $arrCourier[] = $n;
             }
-            $this->db->where_in("mt_orders_bk.orders_courier_id", $arrCourier);
+            $this->db->where_in("mt_orders_archive.orders_courier_id", $arrCourier);
         }
         if( isset($p['orders_claim_status']) && $p['orders_claim_status'] != "" ){
             $arrClaim = array();
@@ -318,19 +318,19 @@ class mdl_orders extends CI_Model{
             foreach ($exp as $n) {
                 $arrClaim[] = $n;
             }
-            $this->db->where_in("mt_orders_bk.orders_claim_status", $arrClaim);
+            $this->db->where_in("mt_orders_archive.orders_claim_status", $arrClaim);
         }
 
         if( isset($p['orders_product_detail']) && $p['orders_product_detail'] != "" ){
-            $this->db->where("mt_orders_bk.orders_product_detail",$p['orders_product_detail']);
+            $this->db->where("mt_orders_archive.orders_product_detail",$p['orders_product_detail']);
         }
 
         if( trim($p['date_end']) != "" ){
-            $this->db->where("( mt_orders_bk.orders_date <= '".$p['date_end']." 23:59:59' )");
+            $this->db->where("( mt_orders_archive.orders_date <= '".$p['date_end']." 23:59:59' )");
         }
 
         if( trim($p['date_start'])!="" ){
-            $this->db->where("( mt_orders_bk.orders_date >= '".$p['date_start']." 00:00:00' )");
+            $this->db->where("( mt_orders_archive.orders_date >= '".$p['date_start']." 00:00:00' )");
         }
         // dont modified....
         if( trim($p['colum'])=="" && trim($p['keyword']) != "" ){
@@ -361,17 +361,17 @@ class mdl_orders extends CI_Model{
             $order_dir = $p['order_dir'];
             $this->db->order_by($order_by,$order_dir);
         } else {
-            $this->db->order_by('mt_orders_bk.orders_date','desc');
+            $this->db->order_by('mt_orders_archive.orders_date','desc');
         }
 
         if( trim($p['colum'])=="" && trim($p['keyword']) != "" ){
-            $qry = $this->db->get('mt_orders_shipping_bk');
+            $qry = $this->db->get('mt_orders_archive_shipping');
         } else {
-            $qry = $this->db->get('mt_orders_bk');
+            $qry = $this->db->get('mt_orders_archive');
         }
 
         if($count==FALSE){
-            $total = $this->data_orders_backup($p,TRUE);
+            $total = $this->data_orders_archive($p,TRUE);
 
             $type_result = "fullresult";
             if(isset($p['type_result']) && $p['type_result'] != ""){
@@ -400,7 +400,7 @@ class mdl_orders extends CI_Model{
 
                         if(isset($p['get_all']) && $p['get_all'] == TRUE){
                             if(trim($p['colum'])!=""|| trim($p['keyword']) == ""){
-                                $m3 = $this->db->get_where("mt_orders_shipping_bk",array(
+                                $m3 = $this->db->get_where("mt_orders_archive_shipping",array(
                                     "orders_id" => $val->orders_id
                                 ),1,0)->row();
                                 foreach ($m3 as $key3 => $val3) {
@@ -418,7 +418,7 @@ class mdl_orders extends CI_Model{
                         $total_qty    = 0;
                         if(in_array("orders_detail", $isKey) || $isFull){
                             $arrDetail    = array();
-                            $ordersDetail = $this->db->order_by("orders_detail_id","asc")->get_where("mt_orders_detail_bk",array(
+                            $ordersDetail = $this->db->order_by("orders_detail_id","asc")->get_where("mt_orders_archive_detail",array(
                                 "orders_id" => $val->orders_id
                             ))->result();
                             foreach ($ordersDetail as $key4 => $val4) {

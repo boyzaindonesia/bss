@@ -245,6 +245,7 @@ class mdl_transaction_detail_product extends CI_Model{
                                 );
                                 $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
+                                update_product_sold($product_id, 1, 'plus');
                                 writeLog(array(
                                     'log_user_type'     => "1", // Admin
                                     'log_user_id'       => $user_id,
@@ -341,6 +342,7 @@ class mdl_transaction_detail_product extends CI_Model{
                             );
                             $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
+                            update_product_sold($product_id, 1, 'plus');
                             writeLog(array(
                                 'log_user_type'     => "1", // Admin
                                 'log_user_id'       => $user_id,
@@ -654,6 +656,7 @@ class mdl_transaction_detail_product extends CI_Model{
                         }
                         $this->db->update("mt_product_detail",$data_detail,array("product_detail_id"=>$m2->product_detail_id));
 
+                        update_product_sold($product_id, $orders_qty, 'minus');
                     }
 
                     $this->db->update("mt_orders_detail",$data_orders_detail,array("orders_detail_id"=>$val1->orders_detail_id));
@@ -682,7 +685,7 @@ class mdl_transaction_detail_product extends CI_Model{
             );
     }
 
-    function data_transaction_detail_product_backup($p=array()){
+    function data_transaction_detail_product_archive($p=array()){
         $count_list = 0;
         $count_item = 0;
         $cart_list  = "";
@@ -690,13 +693,13 @@ class mdl_transaction_detail_product extends CI_Model{
         $user_id    = $p['user_id'];
         $store_id   = $p['store_id'];
         $orders_id  = $p['orders_id'];
-        $r = $this->db->get_where("mt_orders_bk",array(
+        $r = $this->db->get_where("mt_orders_archive",array(
             'orders_id '    => $orders_id,
             'store_id '     => $store_id
         ),1,0)->row();
         if(count($r)){
-            $detail   = get_orders_detail_bk($r->orders_id);
-            $shipping = get_detail_orders_shipping_bk($r->orders_id);
+            $detail   = get_orders_detail_archive($r->orders_id);
+            $shipping = get_detail_orders_shipping_archive($r->orders_id);
             foreach ($detail as $key2 => $val2) {
                 $count_list += 1;
 

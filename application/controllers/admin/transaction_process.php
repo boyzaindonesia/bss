@@ -320,7 +320,7 @@ class transaction_process extends AdminController {
         exit();
     }
 
-    function move_to_backup(){
+    function move_to_archive(){
         $data = array();
         $data['err']    = true;
         $data['msg']    = '';
@@ -340,7 +340,7 @@ class transaction_process extends AdminController {
 
                     // SAVE ORDER
                     foreach ($val as $k => $v) { $orders[$k] = $v; }
-                    $this->DATA->table="mt_orders_bk";
+                    $this->DATA->table="mt_orders_archive";
                     $a = $this->_save_master($orders, array('orders_id' => $orders_id),'');
 
                     // SAVE ORDER DETAIL
@@ -351,7 +351,7 @@ class transaction_process extends AdminController {
                         foreach ($r2 as $key2 => $val2) {
                             $orders_detail_id = $val2->orders_detail_id;
                             foreach ($val2 as $k2 => $v2) { $orders_detail[$k2] = $v2; }
-                            $this->DATA->table="mt_orders_detail_bk";
+                            $this->DATA->table="mt_orders_archive_detail";
                             $a2 = $this->_save_master($orders_detail, array('orders_detail_id' => $orders_detail_id),'');
                             $this->db->delete("mt_orders_detail",array('orders_detail_id' => $orders_detail_id));
                         }
@@ -365,7 +365,7 @@ class transaction_process extends AdminController {
                         foreach ($r3 as $key3 => $val3) {
                             $orders_shipping_id = $val3->orders_shipping_id;
                             foreach ($val3 as $k3 => $v3) { $orders_shipping[$k3] = $v3; }
-                            $this->DATA->table="mt_orders_shipping_bk";
+                            $this->DATA->table="mt_orders_archive_shipping";
                             $a3 = $this->_save_master($orders_shipping, array('orders_shipping_id' => $orders_shipping_id),'');
                             $this->db->delete("mt_orders_shipping",array('orders_shipping_id' => $orders_shipping_id));
                         }
@@ -379,7 +379,7 @@ class transaction_process extends AdminController {
                         foreach ($r4 as $key4 => $val4) {
                             $orders_payment_id = $val4->orders_payment_id;
                             foreach ($val4 as $k4 => $v4) { $orders_payment[$k4] = $v4; }
-                            $this->DATA->table="mt_orders_payment_bk";
+                            $this->DATA->table="mt_orders_archive_payment";
                             $a4 = $this->_save_master($orders_payment, array('orders_payment_id' => $orders_payment_id),'');
                             $this->db->delete("mt_orders_payment",array('orders_payment_id' => $orders_payment_id));
                         }
@@ -393,7 +393,7 @@ class transaction_process extends AdminController {
                         foreach ($r5 as $key5 => $val5) {
                             $orders_timestamp_id = $val5->orders_timestamp_id;
                             foreach ($val5 as $k5 => $v5) { $orders_timestamp[$k5] = $v5; }
-                            $this->DATA->table="mt_orders_timestamp_bk";
+                            $this->DATA->table="mt_orders_archive_timestamp";
                             $a5 = $this->_save_master($orders_timestamp, array('orders_timestamp_id' => $orders_timestamp_id),'');
                             $this->db->delete("mt_orders_timestamp",array('orders_timestamp_id' => $orders_timestamp_id));
                         }
@@ -404,7 +404,7 @@ class transaction_process extends AdminController {
                 }
 
                 $data['err'] = false;
-                $data['msg'] = 'Berhasil pindah ke backup..';
+                $data['msg'] = 'Berhasil pindah ke arsip..';
             } else {
                 $data['err'] = false;
                 $data['msg'] = 'Data kosong...';
@@ -415,9 +415,9 @@ class transaction_process extends AdminController {
         exit();
     }
 
-    function copy_backup_to_table_primary(){ // JANGAN DIBUANG
-        echo 'Begin backup to table primary<br>';
-        $r = $this->db->order_by("orders_id", "asc")->get_where("mt_orders_bk2",array(
+    function copy_archive_to_table_primary(){ // JANGAN DIBUANG
+        echo 'Begin archive to table primary<br>';
+        $r = $this->db->order_by("orders_id", "asc")->get_where("mt_orders_archive2",array(
             "orders_status <"  => 8,
             "orders_istrash"   => 0
         ),500,0)->result();
@@ -436,7 +436,7 @@ class transaction_process extends AdminController {
                 $a = $this->_save_master($orders, array('orders_id' => $orders_id),'');
 
                 // SAVE ORDER DETAIL
-                $r2 = $this->db->get_where("mt_orders_detail_bk2",array(
+                $r2 = $this->db->get_where("mt_orders_archive_detail2",array(
                     "orders_id "  => $orders_id,
                 ))->result();
                 if(count($r2) > 0){
@@ -445,12 +445,12 @@ class transaction_process extends AdminController {
                         foreach ($val2 as $k2 => $v2) { $orders_detail[$k2] = $v2; }
                         $this->DATA->table="mt_orders_detail";
                         $a2 = $this->_save_master($orders_detail, array('orders_detail_id' => $orders_detail_id),'');
-                        $this->db->delete("mt_orders_detail_bk2",array('orders_detail_id' => $orders_detail_id));
+                        $this->db->delete("mt_orders_archive_detail2",array('orders_detail_id' => $orders_detail_id));
                     }
                 }
 
                 // SAVE ORDER SHIPPING
-                $r3 = $this->db->get_where("mt_orders_shipping_bk2",array(
+                $r3 = $this->db->get_where("mt_orders_archive_shipping2",array(
                     "orders_id "  => $orders_id,
                 ),1,0)->result();
                 if(count($r3) > 0){
@@ -459,12 +459,12 @@ class transaction_process extends AdminController {
                         foreach ($val3 as $k3 => $v3) { $orders_shipping[$k3] = $v3; }
                         $this->DATA->table="mt_orders_shipping";
                         $a3 = $this->_save_master($orders_shipping, array('orders_shipping_id' => $orders_shipping_id),'');
-                        $this->db->delete("mt_orders_shipping_bk2",array('orders_shipping_id' => $orders_shipping_id));
+                        $this->db->delete("mt_orders_archive_shipping2",array('orders_shipping_id' => $orders_shipping_id));
                     }
                 }
 
                 // SAVE ORDER PAYMENT
-                $r4 = $this->db->get_where("mt_orders_payment_bk2",array(
+                $r4 = $this->db->get_where("mt_orders_archive_payment2",array(
                     "orders_id "  => $orders_id,
                 ),1,0)->result();
                 if(count($r4) > 0){
@@ -473,12 +473,12 @@ class transaction_process extends AdminController {
                         foreach ($val4 as $k4 => $v4) { $orders_payment[$k4] = $v4; }
                         $this->DATA->table="mt_orders_payment";
                         $a4 = $this->_save_master($orders_payment, array('orders_payment_id' => $orders_payment_id),'');
-                        $this->db->delete("mt_orders_payment_bk2",array('orders_payment_id' => $orders_payment_id));
+                        $this->db->delete("mt_orders_archive_payment2",array('orders_payment_id' => $orders_payment_id));
                     }
                 }
 
                 // SAVE ORDER TIMESTAMP
-                $r5 = $this->db->get_where("mt_orders_timestamp_bk2",array(
+                $r5 = $this->db->get_where("mt_orders_archive_timestamp2",array(
                     "orders_id "  => $orders_id,
                 ),1,0)->result();
                 if(count($r5) > 0){
@@ -487,11 +487,11 @@ class transaction_process extends AdminController {
                         foreach ($val5 as $k5 => $v5) { $orders_timestamp[$k5] = $v5; }
                         $this->DATA->table="mt_orders_timestamp";
                         $a5 = $this->_save_master($orders_timestamp, array('orders_timestamp_id' => $orders_timestamp_id),'');
-                        $this->db->delete("mt_orders_timestamp_bk2",array('orders_timestamp_id' => $orders_timestamp_id));
+                        $this->db->delete("mt_orders_archive_timestamp2",array('orders_timestamp_id' => $orders_timestamp_id));
                     }
                 }
 
-                $this->db->delete("mt_orders_bk2",array('orders_id' => $orders_id));
+                $this->db->delete("mt_orders_archive2",array('orders_id' => $orders_id));
                 echo $orders_id."<br>";
             }
         }

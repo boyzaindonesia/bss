@@ -85,6 +85,7 @@
                 <col width="1">
                 <col width="1">
                 <col width="1">
+                <col width="1">
             </colgroup>
             <thead>
                 <tr>
@@ -93,10 +94,11 @@
                     <th class="nobr text-center">Images</th>
                     <th>Nama</th>
                     <th class="text-center">Kode</th>
-                    <th class="nobr text-center">Harga</th>
+                    <th class="nobr text-center">Harga Beli</th>
+                    <th class="nobr text-center">Harga Jual</th>
                     <th class="nobr text-center">Kategori</th>
-                    <th class="nobr text-center">Stok</th>
-                    <th class="nobr text-center">Tanggal</th>
+                    <th class="nobr text-center">Terjual</th>
+                    <th class="nobr text-center">Dibuat</th>
                     <th class="nobr text-center">Archive</th>
                     <th class="nobr text-center">Action</th>
                 </tr>
@@ -117,7 +119,7 @@
                         <a class="zooming" href="<?php echo get_image(base_url()."assets/collections/product/small/".get_cover_image_detail_archive($r->product_id));?>"><img src="<?php echo get_image(base_url()."assets/collections/product/thumb/".get_cover_image_detail_archive($r->product_id));?>" class="avatar mfp-fade"></a>
                         <div class="hide">
                             <?php
-                            $get_image_detail = get_image_detail($r->product_id);
+                            $get_image_detail = get_image_detail_archive($r->product_id);
                             $ii = 0;
                             foreach ($get_image_detail as $key) {
                                 if($ii > 0){
@@ -131,13 +133,14 @@
                     </td>
                     <td><?php echo $r->product_name ?></td>
                     <td class="text-center"><?php echo $r->product_code ?></td>
+                    <td class="nobr"><?php echo convertRp($r->product_price_buy) ?></td>
                     <td class="nobr">
                         <span style="<?php echo ($r->product_price_discount!='0'?'text-decoration:line-through':'');?>"><?php echo convertRp($r->product_price_sale);?></span> <?php echo ($r->product_price_discount!='0'?'<span class="label label-danger">'.convertRp($r->product_price_discount).'</span>':'');?>
                     </td>
                     <td class="nobr"><?php echo $r->product_category_name ?></td>
-                    <td class="nobr text-center"><?php echo $r->product_stock ?></td>
-                    <td class="nobr text-center"><span class="label label-success"><?php echo convDateTimeTable($r->product_date_update) ?></span></td>
-                    <td class="nobr text-center"><span class="label label-danger"><?php echo convDateTimeTable($r->product_date_archive) ?></span></td>
+                    <td class="nobr text-center"><?php echo $r->product_sold ?></td>
+                    <td class="nobr text-center"><span class="label label-success"><?php echo convDateTable($r->product_date_update) ?></span></td>
+                    <td class="nobr text-center"><span class="label label-danger"><?php echo convDateTable($r->product_date_archive) ?></span></td>
                     <td class="nobr">
                         <?php if(check_action($links_table_item,'view')){ ?>
                         <a href="<?php echo $own_links.'/view/'.$r->product_id.'-'.changeEnUrl($r->product_name).'?next='.current_url();?>" class="btn btn-warning btn-xs" data-toggle="tooltip" data-original-title="Lihat"><i class="fa fa-share"></i></a>

@@ -2753,47 +2753,47 @@ function get_detail_orders_timestamp($id=''){
 	),1,0)->row();
 	return $m;
 }
-function get_orders_bk($store_id=''){
+function get_orders_archive($store_id=''){
 	$CI = getCI();
-	$m = $CI->db->order_by("orders_date", "desc")->get_where("mt_orders_bk",array(
+	$m = $CI->db->order_by("orders_date", "desc")->get_where("mt_orders_archive",array(
 		"store_id"			=> $store_id,
 		"orders_istrash"	=> 0
 	))->result();
 	return $m;
 }
-function get_detail_orders_bk($store_id='',$id=''){
+function get_detail_orders_archive($store_id='',$id=''){
 	$CI = getCI();
-	$m = $CI->db->order_by("orders_date", "desc")->get_where("mt_orders_bk",array(
+	$m = $CI->db->order_by("orders_date", "desc")->get_where("mt_orders_archive",array(
 		"store_id"			=> $store_id,
 		"orders_status"		=> $id,
 		"orders_istrash"	=> 0
 	))->result();
 	return $m;
 }
-function get_orders_detail_bk($id=''){
+function get_orders_detail_archive($id=''){
 	$CI = getCI();
-	$m = $CI->db->order_by("orders_detail_id", "asc")->get_where("mt_orders_detail_bk",array(
+	$m = $CI->db->order_by("orders_detail_id", "asc")->get_where("mt_orders_archive_detail",array(
 		"orders_id"		=> $id
 	))->result();
 	return $m;
 }
-function get_detail_orders_payment_bk($id=''){
+function get_detail_orders_payment_archive($id=''){
 	$CI = getCI();
-	$m = $CI->db->get_where("mt_orders_payment_bk",array(
+	$m = $CI->db->get_where("mt_orders_archive_payment",array(
 		"orders_id"		=> $id
 	),1,0)->row();
 	return $m;
 }
-function get_detail_orders_shipping_bk($id=''){
+function get_detail_orders_shipping_archive($id=''){
 	$CI = getCI();
-	$m = $CI->db->get_where("mt_orders_shipping_bk",array(
+	$m = $CI->db->get_where("mt_orders_archive_shipping",array(
 		"orders_id"		=> $id
 	),1,0)->row();
 	return $m;
 }
-function get_detail_orders_timestamp_bk($id=''){
+function get_detail_orders_timestamp_archive($id=''){
 	$CI = getCI();
-	$m = $CI->db->get_where("mt_orders_timestamp_bk",array(
+	$m = $CI->db->get_where("mt_orders_archive_timestamp",array(
 		"orders_id"		=> $id
 	),1,0)->row();
 	return $m;

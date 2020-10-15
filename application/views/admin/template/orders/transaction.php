@@ -71,9 +71,9 @@
     <li class="<?php echo ($tab=='tab'.$id?'active':'') ?>"><a href="<?php echo $own_links.'/'.$url ?>"><?php echo $name ?></a></li>
     <?php } ?>
     <li class="<?php echo ($tab=='tab8'?'active':'') ?>"><a href="<?php echo $own_links ?>/list_all">List Transaksi</a></li>
-    <li class="<?php echo ($tab=='tab17'?'active':'') ?>"><a href="<?php echo $own_links ?>/list_backup">Backup</a></li>
     <li class="<?php echo ($tab=='tab11'?'active':'') ?>"><a href="<?php echo $own_links ?>/claim">Claim</a></li>
     <li class="<?php echo ($tab=='tab16'?'active':'') ?>"><a href="<?php echo $own_links ?>/booking">Booking</a></li>
+    <li class="<?php echo ($tab=='tab17'?'active':'') ?>"><a href="<?php echo $own_links ?>/archive">Archive</a></li>
 </ul>
 
 <?php

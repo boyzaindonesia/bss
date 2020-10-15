@@ -55,14 +55,14 @@ class transaction_peripheral extends AdminController {
         );
         $this->_releaseSession();
     }
-    function _reset_backup(){
+    function _reset_archive(){
         $this->jCfg['search'] = array(
             'class'     => $this->_getClass(),
             'name'      => 'transaction',
             'date_start'=> '',
             'date_end'  => '',
             'status'    => '',
-            'order_by'  => 'mt_orders_bk.orders_date',
+            'order_by'  => 'mt_orders_archive.orders_date',
             'order_dir' => 'desc',
             'filter'    => '25',
             'colum'     => '',
@@ -232,7 +232,7 @@ class transaction_peripheral extends AdminController {
         echo "inject_delete_orders </br>";
         $result = "";
 
-        // $this->db->delete("mt_orders_bk",array('orders_id >=' => "9960"));
+        // $this->db->delete("mt_orders_archive",array('orders_id >=' => "9960"));
 
         $this->store_id = 1;
         $m = $this->db->get_where("mt_orders",array(

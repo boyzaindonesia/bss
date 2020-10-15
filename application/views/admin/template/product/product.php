@@ -230,6 +230,7 @@
                         </tbody>
                     </table>
                     <?php } ?>
+                    <h6 class="no-margin no-padding mb-5">Terjual: <span style=""><?php echo $r->product_sold;?> pcs</span></h6>
                     <div class="product-list-sku">
                         <?php $mp = get_product_mp($r->product_id); ?>
                         <div class="">Tokopedia: <?php echo $mp->product_mp_tokped; ?></div>

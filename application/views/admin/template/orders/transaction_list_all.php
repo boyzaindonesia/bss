@@ -13,7 +13,7 @@
 
     <div class="btn-toolbar toolbar-btn-action">
         <div class="btn-group pull-left">
-            <div class="btn btn-danger btn-move-to-backup">Pindahkan Ke Backup (1000)</div>
+            <div class="btn btn-danger btn-move-to-archive">Pindahkan Ke Arsip (1000)</div>
         </div>
         <div class="btn-group pull-right">
             <div class="btn btn-info btn-change-product-orders"><i class="fa fa-send"></i> Tukar Pesanan</div>
@@ -276,7 +276,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $(document).on('click', '.btn-move-to-backup', function(e){
+        $(document).on('click', '.btn-move-to-archive', function(e){
             e.preventDefault();
             var $this    = $(this);
             $('html, body').css('overflow','hidden');
@@ -291,7 +291,7 @@
             setTimeout(function(){
                 $.ajax({
                     type: 'POST',
-                    url: MOD_URL+'admin/transaction_process/move_to_backup',
+                    url: MOD_URL+'admin/transaction_process/move_to_archive',
                     data: {'thisAction':'save'},
                     async: false,
                     cache: false,

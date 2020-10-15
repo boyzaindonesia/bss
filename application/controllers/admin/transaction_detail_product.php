@@ -160,7 +160,7 @@ class transaction_detail_product extends AdminController {
         exit();
     }
 
-    function form_detail_product_backup(){
+    function form_detail_product_archive(){
         $data = array();
         $data['err']     = true;
         $data['msg']     = '';
@@ -173,7 +173,7 @@ class transaction_detail_product extends AdminController {
                 "orders_id"           => ($orders_id!=""?$orders_id:'')
             );
 
-            $result = $this->MTDP->data_transaction_detail_product_backup($par_filter);
+            $result = $this->MTDP->data_transaction_detail_product_archive($par_filter);
             $data['content'] = $result['data'];
         }
 

@@ -279,7 +279,11 @@ class MY_Controller extends CI_Controller{
 			//debugCode($config['upload_path'].$file_Name.' '.$config['upload_path'].$fileName);
 			//$img = $uId.$this->upload->file_ext;
 
-			$this->_delte_old_files($par['param']);
+			if(isset($par['del_without_thumb']) && $par['del_without_thumb']==true){
+				$this->_delte_old_files_without_thumb($par['param']);
+			} else {
+				$this->_delte_old_files($par['param']);
+			}
 			$this->DATA->_update($par['param']['par'],array($par['param']['field']=>$fileName));
 
 			if(trim($this->upload_types)=='image'){
@@ -407,6 +411,31 @@ class MY_Controller extends CI_Controller{
 				$data = array();
 				foreach($this->upload_resize as $m){
 					$data[] = $uri.$m['name']."/".$files->{$par['field']};
+				}
+				foreach($data as $v){
+					if(file_exists($v)){
+						unlink($v);
+					}
+				}
+			}
+		}
+	}
+
+	function _delte_old_files_large_only($par=array()){
+		$uri = $this->upload_path;
+		$files = $this->DATA->data_id($par['par']);
+		$folder = isset($par['folder'])?$par['folder'].'/':'original/';
+		if( !empty( $files->{$par['field']} ) ){
+			$ori_file = $uri.$folder.$files->{$par['field']};
+			if(file_exists($ori_file)){
+				unlink($ori_file);
+			}
+			if(trim($this->upload_types)=='image' && count($this->upload_resize) > 0){
+				$data = array();
+				foreach($this->upload_resize as $m){
+					if($m['name']=='large'){
+						$data[] = $uri.$m['name']."/".$files->{$par['field']};
+					}
 				}
 				foreach($data as $v){
 					if(file_exists($v)){

@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="relative">
-                    <p class="no-margin no-padding mb-5">Stok: <?php echo $r->total_stock;?> pcs, total beli <?php echo convertRp(($r->price_buy * $r->total_stock)) ?>, total jual <?php echo convertRp(($r->price_sale * $r->total_stock)) ?></p>
+                    <p class="no-margin no-padding mb-5">Stok: <?php echo $r->total_stock;?> pcs, total beli <?php echo convertRp(($r->price_buy * $r->total_stock)) ?>, total jual <?php echo convertRp(($r->price_sale * $r->total_stock)) ?>, terjual: <?php echo $r->product_sold; ?> pcs</p>
                     <div class="relative">
                         <?php echo $r->item_html ?>
                     </div>
