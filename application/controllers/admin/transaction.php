@@ -699,8 +699,9 @@ class transaction extends AdminController {
             $this->_releaseSession();
         }
 
+        $this->_set_title("Arsip");
         $this->breadcrumb[] = array(
-            "title"     => 'Semua List'
+            "title"     => 'Arsip'
         );
 
         if(isset($_POST['searchAction']) && $_POST['searchAction'] == 'search'){
