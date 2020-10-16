@@ -52,8 +52,12 @@ $isSale     = chk_awards_product($val->product_awards, 2);
         <a href="<?php echo base_url().$val->url_product_category ?>" class="tag"><?php echo $val->product_category_name ?></a>
         <p class="product-title"><a href="<?php echo base_url().$val->url_product_category.'/'.$val->url_product ?>"><?php echo $val->product_name ?></a></p>
         <div class="product-rating">
-            <div class="star-rating" itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating" title="Rated <?php echo $val->product_rating; ?> out of 5">
-                <span style="width: <?php echo calcPercent($val->product_rating, 5) ?>%;"></span>
+            <?php
+            $countRating = calcRating($product->product_rating, $product->product_review);
+            $countRating = ($countRating > 0?$countRating:4.8);
+            ?>
+            <div class="star-rating" itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating" title="Rated <?php echo $countRating; ?> out of 5">
+                <span style="width: <?php echo calcPercent($countRating, 5) ?>%;"></span>
             </div>
             <a href="javascript:void(0);" class="product-rating-count"><span class="count"><?php echo $val->product_review; ?></span> Reviews</a>
         </div>

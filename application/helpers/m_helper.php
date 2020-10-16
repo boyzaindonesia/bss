@@ -599,6 +599,14 @@ function calcPercentDiscount($value, $total) {
 	}
 	return $jadi;
 }
+function calcRating($rating, $review) {
+	$jadi  = '0';
+	if(is_numeric($rating) && is_numeric($review)){
+		$jadi = ($rating / $review);
+		$jadi = number_format($jadi, 1, '.', '');
+	}
+	return $jadi;
+}
 
 function autoClearAppSessions(){
 	$CI = getCI();
@@ -2367,12 +2375,36 @@ function get_product_tags_position($limit="20",$offset="0"){
 		),$limit,$offset)->result();
 	return $m;
 }
+function get_product_tags_random($limit="20",$offset="0"){
+	$CI = getCI();
+	$CI->db->order_by("RAND()");
+	$m = $CI->db->get_where("mt_product_tags",array(
+			"product_tags_status"	=> 1,
+			"product_tags_istrash"	=> 0
+		),$limit,$offset)->result();
+	return $m;
+}
 
 function get_detail_product_tags($id=""){
 	$CI = getCI();
 	$m = $CI->db->get_where("mt_product_tags",array(
 		"product_tags_id"	=> $id
 	),1,0)->row();
+	return $m;
+}
+
+function get_list_product_not_tagged(){
+	$CI = getCI();
+	$CI->db->select("mt_product.*, mt_product.url as url_product, mt_product_category.*, mt_product_category.url as url_product_category, mt_product_detail.*");
+	$CI->db->join("mt_product_category","mt_product_category.product_category_id = mt_product.product_category_id",'left');
+	$CI->db->join("mt_product_detail","mt_product_detail.product_id = mt_product.product_id",'left');
+
+	$CI->db->where("mt_product.product_tags", "");
+	$CI->db->where("mt_product.product_istrash", 0);
+	$CI->db->where("mt_product.product_show_id", 1);
+	$CI->db->where("mt_product_detail.product_status_id", 1);
+	$CI->db->order_by("mt_product.product_id", "desc");
+	$m = $CI->db->get("mt_product")->result();
 	return $m;
 }
 function get_list_product_tagged($id=""){

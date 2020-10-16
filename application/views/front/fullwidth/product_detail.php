@@ -65,8 +65,12 @@
                                 <div class="product-page-content">
                                     <h2 class="product-title"><?php echo $product->product_name; ?></h2>
                                     <div class="product-rating">
-                                        <div class="star-rating" itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating" title="Rated <?php echo $product->product_rating; ?> out of 5">
-                                            <span style="width: <?php echo calcPercent($product->product_rating, 5) ?>%;"></span>
+                                        <?php
+                                        $countRating = calcRating($product->product_rating, $product->product_review);
+                                        $countRating = ($countRating > 0?$countRating:4.8);
+                                        ?>
+                                        <div class="star-rating" itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating" title="Rated <?php echo $countRating; ?> out of 5">
+                                            <span style="width: <?php echo calcPercent($countRating, 5) ?>%;"></span>
                                         </div>
                                         <div class="product-rating-count">( <span class="count"><?php echo $product->product_review; ?></span> Reviews )</div>
                                     </div>

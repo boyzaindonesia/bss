@@ -265,6 +265,9 @@
         <!-- End Categories -->
 
         <!-- Best Seller -->
+        <?php
+        $m = get_product_best_selling('12');
+        if(count($m) > 0){ ?>
         <section class="section-padding">
             <div class="container">
                 <h2 class="page-title">Best Seller</h2>
@@ -272,8 +275,7 @@
             <div class="container">
                 <div id="best-seller" class="row product-list-item">
                     <?php
-                    $best_seller = get_product_best_selling('12');
-                    foreach ($best_seller as $key => $val) { ?>
+                    foreach ($m as $key => $val) { ?>
                     <div class="product-item-element col-sm-6 col-md-4 col-lg-3">
                         <?php include('inc/layout_product.php'); ?>
                     </div>
@@ -281,7 +283,74 @@
                 </div>
             </div>
         </section>
+        <?php } ?>
         <!-- End Best Seller -->
+
+        <!-- Mukena -->
+        <?php
+        $m = get_product_related('8', '12');
+        if(count($m) > 0){ ?>
+        <section class="section-padding-b">
+            <div class="container">
+                <h2 class="page-title">Mukena</h2>
+            </div>
+            <div class="container">
+                <div id="best-seller" class="row product-list-item">
+                    <?php
+                    foreach ($m as $key => $val) { ?>
+                    <div class="product-item-element col-sm-6 col-md-4 col-lg-3">
+                        <?php include('inc/layout_product.php'); ?>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </section>
+        <?php } ?>
+        <!-- End Mukena -->
+
+        <!-- Bra / BH Sport -->
+        <?php
+        $m = get_product_related('7', '12');
+        if(count($m) > 0){ ?>
+        <section class="section-padding-b">
+            <div class="container">
+                <h2 class="page-title">Bra / BH Sport</h2>
+            </div>
+            <div class="container">
+                <div id="best-seller" class="row product-list-item">
+                    <?php
+                    foreach ($m as $key => $val) { ?>
+                    <div class="product-item-element col-sm-6 col-md-4 col-lg-3">
+                        <?php include('inc/layout_product.php'); ?>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </section>
+        <?php } ?>
+        <!-- End Bra / BH Sport -->
+
+        <!-- Legging -->
+        <?php
+        $m = get_product_related('6', '12');
+        if(count($m) > 0){ ?>
+        <section class="section-padding-b">
+            <div class="container">
+                <h2 class="page-title">Legging</h2>
+            </div>
+            <div class="container">
+                <div id="best-seller" class="row product-list-item">
+                    <?php
+                    foreach ($m as $key => $val) { ?>
+                    <div class="product-item-element col-sm-6 col-md-4 col-lg-3">
+                        <?php include('inc/layout_product.php'); ?>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </section>
+        <?php } ?>
+        <!-- End Legging -->
 
         <!-- Like & Share Banner -->
         <section id="like-share" class="like-share">

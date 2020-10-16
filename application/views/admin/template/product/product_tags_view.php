@@ -1,3 +1,8 @@
+<ul class="nav nav-tabs item-color">
+    <li class="active"><a href="<?php echo $own_links ?>">Master</a></li>
+    <li class=""><a href="<?php echo $own_links ?>/product_not_tagged">Product Not Tagged</a></li>
+</ul>
+
 <div class="the-box no-border">
     <form action="#" method="post" enctype="multipart/form-data">
         <div class="panel panel-dark panel-block-color">

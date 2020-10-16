@@ -144,66 +144,77 @@ class product_tags extends AdminController {
 	}
 
 	function save(){
+		$error = false;
 		if (dbClean($_POST['product_tags_id']) == ""){
-			$data = $this->db->order_by('position','asc')->get_where("mt_product_tags",array(
-				"product_tags_istrash !="	=> 1
-			))->result();
-			$position = 1;
-			foreach($data as $r){
-				$id = $r->product_tags_id;
-				$this->db->update("mt_product_tags",array("position"=>$position),array("product_tags_id"=>$id));
-				$position +=1;
+			$r = $this->db->get_where("mt_product_tags",array(
+				"product_tags_name"	=> dbClean(ucwords($_POST['product_tags_name']))
+			),1,0)->row();
+			if(count($r) > 0){
+				$error = true;
+				redirect($this->own_link."/detail/".$r->product_tags_id.'-'.changeEnUrl($r->product_tags_name)."?msg=".urlencode('Nama Tagged sudah ada..')."&type_msg=error");
+			} else {
+				$data = $this->db->order_by('position','asc')->get_where("mt_product_tags",array(
+					"product_tags_istrash !="	=> 1
+				))->result();
+				$position = 1;
+				foreach($data as $r){
+					$id = $r->product_tags_id;
+					$this->db->update("mt_product_tags",array("position"=>$position),array("product_tags_id"=>$id));
+					$position +=1;
+				}
 			}
 		}
 
-		$data = array(
-			'product_tags_name'			=> dbClean(ucwords($_POST['product_tags_name'])),
-			'product_tags_desc'			=> dbClean($_POST['product_tags_desc']),
-			'product_tags_status'		=> dbClean($_POST['product_tags_status'])
-		);
+		if($error == false){
+			$data = array(
+				'product_tags_name'			=> dbClean(ucwords($_POST['product_tags_name'])),
+				'product_tags_desc'			=> dbClean($_POST['product_tags_desc']),
+				'product_tags_status'		=> dbClean($_POST['product_tags_status'])
+			);
 
-		if (dbClean($_POST['product_tags_id']) == "") {
-			$data['product_tags_date'] = timestamp();
-		}
+			if (dbClean($_POST['product_tags_id']) == "") {
+				$data['product_tags_date'] = timestamp();
+			}
 
-		if(isset($_POST['url'])&&$_POST['url']!=""){
-			$data['url'] = dbClean($_POST['url']);
-		} else {
-			$title = dbClean($_POST['product_tags_name']);
-			if($title==''){ $title = 'product_tags'; }
-			$data['url'] = generateUniqueURL($title,"mt_product_tags");
-		}
+			if(isset($_POST['url'])&&$_POST['url']!=""){
+				$data['url'] = dbClean($_POST['url']);
+			} else {
+				$title = dbClean($_POST['product_tags_name']);
+				if($title==''){ $title = 'product_tags'; }
+				$data['url'] = generateUniqueURL($title,"mt_product_tags");
+			}
 
-		$a = $this->_save_master(
-			$data,
-			array(
-				'product_tags_id' => dbClean($_POST['product_tags_id'])
-			),
-			dbClean($_POST['product_tags_id'])
-		);
-
-		$id = $a['id'];
-		if(dbClean($_POST['remove_images']) == 1){
-			$this->_delte_old_files(
+			$a = $this->_save_master(
+				$data,
 				array(
-					'field' => 'product_tags_image',
-					'par'	=> array('product_tags_id' => $id)
-					));
+					'product_tags_id' => dbClean($_POST['product_tags_id'])
+				),
+				dbClean($_POST['product_tags_id'])
+			);
 
-			$this->db->update("mt_product_tags",array("product_tags_image"=>NULL),array("product_tags_id"=>$id));
-		} else {
-			$this->_uploaded(
-				array(
-					'id'		=> $id ,
-					'input'		=> 'product_tags_image',
-					'param'		=> array(
+			$id = $a['id'];
+			if(dbClean($_POST['remove_images']) == 1){
+				$this->_delte_old_files(
+					array(
 						'field' => 'product_tags_image',
 						'par'	=> array('product_tags_id' => $id)
-						)
-					));
-		}
+						));
 
-		redirect($this->own_link."/detail/".$id.'-'.changeEnUrl($_POST['product_tags_name'])."?msg=".urlencode('Save data success')."&type_msg=success");
+				$this->db->update("mt_product_tags",array("product_tags_image"=>NULL),array("product_tags_id"=>$id));
+			} else {
+				$this->_uploaded(
+					array(
+						'id'		=> $id ,
+						'input'		=> 'product_tags_image',
+						'param'		=> array(
+							'field' => 'product_tags_image',
+							'par'	=> array('product_tags_id' => $id)
+							)
+						));
+			}
+
+			redirect($this->own_link."/detail/".$id.'-'.changeEnUrl($_POST['product_tags_name'])."?msg=".urlencode('Save data success')."&type_msg=success");
+		}
 	}
 
 	function detail($id=''){
@@ -377,6 +388,16 @@ class product_tags extends AdminController {
 		$return = array('msg' => $msg,'content' => $content);
 		die(json_encode($return));
 		exit();
+	}
+
+	function product_not_tagged($id=''){
+		$this->breadcrumb[] = array(
+			"title"		=> "Product Not Tagged"
+		);
+
+		$this->_set_title( 'Product Not Tagged' );
+
+		$this->_v($this->folder_view.$this->prefix_view."_not_tagged",$data);
 	}
 
 	function change_position(){

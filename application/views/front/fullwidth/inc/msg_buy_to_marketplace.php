@@ -14,6 +14,9 @@
                 <a class="item promo-banner-wrap" href="<?php echo $configuration->configuration_bl_link ?>" target="_blank">
                     <div class="promo-image-wrap"><img src="<?php echo base_url() ?>assets/collections/images/logo-bukalapak.png"></div>
                 </a>
+                <a class="item promo-banner-wrap" href="<?php echo $configuration->configuration_laz_link ?>" target="_blank">
+                    <div class="promo-image-wrap"><img src="<?php echo base_url() ?>assets/collections/images/logo-lazada.png"></div>
+                </a>
             </div>
         </div>
         <div class="msg-footer">

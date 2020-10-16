@@ -5818,6 +5818,7 @@ table.shop_attributes th:last-child, table.shop_attributes td:last-child {
         overflow: hidden;
         position: absolute;
         top: 0;
+        color: #a81d96;
     }
 
 .commentlist .comment-text .description {
@@ -6432,7 +6433,7 @@ LABEL AND BADGE
 
 .msg-buy-marketplace .msg-title ,
 .msg-buy-marketplace .msg-footer { position:relative; top:0px; left:0px; width:100%; text-align:center; }
-.msg-buy-marketplace .msg-body .marketplace .item{ position:relative; top:0px; left:0px; width:33.3%; float:left; text-align:center; padding:20px 0px; }
+.msg-buy-marketplace .msg-body .marketplace .item{ position:relative; top:0px; left:0px; width:25%; float:left; text-align:center; padding:20px 0px; }
 .msg-buy-marketplace .msg-body .marketplace .item img{ width:inherit; }
 
 /*------------------------------------------------------------------*/

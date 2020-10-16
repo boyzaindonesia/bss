@@ -18,7 +18,7 @@
     <h6 class="widget-title">Popular Tag</h6>
     <ul class="widget-content">
         <?php
-        $popular_tag = get_product_tags_position(15,0);
+        $popular_tag = get_product_tags_random(15,0);
         foreach ($popular_tag as $key => $val) { ?>
         <li>
             <a href="<?php echo base_url().'tag/'.$val->url; ?>"><?php echo ucwords($val->product_tags_name) ?></a>
