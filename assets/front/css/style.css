@@ -5633,7 +5633,7 @@ single-add_to_cart {
 
 /*Producr Description Table*/
 .shop_description p {
-    margin-bottom: 30px;
+    margin: 0px;
 }
 
 .shop_description ul {

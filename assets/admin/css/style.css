@@ -3455,6 +3455,19 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: searchfield-cancel-button;
 }
 
+.shop_description p {
+    margin: 0px;
+}
+
+.shop_description ul {
+    padding-left: 30px;
+}
+
+.shop_description ul {
+    color: #777;
+}
+
+
 /**
 -------------------------------------------
 DROPDOWN

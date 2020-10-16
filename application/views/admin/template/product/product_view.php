@@ -556,7 +556,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label text-left">Deskripsi</label>
                             <div class="col-sm-9">
-                                <div class="form-control"><?php echo isset($description->product_description)?$description->product_description:'';?></div>
+                                <div class="form-control shop_description"><?php echo isset($description->product_description)?$description->product_description:'';?></div>
                             </div>
                         </div>
                         <div class="form-group">

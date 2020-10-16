@@ -24,7 +24,7 @@ class product_brand extends AdminController {
 		$this->upload_resize  = array(
 			array('name'	=> 'large','width'	=> 250)
 		);
-		$this->image_size_str = "Size: Big:250px x 250px";
+		$this->image_size_str = "Size: Big:250px x 164px";
 	}
 
 	function _reset(){

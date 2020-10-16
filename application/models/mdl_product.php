@@ -264,11 +264,9 @@ class mdl_product extends CI_Model{
                         if(in_array("product_description", $isKey) || $isFull){
 			                $product_lead        = NULL;
 			                $product_description = NULL;
-			                $get_ = get_product_description($val->product_id);
-			                foreach ($get_ as $key3 => $val3) {
-			                    $product_lead        = $val3->product_lead;
-			                    $product_description = $val3->product_description;
-			                }
+			                $val3 = get_product_description($val->product_id);
+                            $product_lead        = $val3->product_lead;
+                            $product_description = $val3->product_description;
 			                $result[$key]->product_lead        = $product_lead;
 			                $result[$key]->product_description = $product_description;
 			            }
