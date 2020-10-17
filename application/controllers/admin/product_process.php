@@ -62,8 +62,13 @@ class product_process extends AdminController {
 
         $temp_unpaid   = array();
         $arr_tmp_id    = array();
-        $download_path = "./assets/collections/tmp_files/";
         $fileDownload  = "";
+        $download_path = "./assets/collections/tmp_files/";
+        $upload_files = glob($download_path.'*');
+        foreach($upload_files as $file){
+            if(is_file($file))
+            unlink($file);
+        }
 
         if(isset($_POST['thisAction']) && $_POST['thisAction'] == 'upload'){
             $type_name = $_POST['type_name'];
@@ -795,7 +800,7 @@ class product_process extends AdminController {
             }
 
             if($fileDownload == ""){
-                $upload_files = glob('./assets/collections/tmp_files/*');
+                $upload_files = glob($download_path.'*');
                 foreach($upload_files as $file){
                     if(is_file($file))
                     unlink($file);
