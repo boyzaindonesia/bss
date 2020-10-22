@@ -114,12 +114,13 @@ class mdl_marketplace_excel extends CI_Model{
 		                    case 'Pos Indonesia(Pos Kilat Khusus)': $orders_courier_id = 20; break;
 		                    case 'GO-JEK(Same Day)': $orders_courier_id = 10; break;
 		                    case 'Go-Send(Instant Courier)': $orders_courier_id = 11; break;
-		                    case 'Grab(Same Day)': $orders_courier_id = 13; break;
-		                    case 'Grab(Next Day)': $orders_courier_id = 14; break;
-		                    case 'Grab(Instant)': $orders_courier_id = 15; break;
+		                    case 'GrabExpress(Same Day)': $orders_courier_id = 13; break;
+		                    case 'GrabExpress(Next Day)': $orders_courier_id = 14; break;
+		                    case 'GrabExpress(Instant)': $orders_courier_id = 15; break;
                             case 'Ninja Xpress(Reguler)': $orders_courier_id = 27; break;
                             case 'SiCepat(Regular Package)': $orders_courier_id = 23; break;
                             case 'SiCepat(BEST)': $orders_courier_id = 24; break;
+                            case 'SiCepat(HALU)': $orders_courier_id = 35; break;
                             case 'AnterAja(Reguler)': $orders_courier_id = 32; break;
 		                    case 'AnterAja(Next Day)': $orders_courier_id = 34; break;
 		                    default: $orders_courier_id = 0; break;
