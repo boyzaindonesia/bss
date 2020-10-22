@@ -597,6 +597,7 @@ class mdl_product extends CI_Model{
                                     $varian_text = "";
                                 }
 
+                                $arrVarianText[$key3]->id     = $val3->product_id;
                                 $arrVarianText[$key3]->title  = $val3->product_name_simple;
                                 $arrVarianText[$key3]->varian = $varian_text;
                             }
@@ -759,6 +760,7 @@ class mdl_product extends CI_Model{
                         }
 
                         $arrVarianText = array();
+                        $arrVarianText[0]->id     = $val2->product_id;
                         $arrVarianText[0]->title  = $val2->product_name_simple;
                         $arrVarianText[0]->varian = $varian_text;
                         $result[$iKey]->varian_text  = $arrVarianText;

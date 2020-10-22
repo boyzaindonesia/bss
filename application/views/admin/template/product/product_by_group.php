@@ -79,6 +79,16 @@
                     <p class="no-margin no-padding mb-5">Margin: <?php echo convertRp(($r->price_sale - $r->price_buy)) ?></p>
                     <div class="product-list-action">
                         <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-pencil"></i> Edit <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <?php foreach ($r->varian_text as $key => $val) { ?>
+                                <li><a href="<?php echo base_url().'admin/product/edit/'.$val->id.'-'.changeEnUrl($val->title).'?next='.$own_links;?>" target="_blank"><?php echo $val->title ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <div class="btn-group pull-right mr-5">
                             <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-clone"></i> Copy Variasi <span class="caret"></span>
                             </button>
