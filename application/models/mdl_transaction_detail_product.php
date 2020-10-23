@@ -198,6 +198,11 @@ class mdl_transaction_detail_product extends CI_Model{
         $orders_id       = $p['orders_id'];
         $product_barcode = $p['product_barcode'];
         if($orders_id != "" && $product_barcode != ""){
+            $r = $this->db->get_where("mt_orders",array(
+                'orders_id '    => $orders_id,
+                'store_id '     => $store_id
+            ),1,0)->row();
+
             $arrNoBarcode = explode("-", $product_barcode);
             $m = $this->db->get_where("mt_product",array(
                 "product_code"  => strtoupper($arrNoBarcode[0]),
@@ -245,7 +250,6 @@ class mdl_transaction_detail_product extends CI_Model{
                                 );
                                 $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
-                                update_product_sold($product_id, 1, 'plus');
                                 writeLog(array(
                                     'log_user_type'     => "1", // Admin
                                     'log_user_id'       => $user_id,
@@ -342,7 +346,6 @@ class mdl_transaction_detail_product extends CI_Model{
                             );
                             $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
-                            update_product_sold($product_id, 1, 'plus');
                             writeLog(array(
                                 'log_user_type'     => "1", // Admin
                                 'log_user_id'       => $user_id,
@@ -454,6 +457,7 @@ class mdl_transaction_detail_product extends CI_Model{
 
                             $this->db->update("mt_orders",array('orders_product_detail' => 1),array("orders_id"=>$orders_id));
 
+                            update_product_sold($product_id, 1, 'plus', $r->orders_source_id);
                             recalc_price_orders($orders_id);
                             set_last_date_product_setup();
                         }
@@ -656,7 +660,7 @@ class mdl_transaction_detail_product extends CI_Model{
                         }
                         $this->db->update("mt_product_detail",$data_detail,array("product_detail_id"=>$m2->product_detail_id));
 
-                        update_product_sold($product_id, $orders_qty, 'minus');
+                        update_product_sold($product_id, $orders_qty, 'minus', $r->orders_source_id);
                     }
 
                     $this->db->update("mt_orders_detail",$data_orders_detail,array("orders_detail_id"=>$val1->orders_detail_id));

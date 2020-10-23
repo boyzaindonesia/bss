@@ -647,7 +647,7 @@ class orders extends FrontController {
                                         ));
                                         $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
-                                        update_product_sold($product_id, $val1->qty, "plus");
+                                        update_product_sold($product_id, $val1->qty, "plus", $orders_source_id);
                                     }
                                 }
                                 $i += 1;
@@ -1094,7 +1094,7 @@ class orders extends FrontController {
                                 ));
                                 $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
-                                update_product_sold($product_id, $val1->qty, "plus");
+                                update_product_sold($product_id, $val1->qty, "plus", "13");
                             }
                             $i += 1;
                         }
@@ -1745,7 +1745,7 @@ class orders extends FrontController {
                                     ));
                                     $this->db->update("mt_product_detail",$dataDetail,array("product_detail_id"=>$detail->product_detail_id));
 
-                                    update_product_sold($product_id, $val1->qty, 'minus');
+                                    update_product_sold($product_id, $val1->qty, 'minus', $r->orders_source_id);
                                 }
 
                             }

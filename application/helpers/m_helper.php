@@ -2994,10 +2994,10 @@ function isPriceDebetCourier($orders_source_id=0,$orders_courier_id=0){
 	return $result;
 }
 
-function update_product_sold($product_id="", $qty=0, $action="plus"){
+function update_product_sold($product_id="", $qty=0, $action="plus",$source_id=""){
 	$CI = getCI();
 	$m = $CI->db->get_where("mt_product",array(
-		"product_id"		=> $product_id
+		"product_id" => $product_id
 	),1,0)->row();
 	if(count($m) > 0){
 		$product_sold = $m->product_sold;
@@ -3007,7 +3007,30 @@ function update_product_sold($product_id="", $qty=0, $action="plus"){
 			$product_sold = ($m->product_sold - $qty);
 		}
 
-		$CI->db->update("mt_product",array("product_sold"=>$product_sold),array("product_id"=>$m->product_id));
+		$CI->db->update("mt_product",array("product_sold"=>$product_sold),array("product_id"=>$product_id));
+
+		$arr_sold_detail = array();
+		$product_sold_detail = $m->product_sold_detail;
+		if($product_sold_detail == "" || $product_sold_detail == "[]" || $product_sold_detail == NULL){
+			$arr_sold_detail[] = array('id' => $source_id, 'qty' => $qty);
+		} else {
+			$found = false;
+	        foreach (json_decode($product_sold_detail) as $k2 => $v2) {
+	        	if($v2->id == $source_id){
+	        		$found = true;
+	        		if($action == "plus"){
+			        	$arr_sold_detail[] = array('id' => $v2->id, 'qty' => ($v2->qty + $qty));
+					} else if($action == "minus"){
+			        	$arr_sold_detail[] = array('id' => $v2->id, 'qty' => ($v2->qty - $qty));
+					}
+	        	} else {
+		        	$arr_sold_detail[] = array('id' => $v2->id, 'qty' => $v2->qty);
+	        	}
+	        }
+	        if(!$found && $action == "plus"){ $arr_sold_detail[] = array('id' => $source_id, 'qty' => $qty); }
+		}
+		$CI->db->update("mt_product",array("product_sold_detail"=>json_encode($arr_sold_detail)),array("product_id"=>$product_id));
+
 	}
 }
 
