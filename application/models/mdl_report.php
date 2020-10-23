@@ -323,6 +323,292 @@ class mdl_report extends CI_Model{
         return $data;
 	}
 
+    function data_orders_marketplace($p=array(),$count=FALSE){
+        $total = 0;
+        /* table conditions */
+
+        $this->db->select('mt_product_group.*');
+
+        /* where or like conditions */
+        if( isset($p['product_group_istrash']) && $p['product_group_istrash'] != "" ){
+            $this->db->where("product_group_istrash",$p['product_group_istrash']);
+        } else {
+            $this->db->where("product_group_istrash",0);
+        }
+
+        if( isset($p['store_id']) && $p['store_id'] != "" ){
+            $this->db->where("store_id",$p['store_id']);
+        }
+
+        if( isset($p['product_group_id']) && $p['product_group_id'] != "" ){
+            $this->db->where("product_group_id",$p['product_group_id']);
+        }
+        if( isset($p['product_group_show']) && $p['product_group_show'] != "" ){
+            $this->db->where("product_group_show",$p['product_group_show']);
+        }
+
+        if( trim($p['date_end']) != "" ){
+            $this->db->where("( product_group_date <= '".$p['date_end']." 23:59:59' )");
+        }
+
+        if( trim($p['date_start'])!="" ){
+            $this->db->where("( product_group_date >= '".$p['date_start']." 00:00:00' )");
+        }
+        // dont modified....
+        if( trim($p['colum'])=="" && trim($p['keyword']) != "" ){
+            $str_like = "( ";
+            $i=0;
+            foreach ($p['param'] as $key => $value) {
+                if($key != ""){
+                    $str_like .= $i!=0?"OR":"";
+                    $str_like .=" ".$key." LIKE '%".$p['keyword']."%' ";
+                    $i++;
+                }
+            }
+            $str_like .= " ) ";
+            $this->db->where($str_like);
+        }
+        if( trim($p['colum'])!="" && trim($p['keyword']) != "" ){
+            $this->db->like($p['colum'],$p['keyword']);
+        }
+        if($count==FALSE){
+            if( isset($p['offset']) && (isset($p['limit'])&&$p['limit']!='') ){
+                $p['offset'] = empty($p['offset'])?0:$p['offset'];
+                $this->db->limit($p['limit'],$p['offset']);
+            }
+        }
+
+        if( (isset($p['order_by']) && $p['order_by']!="") && (isset($p['order_dir']) && $p['order_dir']!="") ){
+            $order_by  = $p['order_by'];
+            $order_dir = $p['order_dir'];
+            $this->db->order_by($order_by,$order_dir);
+        } else {
+            $this->db->order_by('product_group_date','desc');
+        }
+
+        $qry = $this->db->get('mt_product_group');
+        if($count==FALSE){
+            $total = $this->data_orders_marketplace($p,TRUE);
+
+            $type_result = "fullresult";
+            if(isset($p['type_result']) && $p['type_result'] != ""){
+                $type_result = $p['type_result'];
+            }
+            switch ($p['type_result']) {
+                case 'list_desktop':
+                    $isFull     = FALSE;
+                    $isKey      = array("product_group_id","product_group_name","product_group_date","product_group_item","product_sold","item_html","array_product_id");
+                    break;
+                default:
+                    $isFull     = TRUE;
+                    $isKey      = array();
+                    break;
+            }
+
+            $result = array();
+            $iKey = 0;
+            $timestamp = timestamp();
+            $get_orders_source = get_orders_source();
+            foreach ($qry->result() as $key => $val) {
+                if(in_array("product_group_id", $isKey) || $isFull){
+                    $result[$iKey]->id = $val->product_group_id;
+                }
+                if(in_array("store_id", $isKey) || $isFull){
+                    $result[$iKey]->store_id = $val->store_id;
+                }
+                if(in_array("product_group_name", $isKey) || $isFull){
+                    $result[$iKey]->name = $val->product_group_name;
+                }
+                if(in_array("product_group_date", $isKey) || $isFull){
+                    $result[$iKey]->date = $val->product_group_date;
+                }
+                $result[$iKey]->isGroup = 1;
+
+                $product_sold = 0;
+                if(in_array("product_group_item", $isKey) || $isFull){
+                    $total_stock = 0;
+                    $product_id  = "";
+                    $images_cover = "";
+                    $price_buy  = 0;
+                    $price_sale = 0;
+                    $price_discount = 0;
+                    $allcode    = "";
+
+                    $colgroup = '<colgroup>';
+                    $thead    = '<thead><tr>';
+                    $tbody    = '<tbody>';
+                    $arr  = NULL;
+                    $get_ = get_product_by_group($val->product_group_id,"");
+                    if(count($get_) > 0){
+                        $arr = array();
+                        $ii = 1;
+                        $array_product_id = "";
+                        foreach ($get_ as $key3 => $val3) {
+                            $arr[$key3]->id     = $val3->product_id;
+                            $arr[$key3]->motif  = $val3->product_type_motif;
+
+                            $product_id .= ($product_id==""?"":"-").$val3->product_id;
+
+                            if($images_cover == ""){ $images_cover = get_cover_image_detail($val3->product_id); }
+                            if($price_buy == 0){ $price_buy = $val3->product_price_buy; }
+                            if($price_sale == 0){ $price_sale = $val3->product_price_sale; }
+                            if($price_discount == 0){ $price_discount = $val3->product_price_discount; }
+                            $allcode .= ($allcode == ""?"":" - ").$val3->product_code;
+                            $day_on_going = xTimeAgo($val3->product_date, $timestamp, "d");
+                            $product_sold += $val3->product_sold;
+                            $exp = json_decode($val3->product_stock_detail);
+                            foreach ($exp as $key4 => $val4) {
+                                $total_stock  += $val4->qty;
+                            }
+
+                            if(in_array("item_html", $isKey)){
+                                $tbody    .= '<tr><td style="text-align:center;'.($ii%2==0?'background-color: #E8E9EE;':'').'">'.$val3->product_type_motif.'</td>';
+                                if($val3->product_stock_detail != ''){
+                                    foreach ($get_orders_source as $key4 => $val4) {
+                                        $source_id = $val4->orders_source_id;
+                                        $qty = 0;
+                                        $product_sold_detail = json_decode($val3->product_sold_detail);
+                                        foreach ($product_sold_detail as $key5 => $val5) {
+                                            if($val5->id == $source_id){ $qty = $val5->qty; }
+                                        }
+                                        $tbody    .= '<td style="text-align:center;'.($ii%2==0?'background-color: #E8E9EE;':'').'">'.($qty > 0?$qty:'-').'</td>';
+                                    }
+
+                                    $tbody    .= '<td style="text-align:center;font-weight:bold;'.($ii%2==0?'background-color: #E8E9EE;':'').'">'.$val3->product_sold.'</td>';
+
+                                }
+                                $tbody    .= '</tr>';
+                            }
+
+                            if(in_array("array_product_id", $isKey) || $isFull){
+                                $array_product_id .= ($array_product_id==""?"":"-").$val3->product_id;
+                            }
+
+                            $ii += 1;
+                        }
+                    }
+
+                    if(in_array("item_html", $isKey)){
+                        $colgroup .= '<col width="1">';
+                        $thead    .= '<th style="white-space:nowrap;text-align:center;background-color:#d1d2d3;">M</th>';
+                        foreach ($get_orders_source as $key4 => $val4) {
+                            $colgroup .= '<col width="1">';
+                            $thead    .= '<th style="white-space:nowrap; text-align:center;background-color:#d1d2d3;">'.$val4->orders_source_name.'</th>';
+                        }
+                        $colgroup .= '<col width="1">';
+                        $thead    .= '<th style="white-space:nowrap; text-align:center;background-color:#d1d2d3;">Total</th>';
+
+                        $colgroup .= '</colgroup>';
+                        $thead    .= '</thead></tr>';
+                        $tbody    .= '</tbody>';
+
+                        $item_html = '<table style="width:100%;margin:-5px 0px;">'.$colgroup.$thead.$tbody.'</table>';
+                        $result[$iKey]->item_html = $item_html;
+                    }
+                    if(in_array("array_product_id", $isKey) || $isFull){
+                        $result[$iKey]->array_product_id  = $array_product_id;
+                    }
+
+                    $result[$iKey]->images_cover   = $images_cover;
+                    $result[$iKey]->price_buy      = $price_buy;
+                    $result[$iKey]->price_sale     = $price_sale;
+                    $result[$iKey]->price_discount = $price_discount;
+                    $result[$iKey]->total_stock  = $total_stock;
+                    $result[$iKey]->day_on_going = $day_on_going;
+                    $result[$iKey]->allcode      = $allcode;
+                }
+
+                if(in_array("product_sold", $isKey) || $isFull){
+                    $result[$iKey]->product_sold = $product_sold;
+                }
+
+                $iKey += 1;
+            }
+
+            $get_product_by_group = get_product_no_group("1",$p['store_id']);
+            foreach ($get_product_by_group as $key2 => $val2) {
+                if(in_array("product_group_id", $isKey) || $isFull){
+                    $result[$iKey]->id = $val2->product_id;
+                }
+                if(in_array("store_id", $isKey) || $isFull){
+                    $result[$iKey]->store_id = $val2->store_id;
+                }
+                if(in_array("product_group_name", $isKey) || $isFull){
+                    $result[$iKey]->name = $val2->product_name_simple;
+                }
+                if(in_array("product_group_date", $isKey) || $isFull){
+                    $result[$iKey]->date = $val2->product_date;
+                }
+                $result[$iKey]->isGroup = 0;
+
+                $day_on_going = xTimeAgo($val2->product_date, $timestamp, "d");
+                $result[$iKey]->day_on_going = $day_on_going;
+
+                if(in_array("product_sold", $isKey) || $isFull){
+                    $result[$iKey]->product_sold = $val2->product_sold;
+                }
+
+                if(in_array("product_group_item", $isKey) || $isFull){
+                    $colgroup = "";
+                    $thead    = "";
+                    $tbody    = "";
+                    // $tbody    .= '<tr><td style="text-align:center;'.($ii%2==0?'background-color: #E8E9EE;':'').'"></td>';
+                    foreach ($get_orders_source as $key4 => $val4) {
+                        $source_id = $val4->orders_source_id;
+                        $qty = 0;
+                        $product_sold_detail = json_decode($val2->product_sold_detail);
+                        foreach ($product_sold_detail as $key5 => $val5) {
+                            if($val5->id == $source_id){ $qty = $val5->qty; }
+                        }
+                        $tbody    .= '<td style="text-align:center;'.($ii%2==0?'background-color: #E8E9EE;':'').'">'.($qty > 0?$qty:'-').'</td>';
+                    }
+
+                    $tbody    .= '<td style="text-align:center;font-weight:bold;'.($ii%2==0?'background-color: #E8E9EE;':'').'">'.$val2->product_sold.'</td>';
+
+                    $tbody    .= '</tr>';
+
+                    if(in_array("item_html", $isKey)){
+                        $colgroup .= '<col width="1">';
+                        // $thead    .= '<th style="white-space:nowrap;text-align:center;background-color:#d1d2d3;">M</th>';
+                        foreach ($get_orders_source as $key4 => $val4) {
+                            $colgroup .= '<col width="1">';
+                            $thead    .= '<th style="white-space:nowrap; text-align:center;background-color:#d1d2d3;">'.$val4->orders_source_name.'</th>';
+                        }
+                        $colgroup .= '<col width="1">';
+                        $thead    .= '<th style="white-space:nowrap; text-align:center;background-color:#d1d2d3;">Total</th>';
+
+                        $colgroup .= '</colgroup>';
+                        $thead    .= '</thead></tr>';
+                        $tbody    .= '</tbody>';
+
+                        $item_html = '<table style="width:100%;margin:-5px 0px;">'.$colgroup.$thead.$tbody.'</table>';
+                        $result[$iKey]->item_html = $item_html;
+                    }
+
+                    if(in_array("array_product_id", $isKey) || $isFull){
+                        $result[$iKey]->array_product_id = $val2->product_id;
+                    }
+                }
+
+                $result[$iKey]->images_cover = get_cover_image_detail($val2->product_id);
+                $result[$iKey]->price_buy    = $val2->product_price_buy;
+                $result[$iKey]->price_sale   = $val2->product_price_sale;
+                $result[$iKey]->price_discount = $val2->product_price_discount;
+                $result[$iKey]->allcode      = $val2->product_code;
+                $result[$iKey]->total_stock  = $val2->product_stock;
+
+                $iKey += 1;
+            }
+
+            return array(
+                    "data"  => $result,
+                    "total" => $total
+                );
+        } else {
+            return $qry->num_rows();
+        }
+    }
+
     function layout_report_new_orders($p=array()){
         $return = "";
         if(count($p) > 0){

@@ -50,20 +50,6 @@ class report extends AdminController {
 		redirect($this->own_link.'/product');
 	}
 
-	function orders_product(){
-		$data = array();
-		$this->_set_title( 'Data Laporan Penjualan' );
-		$this->breadcrumb[] = array(
-			"title"		=> "Penjualan"
-		);
-
-        $data['url']            = base_url()."admin/report/orders_product";
-        $data['url_form']       = base_url()."admin/report/orders_product";
-        $data['tab']            = 'tab1';
-        $data['content_layout'] = $this->prefix_view."_orders_product.php";
-        $this->_v($this->folder_view.$this->prefix_view,$data);
-	}
-
 	function product(){
 		$hal = isset($this->jCfg['search']['name'])?$this->jCfg['search']['name']:"home";
 		if($hal != 'report'){
@@ -196,6 +182,54 @@ class report extends AdminController {
         $data['content_layout'] = $this->prefix_view."_product.php";
         $this->_v($this->folder_view.$this->prefix_view,$data);
 	}
+
+    function orders_marketplace(){
+        $data = array();
+        $this->_set_title( 'Data Laporan Penjualan' );
+        $this->breadcrumb[] = array(
+            "title"     => "Penjualan Marketplace"
+        );
+
+        $par_filter = array(
+            "product_group_id"    => NULL,
+            "store_id"            => $this->store_id,
+            "reseller_id"         => NULL,
+            "product_category_id" => NULL,
+            "product_group_show"  => "1",
+            "type_result"         => "list_desktop",
+            "date_start"          => NULL,
+            "date_end"            => NULL,
+            "order_by"            => NULL,
+            "order_dir"           => NULL,
+            "offset"              => 0,
+            "limit"               => NULL,
+            "keyword"             => NULL,
+            "colum"               => NULL,
+            "param"               => NULL
+        );
+
+        $data = $this->M->data_orders_marketplace($par_filter);
+
+        $data['url']            = base_url()."admin/report/orders_marketplace";
+        $data['url_form']       = base_url()."admin/report/orders_marketplace";
+        $data['tab']            = 'tab1';
+        $data['content_layout'] = $this->prefix_view."_orders_marketplace.php";
+        $this->_v($this->folder_view.$this->prefix_view,$data);
+    }
+
+    function orders_product(){
+        $data = array();
+        $this->_set_title( 'Data Laporan Penjualan' );
+        $this->breadcrumb[] = array(
+            "title"     => "Penjualan"
+        );
+
+        $data['url']            = base_url()."admin/report/orders_product";
+        $data['url_form']       = base_url()."admin/report/orders_product";
+        $data['tab']            = 'tab1';
+        $data['content_layout'] = $this->prefix_view."_orders_product.php";
+        $this->_v($this->folder_view.$this->prefix_view,$data);
+    }
 
 	function ajax_get_orders_report(){
 		$data   = array();
