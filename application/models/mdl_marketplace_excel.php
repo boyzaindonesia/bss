@@ -595,6 +595,9 @@ class mdl_marketplace_excel extends CI_Model{
                                         $orders_status     = 5;
                                         $orders_print      = 1;
                                     }
+                                    if($orders_courier_id == 39){
+                                        $orders_print      = 1;
+                                    }
                                     $items[$i]->orders_status         = $orders_status;
                                     $items[$i]->orders_source_id      = $orders_source_id;
                                     $items[$i]->orders_source_invoice = $mp_invoice;
