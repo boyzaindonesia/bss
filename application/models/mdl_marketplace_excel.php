@@ -524,6 +524,7 @@ class mdl_marketplace_excel extends CI_Model{
                     $fromRow = 2;
                     $found   = false;
                     $insert  = true;
+                    $tmpInvoice = array();
                     $orders_source_invoice = "";
                     foreach ($p as $key => $val) {
                         if($iRow >= $fromRow){
@@ -557,6 +558,7 @@ class mdl_marketplace_excel extends CI_Model{
                                 case 'JNE REG': $orders_courier_id = 3; break;
                                 case 'JNE OKE': $orders_courier_id = 2; break;
                                 case 'J&T Express': $orders_courier_id = 8; break;
+                                case 'J&T Economy': $orders_courier_id = 41; break;
                                 case 'SiCepat REG': $orders_courier_id = 23; break;
                                 case 'SiCepat Halu': $orders_courier_id = 35; break;
                                 case 'SiCepat Cargo': $orders_courier_id = 25; break;
@@ -567,28 +569,12 @@ class mdl_marketplace_excel extends CI_Model{
                                 case 'GrabExpress Instant': $orders_courier_id = 15; break;
                                 case 'ID Express': $orders_courier_id = 37; break;
                                 case 'Shopee Express Standard': $orders_courier_id = 39; break;
+                                case 'Anteraja': $orders_courier_id = 32; break;
                                 default: $orders_courier_id = 0; break;
                             }
 
-                            $mp_product_name = trim($val->col_11);
-                            if($mp_product_name != ""){
-                                // if($mp_invoice != "" && ($mp_status != "Belum Bayar" && $mp_status != "Batal")){
-                                if($mp_invoice != "" && ($mp_status == "Perlu Dikirim" || $mp_status == "Sedang Dikirim" || $mp_status == "Selesai")){
-                                    $found  = true;
-                                    $insert = true;
-                                    $orders_source_invoice = $mp_invoice;
-                                } else if ($mp_invoice == "" && $mp_status == "" && $found == true ) {
-                                    $found  = true;
-                                    $insert = false;
-                                } else {
-                                    $found  = false;
-                                    $insert = true;
-                                    $orders_source_invoice = "";
-                                }
-                            }
-
-                            if($found == true){
-                                if($insert == true){
+                            if($mp_invoice != "" && ($mp_status == "Perlu Dikirim" || $mp_status == "Sedang Dikirim" || $mp_status == "Selesai")){
+                                if(!in_array($mp_invoice, $tmpInvoice)){
                                     $orders_status    = 3;
                                     $orders_print     = 0;
                                     if($mp_resi != "" && ($orders_courier_id == 10 || $orders_courier_id == 11 || $orders_courier_id == 13 || $orders_courier_id == 15)){
@@ -598,6 +584,7 @@ class mdl_marketplace_excel extends CI_Model{
                                     if($orders_courier_id == 39){
                                         $orders_print      = 1;
                                     }
+                                    $tmpInvoice[] = $mp_invoice;
                                     $items[$i]->orders_status         = $orders_status;
                                     $items[$i]->orders_source_id      = $orders_source_id;
                                     $items[$i]->orders_source_invoice = $mp_invoice;
@@ -624,15 +611,39 @@ class mdl_marketplace_excel extends CI_Model{
                                     $items[$i]->orders_print          = $orders_print;
                                     $items[$i]->orders_noted          = $orders_noted;
                                     $i += 1;
-                                } else if($insert == false){
+                                } else {
                                     foreach ($items as $k2 => $v2) {
-                                        if($v2->orders_source_invoice == $orders_source_invoice){
+                                        if($v2->orders_source_invoice == $mp_invoice){
                                             $items[$k2]->orders_price_product     += $mp_price_product;
                                             $items[$k2]->orders_price_grand_total += $mp_price_product;
                                         }
                                     }
                                 }
                             }
+
+                            // $mp_product_name = trim($val->col_11);
+                            // if($mp_product_name != ""){
+                            //     if($mp_invoice != "" && ($mp_status == "Perlu Dikirim" || $mp_status == "Sedang Dikirim" || $mp_status == "Selesai")){
+                            //         $found  = true;
+                            //         $insert = true;
+                            //         $orders_source_invoice = $mp_invoice;
+                            //     } else if ($mp_invoice == "" && $mp_status == "" && $found == true ) {
+                            //         $found  = true;
+                            //         $insert = false;
+                            //     } else {
+                            //         $found  = false;
+                            //         $insert = true;
+                            //         $orders_source_invoice = "";
+                            //     }
+                            // }
+
+                            // if($found == true){
+                            //     if($insert == true){
+
+                            //     } else if($insert == false){
+
+                            //     }
+                            // }
                         }
                         $iRow += 1;
                     }
@@ -1041,16 +1052,16 @@ class mdl_marketplace_excel extends CI_Model{
             $titleCol[5] = "Harga Asli Produk";
             $titleCol[6] = "Total Diskon Produk";
             // $titleCol[6] = "Harga Produk Setelah Diskon";
-            // $titleCol[7] = "Diskon Voucher Ditanggung Penjual";
-            $titleCol[7] = "Ongkir Dibayar Pembeli";
-            $titleCol[8] = "Diskon Ongkir Ditanggung Jasa Kirim";
-            $titleCol[9] = "Gratis Ongkir dari Shopee";
-            $titleCol[10] = "Ongkir yang Diteruskan oleh Shopee ke Jasa Kirim";
+            $titleCol[7] = "Diskon Voucher Ditanggung Penjual";
+            $titleCol[8] = "Ongkir Dibayar Pembeli";
+            $titleCol[9] = "Diskon Ongkir Ditanggung Jasa Kirim";
+            $titleCol[10] = "Gratis Ongkir dari Shopee";
+            $titleCol[11] = "Ongkir yang Diteruskan oleh Shopee ke Jasa Kirim";
             // $titleCol[10] = "Voucher";
-            $titleCol[11] = "Biaya Administrasi";
-            $titleCol[12] = "Biaya Layanan";
-            $titleCol[13] = "Total Penghasilan";
-            // $titleCol[13] = "Kode Voucher";
+            $titleCol[12] = "Biaya Administrasi";
+            $titleCol[13] = "Biaya Layanan";
+            $titleCol[14] = "Total Penghasilan";
+            $titleCol[15] = "Kode Voucher";
             // $titleCol[10] = "Jumlah Pengembalian Dana ke Pembeli (Rp)";
             // $titleCol[11] = "Total Penghasilan";
 
@@ -1084,15 +1095,15 @@ class mdl_marketplace_excel extends CI_Model{
                         $mp_qty_product      = 0;
                         $mp_price_product    = convertRpToInt2($val->col_5);
                         $mp_price_discount   = convertRpToInt2($val->col_6);
-                        $mp_price_shipping   = convertRpToInt2($val->col_7);
-                        $mp_cashback_seller  = convertRpToInt2($val->col_8);
-                        $mp_price_subsidi    = convertRpToInt2($val->col_9);
-                        $mp_price_debet_ship = convertRpToInt2($val->col_10);
+                        $mp_price_shipping   = convertRpToInt2($val->col_8);
+                        $mp_cashback_seller  = convertRpToInt2($val->col_9);
+                        $mp_price_subsidi    = convertRpToInt2($val->col_10);
+                        $mp_price_debet_ship = convertRpToInt2($val->col_11);
                         $mp_price_insurance  = 0;
                         $mp_price_return     = 0;
-                        $mp_price_fee        = convertRpToInt2($val->col_11) + convertRpToInt2($val->col_12);
-                        $mp_price_voucher    = 0;
-                        $mp_grand_total      = convertRpToInt2($val->col_13);
+                        $mp_price_fee        = convertRpToInt2($val->col_12) + convertRpToInt2($val->col_13);
+                        $mp_price_voucher    = convertRpToInt2($val->col_7);
+                        $mp_grand_total      = convertRpToInt2($val->col_14);
 
                         // $mp_price_fee        = 0;
                         // $mp_price_voucher    = 0;
