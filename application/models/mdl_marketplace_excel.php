@@ -1,10 +1,10 @@
 <?php
 class mdl_marketplace_excel extends CI_Model{
 
-	var $tabel = '';
+    var $tabel = '';
 
-	function __construct(){
-		parent::__construct();
+    function __construct(){
+        parent::__construct();
 
         $this->user_id          = isset($this->jCfg['user']['id'])?$this->jCfg['user']['id']:'';
         $this->store_id         = get_user_store($this->user_id);
@@ -13,21 +13,21 @@ class mdl_marketplace_excel extends CI_Model{
         $this->store_phone      = $this->detail_store->store_phone;
         $this->store_product    = $this->detail_store->store_product;
 //
-	}
+    }
 
-	function data_tokopedia_new_orders($p=array(), $orders_source_id="3"){
-		$err   = false;
-		$msg   = "";
-		$items = array();
-		if(count($p) == 0){
-			$err   = true;
-			$msg   = "Error: Data excel kosong..";
-		} else {
-			if(trim($p[0]->col_0) != trim("Nama Toko: ")){
-				$err   = true;
-				$msg   = "Error: Bukan upload file excel TOKOPEDIA";
-			}
-			$titleCol = array();
+    function data_tokopedia_new_orders($p=array(), $orders_source_id="3"){
+        $err   = false;
+        $msg   = "";
+        $items = array();
+        if(count($p) == 0){
+            $err   = true;
+            $msg   = "Error: Data excel kosong..";
+        } else {
+            if(trim($p[0]->col_0) != trim("Nama Toko:")){
+                $err   = true;
+                $msg   = "Error: Bukan upload file excel TOKOPEDIA";
+            }
+            $titleCol = array();
             $titleCol[0] = "Count";
             $titleCol[1] = "Order ID";
             $titleCol[2] = "Invoice";
@@ -62,7 +62,7 @@ class mdl_marketplace_excel extends CI_Model{
             $titleRow  = 3;
             foreach ($titleCol as $key => $val) {
                 $colName = "col_".$key;
-            	if(trim($val) != trim($p[$titleRow]->$colName)){
+                if(trim($val) != trim($p[$titleRow]->$colName)){
                     $err_check  = true;
                     $msg_check .= ($msg_check!=""?",":"").$key.". ".$val;
                 }
@@ -72,65 +72,65 @@ class mdl_marketplace_excel extends CI_Model{
                 $msg .= "Error: Column mengalami perubahan, yaitu: ".$msg_check;
             }
 
-			if(!$err){
+            if(!$err){
                 $i       = 0;
-				$iRow    = 1;
-				$fromRow = 5;
-				foreach ($p as $key => $val) {
-					if($iRow >= $fromRow){
+                $iRow    = 1;
+                $fromRow = 5;
+                foreach ($p as $key => $val) {
+                    if($iRow >= $fromRow){
                         $exp_invoice         = explode('/', $val->col_2);
-						$mp_invoice          = $exp_invoice[4];
-						$mp_sku              = trim($val->col_8);
+                        $mp_invoice          = $exp_invoice[3];
+                        $mp_sku              = trim($val->col_8);
                         $mp_dropship         = 0;
                         $mp_ship_name        = NULL;
                         $mp_ship_phone       = NULL;
-						$mp_shipping_user    = trim($val->col_13);
-						$mp_shipping_name    = trim($val->col_15);
-						$mp_shipping_phone   = trim($val->col_16);
-						$mp_shipping_address = trim($val->col_17);
-						$split_address 			 = get_split_address(3, $mp_shipping_address);
-						$mp_shipping_city        = trim(strtoupper($split_address['city']));
-						$mp_shipping_province    = trim(strtoupper($split_address['province']));
-						$mp_shipping_postal_code = trim($split_address['postal_code']);
+                        $mp_shipping_user    = trim($val->col_13);
+                        $mp_shipping_name    = trim($val->col_15);
+                        $mp_shipping_phone   = trim($val->col_16);
+                        $mp_shipping_address = trim($val->col_17);
+                        $split_address           = get_split_address(3, $mp_shipping_address);
+                        $mp_shipping_city        = trim(strtoupper($split_address['city']));
+                        $mp_shipping_province    = trim(strtoupper($split_address['province']));
+                        $mp_shipping_postal_code = trim($split_address['postal_code']);
                         // $mp_shipping_city        = NULL;
                         // $mp_shipping_province    = NULL;
                         // $mp_shipping_postal_code = NULL;
-						$mp_courier          = $val->col_18;
+                        $mp_courier          = $val->col_18;
                         $mp_price_insurance  = 0;
-						$mp_grand_total      = (convertRpToInt2($val->col_22) - convertRpToInt2($val->col_20));
-						$mp_price_shipping   = convertRpToInt2($val->col_19);
-						$mp_price_product    = ($mp_grand_total - $mp_price_shipping);
-						$mp_resi             = trim($val->col_23);
-						$mp_status           = trim($val->col_4);
-						$orders_noted        = NULL;
-						switch ($mp_courier) {
-							case 'JNE(Reguler)': $orders_courier_id = 3; break;
-		                    case 'JNE(OKE)': $orders_courier_id = 2; break;
-		                    case 'JNE(YES)': $orders_courier_id = 4; break;
-		                    case 'Wahana(Service Normal)': $orders_courier_id = 6; break;
-		                    case 'TIKI(Reguler)': $orders_courier_id = 17; break;
-		                    case 'TIKI(Over Night Service)': $orders_courier_id = 18; break;
-		                    case 'J&T(Reguler)': $orders_courier_id = 8; break;
-		                    case 'Pos Indonesia(Pos Kilat Khusus)': $orders_courier_id = 20; break;
-		                    case 'GO-JEK(Same Day)': $orders_courier_id = 10; break;
-		                    case 'Go-Send(Instant Courier)': $orders_courier_id = 11; break;
-		                    case 'GrabExpress(Same Day)': $orders_courier_id = 13; break;
-		                    case 'GrabExpress(Next Day)': $orders_courier_id = 14; break;
-		                    case 'GrabExpress(Instant)': $orders_courier_id = 15; break;
+                        $mp_grand_total      = (convertRpToInt2($val->col_22) - convertRpToInt2($val->col_20));
+                        $mp_price_shipping   = convertRpToInt2($val->col_19);
+                        $mp_price_product    = ($mp_grand_total - $mp_price_shipping);
+                        $mp_resi             = trim($val->col_23);
+                        $mp_status           = trim($val->col_4);
+                        $orders_noted        = NULL;
+                        switch ($mp_courier) {
+                            case 'JNE(Reguler)': $orders_courier_id = 3; break;
+                            case 'JNE(OKE)': $orders_courier_id = 2; break;
+                            case 'JNE(YES)': $orders_courier_id = 4; break;
+                            case 'Wahana(Service Normal)': $orders_courier_id = 6; break;
+                            case 'TIKI(Reguler)': $orders_courier_id = 17; break;
+                            case 'TIKI(Over Night Service)': $orders_courier_id = 18; break;
+                            case 'J&T(Reguler)': $orders_courier_id = 8; break;
+                            case 'Pos Indonesia(Pos Kilat Khusus)': $orders_courier_id = 20; break;
+                            case 'GO-JEK(Same Day)': $orders_courier_id = 10; break;
+                            case 'Go-Send(Instant Courier)': $orders_courier_id = 11; break;
+                            case 'GrabExpress(Same Day)': $orders_courier_id = 13; break;
+                            case 'GrabExpress(Next Day)': $orders_courier_id = 14; break;
+                            case 'GrabExpress(Instant)': $orders_courier_id = 15; break;
                             case 'Ninja Xpress(Reguler)': $orders_courier_id = 27; break;
                             case 'SiCepat(Regular Package)': $orders_courier_id = 23; break;
                             case 'SiCepat(BEST)': $orders_courier_id = 24; break;
                             case 'SiCepat(HALU)': $orders_courier_id = 35; break;
                             case 'AnterAja(Reguler)': $orders_courier_id = 32; break;
-		                    case 'AnterAja(Next Day)': $orders_courier_id = 34; break;
-		                    default: $orders_courier_id = 0; break;
-		                }
-
-						if(($mp_invoice != '' && $mp_shipping_name != '') && $mp_status != 'Transaksi ditolak.' && $mp_status != 'Pesanan dibatalkan pembeli.'){
-		                    $orders_status    = 3;
-		                    $orders_print     = 0;
-		                    if($mp_resi != ""){ $orders_status = 5; $orders_print = 1; }
-							$items[$i]->orders_status         = $orders_status;
+                            case 'AnterAja(Next Day)': $orders_courier_id = 34; break;
+                            default: $orders_courier_id = 0; break;
+                        }
+// debugCode($mp_invoice);
+                        if(($mp_invoice != '' && $mp_shipping_name != '') && $mp_status != 'Transaksi ditolak.' && $mp_status != 'Pesanan dibatalkan pembeli.'){
+                            $orders_status    = 3;
+                            $orders_print     = 0;
+                            if($mp_resi != ""){ $orders_status = 5; $orders_print = 1; }
+                            $items[$i]->orders_status         = $orders_status;
                             $items[$i]->orders_source_id      = $orders_source_id;
                             $items[$i]->orders_source_invoice = $mp_invoice;
                             $items[$i]->orders_resi           = $mp_resi;
@@ -156,22 +156,22 @@ class mdl_marketplace_excel extends CI_Model{
                             $items[$i]->orders_print          = $orders_print;
                             $items[$i]->orders_noted          = $orders_noted;
                             $i += 1;
-						}
-					}
-					$iRow += 1;
-				}
+                        }
+                    }
+                    $iRow += 1;
+                }
 
-				$err   = false;
-				$msg   = "";
-			}
-		}
+                $err   = false;
+                $msg   = "";
+            }
+        }
 
-		return array(
+        return array(
                 "err"   => $err,
                 "msg"   => $msg,
                 "items" => $items
             );
-	}
+    }
 
     function data_bukalapak_new_orders($p=array(), $orders_source_id="2"){
         $err   = false;
@@ -550,7 +550,7 @@ class mdl_marketplace_excel extends CI_Model{
                             $mp_resi             = trim($val->col_3);
                             $mp_status           = trim($val->col_1);
                             $orders_noted        = NULL;
-                            switch ($mp_courier) {
+                            switch (str_replace(array("\n", "\r"), ' ', $mp_courier)) {
                                 case 'JNE Reguler': $orders_courier_id = 28; break;
                                 case 'JNE Reguler (Cashless)': $orders_courier_id = 28; break;
                                 case 'JNE YES (Cashless)': $orders_courier_id = 33; break;
@@ -567,11 +567,13 @@ class mdl_marketplace_excel extends CI_Model{
                                 case 'GoSend Instant': $orders_courier_id = 11; break;
                                 case 'GrabExpress Sameday': $orders_courier_id = 13; break;
                                 case 'GrabExpress Instant': $orders_courier_id = 15; break;
-                                case 'ID Express': $orders_courier_id = 37; break;
+                                case 'Reguler ID Express': $orders_courier_id = 37; break;
                                 case 'Shopee Express Standard': $orders_courier_id = 39; break;
                                 case 'Anteraja': $orders_courier_id = 32; break;
                                 default: $orders_courier_id = 0; break;
                             }
+
+                            // debugCode(str_replace(array("\n", "\r"), ' ', $mp_courier).' '.$orders_courier_id);
 
                             if($mp_invoice != "" && ($mp_status == "Perlu Dikirim" || $mp_status == "Sedang Dikirim" || $mp_status == "Selesai")){
                                 if(!in_array($mp_invoice, $tmpInvoice)){
@@ -1046,28 +1048,34 @@ class mdl_marketplace_excel extends CI_Model{
             $titleCol = array();
             $titleCol[0] = "No.";
             $titleCol[1] = "No. Pesanan";
-            $titleCol[2] = "Username (Pembeli)";
-            $titleCol[3] = "Waktu Pesanan Dibuat";
-            $titleCol[4] = "Tanggal Dana Dilepaskan";
-            $titleCol[5] = "Harga Asli Produk";
-            $titleCol[6] = "Total Diskon Produk";
-            // $titleCol[6] = "Harga Produk Setelah Diskon";
-            $titleCol[7] = "Diskon Voucher Ditanggung Penjual";
-            $titleCol[8] = "Ongkir Dibayar Pembeli";
-            $titleCol[9] = "Diskon Ongkir Ditanggung Jasa Kirim";
-            $titleCol[10] = "Gratis Ongkir dari Shopee";
-            $titleCol[11] = "Ongkir yang Diteruskan oleh Shopee ke Jasa Kirim";
-            // $titleCol[10] = "Voucher";
-            $titleCol[12] = "Biaya Administrasi";
-            $titleCol[13] = "Biaya Layanan";
-            $titleCol[14] = "Total Penghasilan";
-            $titleCol[15] = "Kode Voucher";
-            // $titleCol[10] = "Jumlah Pengembalian Dana ke Pembeli (Rp)";
-            // $titleCol[11] = "Total Penghasilan";
+            $titleCol[2] = "No. Pengajuan";
+            $titleCol[3] = "Username (Pembeli)";
+            $titleCol[4] = "Waktu Pesanan Dibuat";
+            $titleCol[5] = "Tanggal Dana Dilepaskan";
+            $titleCol[6] = "Harga Asli Produk";
+            $titleCol[7] = "Total Diskon Produk";
+            $titleCol[8] = "Jumlah Pengembalian Dana ke Pembeli";
+            $titleCol[9] = "Diskon Produk dari Shopee";
+            $titleCol[10] = "Diskon Voucher Ditanggung Penjual";
+            $titleCol[11] = "Cashback Koin yang Ditanggung Penjual";
+            $titleCol[12] = "Ongkir Dibayar Pembeli";
+            $titleCol[13] = "Diskon Ongkir Ditanggung Jasa Kirim";
+            $titleCol[14] = "Gratis Ongkir dari Shopee";
+            $titleCol[15] = "Ongkir yang Diteruskan oleh Shopee ke Jasa Kirim";
+            $titleCol[16] = "Biaya Administrasi";
+            $titleCol[17] = "Biaya Layanan";
+            $titleCol[18] = "Biaya Transaksi";
+            $titleCol[19] = "Bea Masuk, PPN & PPh";
+            $titleCol[20] = "Total Penghasilan";
+            $titleCol[21] = "Kode Voucher";
+            $titleCol[22] = "Kompensasi";
+            $titleCol[23] = "";
+            $titleCol[24] = "Promo Gratis Ongkir dari Penjual";
+            $titleCol[25] = "Jasa Kirim";
 
             $err_check = false;
             $msg_check = "";
-            $titleRow  = 4;
+            $titleRow  = 5;
 
             foreach ($titleCol as $key => $val) {
                 $colName = "col_".$key;
@@ -1089,27 +1097,27 @@ class mdl_marketplace_excel extends CI_Model{
                     if($iRow >= $fromRow){
                         $mp_invoice          = ltrim($val->col_1,"'");
                         // $mp_invoice          = trim($val->col_1);
-                        $mp_shipping_user    = trim($val->col_2);
+                        $mp_shipping_user    = trim($val->col_3);
                         $mp_shipping_name    = NULL;
                         $mp_product_item     = array();
                         $mp_qty_product      = 0;
-                        $mp_price_product    = convertRpToInt2($val->col_5);
-                        $mp_price_discount   = convertRpToInt2($val->col_6);
-                        $mp_price_shipping   = convertRpToInt2($val->col_8);
-                        $mp_cashback_seller  = convertRpToInt2($val->col_9);
-                        $mp_price_subsidi    = convertRpToInt2($val->col_10);
-                        $mp_price_debet_ship = convertRpToInt2($val->col_11);
+                        $mp_price_product    = convertRpToInt2($val->col_6);
+                        $mp_price_discount   = convertRpToInt2($val->col_7);
+                        $mp_price_shipping   = convertRpToInt2($val->col_12);
+                        $mp_cashback_seller  = convertRpToInt2($val->col_13);
+                        $mp_price_subsidi    = convertRpToInt2($val->col_14);
+                        $mp_price_debet_ship = convertRpToInt2($val->col_15);
                         $mp_price_insurance  = 0;
-                        $mp_price_return     = 0;
-                        $mp_price_fee        = convertRpToInt2($val->col_12) + convertRpToInt2($val->col_13);
-                        $mp_price_voucher    = convertRpToInt2($val->col_7);
-                        $mp_grand_total      = convertRpToInt2($val->col_14);
+                        $mp_price_return     = convertRpToInt2($val->col_8);
+                        $mp_price_fee        = convertRpToInt2($val->col_16) + convertRpToInt2($val->col_17) + convertRpToInt2($val->col_18);
+                        $mp_price_voucher    = convertRpToInt2($val->col_10) + convertRpToInt2($val->col_11);
+                        $mp_grand_total      = convertRpToInt2($val->col_20);
 
                         // $mp_price_fee        = 0;
                         // $mp_price_voucher    = 0;
                         // $mp_grand_total      = convertRpToInt2($val->col_10);
 
-                        $mp_data_payment     = convDatepickerDec($val->col_4);
+                        $mp_data_payment     = convDatepickerDec($val->col_5);
                         $mp_claim_status     = FALSE;
                         $mp_claim_price      = 0;
 

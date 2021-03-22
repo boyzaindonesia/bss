@@ -3263,4 +3263,38 @@ class product extends AdminController {
         exit();
     }
 
+    function reset_stock(){
+        $arr_product = array(760,761,762,763,835,836,837);
+        foreach ($arr_product as $k => $v) {
+            $r = $this->db->get_where("mt_product_detail",array(
+                'product_id'  => $v
+            ),1,0)->row();
+            if(count($r) > 0){
+                $arr_stock = array();
+                $data_detail = array();
+                $total_qty = 0;
+                $product_stock_detail = json_decode($r->product_stock_detail);
+                foreach ($product_stock_detail as $key3 => $value3) {
+                    if($key3 == 0){ $qty = 30; } else { $qty = $value3->qty; }
+                    $arr_stock[] = array('id'       => $value3->id,
+                                         'name'     => $value3->name,
+                                         'color'    => $value3->color,
+                                         'qty'      => $qty,
+                                         'status'   => ($qty>0?1:2)
+                                      );
+                    $total_qty += $qty;
+                }
+                $data_detail['product_stock'] = $total_qty;
+                $data_detail['product_stock_detail'] = json_encode($arr_stock);
+                $this->db->update("mt_product_detail",$data_detail,array("product_id"=>$r->product_id));
+            }
+        }
+
+        if($this->input->get("next")!=""){
+            redirect($this->input->get("next")."?msg=".urlencode('Reset Stock success')."&type_msg=success");
+        } else {
+            redirect($this->own_link."?msg=".urlencode('Reset Stock success')."&type_msg=success");
+        }
+    }
+
 }

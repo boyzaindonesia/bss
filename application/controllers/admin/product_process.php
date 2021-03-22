@@ -460,7 +460,7 @@ class product_process extends AdminController {
                                 }
 
                             } else if($type_name == "update_stock_tokopedia"){
-                                if($titleRow[1] == "product_id" && $titleRow[3] == "name"){
+                                if($titleRow[2] == "Tidak bisa diubah"){
 
                                     $styleSold = array(
                                         'font'  => array(
@@ -488,7 +488,7 @@ class product_process extends AdminController {
                                     $excel2 = $excel2->load($imgPath);
                                     $excel2->setActiveSheetIndex(0);
 
-                                    for ($row = 2; $row <= $highestRow; $row++) {
+                                    for ($row = 4; $row <= $highestRow; $row++) {
                                         $val = array();
                                         $idx = 1;
                                         for ($col = 0; $col < $highestColumnIndex; ++ $col) {
@@ -501,12 +501,12 @@ class product_process extends AdminController {
                                             $idx += 1;
                                         }
 
-                                        if($val[1] != ""){
-                                            $iColSku    = 10;
-                                            $iColStock  = 7;
-                                            $iColStatus = 9;
+                                        if($val[2] != ""){
+                                            $iColSku    = 7;
+                                            $iColStock  = 6;
+                                            $iColStatus = 8;
 
-                                            $product_sku = $val[11];
+                                            $product_sku = $val[8];
                                             $exp_sku = explode("-", $product_sku);
                                             $product_code = $exp_sku[0];
                                             $varian_id    = "";
@@ -528,10 +528,12 @@ class product_process extends AdminController {
                                                             if($val3->id == $varian_id){
                                                                 $value = ($val3->qty>0?$val3->qty:0);
                                                                 if($value <= 0){
-                                                                    $excel2->getActiveSheet()->setCellValueByColumnAndRow(8, $row, "false");
-                                                                    $excel2->getActiveSheet()->setCellValueByColumnAndRow($iColStatus, $row, 3);
+                                                                    $excel2->getActiveSheet()->setCellValueByColumnAndRow($iColStatus, $row, "Nonaktif");
                                                                     $excel2->getActiveSheet()->getCellByColumnAndRow($iColSku, $row)->getStyle()->applyFromArray($styleVarianSold);
+                                                                } else {
+                                                                    $excel2->getActiveSheet()->setCellValueByColumnAndRow($iColStatus, $row, "Aktif");
                                                                 }
+
                                                                 // if(count($data['items_unpaid']) > 0){
                                                                 // $product_code_varian = strtoupper($m->product_code."-".$val3->id);
                                                                 //     if(in_array($product_code_varian, $temp_unpaid)){
@@ -591,8 +593,8 @@ class product_process extends AdminController {
                                     }
 
                                     $excel2->setActiveSheetIndex(0);
-                                    $filename     = "shop-1454973-product-list.xlsx";
-                                    // $filename     = changeEnUrl($this->store_name).'_update_stock_tokopedia_'.convDateFilename(timestamp()).'.xlsx';
+                                    // $filename     = "shop-1454973-product-list.xlsx";
+                                    $filename     = changeEnUrl($this->store_name).'_update_stock_tokopedia_'.convDateFilename(timestamp()).'.xlsx';
                                     $fileDownload = $download_path.$filename;
                                     $objWriter    = PHPExcel_IOFactory::createWriter($excel2, 'Excel2007');
                                     $objWriter->save($fileDownload);

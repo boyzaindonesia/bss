@@ -18,6 +18,7 @@
                 <li><a href="javascript:void(0);" class="btn-popup-product-group" data-url="<?php echo base_url().'admin/product/view_popup_product_group' ?>">Group Produk</a></li>
                 <li><a href="javascript:void(0);" class="btn-edit-multiple" data-url="<?php echo base_url().'admin/product/edit_sku' ?>">SKU Marketplace</a></li>
                 <li><a href="javascript:void(0);" class="btn-popup-update-product-multiple">Update Harga</a></li>
+                <li><a href="<?php echo base_url().'admin/product/reset_stock?next='.$own_links; ?>" class="" data-url="">Reset Stok</a></li>
             </ul>
         </div>
 
